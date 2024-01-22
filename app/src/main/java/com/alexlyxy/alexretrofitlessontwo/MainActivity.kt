@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         b.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                val product = productApi.getProductById(3)
+                val product = productApi.getProductById(1)
                 runOnUiThread {
                     tv.text = product.title
                 }
