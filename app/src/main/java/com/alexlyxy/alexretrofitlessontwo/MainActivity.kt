@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 val product = productApi.getProductById(1)
-                val product1 = productApi.getProductById(2)
 
                 runOnUiThread {
 
@@ -83,50 +82,6 @@ class MainActivity : AppCompatActivity() {
                         Picasso.get().load(product.images[1]).into(ivImageOne)
                         Picasso.get().load(product.images[2]).into(ivImageTwo)
                         Picasso.get().load(product.images[3]).into(ivImageThree)
-
-
-
-                        binding.apply {
-                            tvTitle.text = buildString {
-                                append("Title:  ")
-                                append(product1.title)
-                            }
-                            tvDescr.text = buildString {
-                                append("Description:  ")
-                                append(product1.description)
-                            }
-                            tvPrice.text = buildString {
-                                append("Price:  ")
-                                append(product1.price.toString())
-                            }
-                            tvDiscount.text = buildString {
-                                append("DiscountPercentage:  ")
-                                append(product1.discountPercentage.toString())
-                            }
-                            tvRating.text = buildString {
-                                append("Rating:  ")
-                                append(product1.rating.toString())
-                            }
-                            tvStock.text = buildString {
-                                append("Stock:  ")
-                                append(product1.stock.toString())
-                            }
-                            tvBrand.text = buildString {
-                                append("Brand:  ")
-                                append(product1.brand)
-                            }
-                            tvCategory.text = buildString {
-                                append("Category:  ")
-                                append(product1.category)
-                            }
-                            tvThumbnail.text = buildString {
-                                append("Thumbnail:  ")
-                                append(product1.thumbnail)
-                            }
-                            Picasso.get().load(product1.images[1]).into(ivImageOne)
-                            Picasso.get().load(product1.images[2]).into(ivImageTwo)
-                            Picasso.get().load(product1.images[3]).into(ivImageThree)
-                        }
                     }
                 }
             }
