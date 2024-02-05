@@ -5,13 +5,15 @@ import com.alexlyxy.alexretrofitlessontwo.domain.Repository
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface RepositoryImpl : Repository {
+class RepositoryImpl : Repository {
 
     @GET("products/{id}")
-   override suspend fun getProductById(@Path("id") id: Int): Product
+   override suspend fun getProductById(@Path("id") id: Int): Product {
+       return Product(id)
+    }
 
 
-   //{
+    //{
 //        return Product(1, "", "","", "",
 //            "","","","","")
 //    }
