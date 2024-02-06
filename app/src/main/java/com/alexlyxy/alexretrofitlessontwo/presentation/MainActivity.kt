@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.data.RepositoryImpl
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
+import com.alexlyxy.alexretrofitlessontwo.domain.GetProductByIdUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,8 +16,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private val repository = RepositoryImpl
-private val getProductByIdUseCase = GetProductByIdUseCase(repository)
+   private val repository = RepositoryImpl
+    private val getProductByIdUseCase = GetProductByIdUseCase(repository)
+
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,15 +37,15 @@ private val getProductByIdUseCase = GetProductByIdUseCase(repository)
             .baseUrl("https://dummyjson.com").client(client)
             .addConverterFactory(GsonConverterFactory.create()).build()
         //val productApi = retrofit.create(ProductApi::class.java)
-       // val repositoryImpl = retrofit.create(RepositoryImpl::class.java)
+        // val repositoryImpl = retrofit.create(RepositoryImpl::class.java)
         val repositoryImpl = retrofit.create(RepositoryImpl::class.java)
-
-
 
         binding.button.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 //val product = productApi.getProductById(1)
-                val product =repositoryImpl.getProductById(1)
+               //val product = repositoryImpl.getProductById(1)
+                val data = repositoryImpl.getProductById(1)
+               val product = getProductByIdUseCase.execute()
 
                 runOnUiThread {
 
@@ -52,38 +54,38 @@ private val getProductByIdUseCase = GetProductByIdUseCase(repository)
                             append("Title:  ")
                             append(product.title)
                         }
-                        tvDescr.text = buildString {
-                            append("Description:  ")
-                            append(product.description)
-                        }
-                        tvPrice.text = buildString {
-                            append("Price:  ")
-                            append(product.price.toString())
-                        }
-                        tvDiscount.text = buildString {
-                            append("DiscountPercentage:  ")
-                            append(product.discountPercentage.toString())
-                        }
-                        tvRating.text = buildString {
-                            append("Rating:  ")
-                            append(product.rating.toString())
-                        }
-                        tvStock.text = buildString {
-                            append("Stock:  ")
-                            append(product.stock.toString())
-                        }
-                        tvBrand.text = buildString {
-                            append("Brand:  ")
-                            append(product.brand)
-                        }
-                        tvCategory.text = buildString {
-                            append("Category:  ")
-                            append(product.category)
-                        }
-                        tvThumbnail.text = buildString {
-                            append("Thumbnail:  ")
-                            append(product.thumbnail)
-                        }
+//                        tvDescr.text = buildString {
+//                            append("Description:  ")
+//                            append(product.description)
+//                        }
+//                        tvPrice.text = buildString {
+//                            append("Price:  ")
+//                            append(product.price.toString())
+//                        }
+//                        tvDiscount.text = buildString {
+//                            append("DiscountPercentage:  ")
+//                            append(product.discountPercentage.toString())
+//                        }
+//                        tvRating.text = buildString {
+//                            append("Rating:  ")
+//                            append(product.rating.toString())
+//                        }
+//                        tvStock.text = buildString {
+//                            append("Stock:  ")
+//                            append(product.stock.toString())
+//                        }
+//                        tvBrand.text = buildString {
+//                            append("Brand:  ")
+//                            append(product.brand)
+//                        }
+//                        tvCategory.text = buildString {
+//                            append("Category:  ")
+//                            append(product.category)
+//                        }
+//                        tvThumbnail.text = buildString {
+//                            append("Thumbnail:  ")
+//                            append(product.thumbnail)
+//                        }
 //                        Picasso.get().load(product.images[1]).into(ivImageOne)
 //                        Picasso.get().load(product.images[2]).into(ivImageTwo)
 //                        Picasso.get().load(product.images[3]).into(ivImageThree)
