@@ -2,6 +2,7 @@ package com.alexlyxy.alexretrofitlessontwo.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.alexlyxy.alexretrofitlessontwo.data.Product
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.data.RepositoryImpl
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
@@ -44,19 +45,19 @@ class MainActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 //val product = productApi.getProductById(id = 2)
 
-                //val product = repository.getProductById(2)
-                val product = getProductByIdUseCase.getProduct()
+                val prod = repository.getProductById(2)
+               val product: Product = getProductByIdUseCase.getProduct()
 
                 runOnUiThread {
 
                     binding.apply {
                         tvTitle.text = buildString {
                             append("Title:  ")
-                            append(product.title)
+                            append(prod.title)
                         }
                         tvDescr.text = buildString {
                             append("Description:  ")
-                            append(product.description)
+                            append(prod.description)
                         }
                         tvPrice.text = buildString {
                             append("Price:  ")

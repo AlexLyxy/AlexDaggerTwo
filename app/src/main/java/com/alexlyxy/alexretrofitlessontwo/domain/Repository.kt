@@ -8,11 +8,4 @@ interface Repository {
 
     @GET("products/{id}")
     suspend fun getProductById(@Path("id") id: Int): Product
-
-//    {
-//        return Product(
-//            1, "Title", "", "", "",
-//            "", "", "", "", "")
-//    }
-    //suspend fun getProductById(id: Int): Product
 }
