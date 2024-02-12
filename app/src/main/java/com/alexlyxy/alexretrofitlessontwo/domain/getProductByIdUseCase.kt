@@ -1,11 +1,11 @@
 package com.alexlyxy.alexretrofitlessontwo.domain
 
-import android.util.Log
+import com.alexlyxy.alexretrofitlessontwo.data.Product
 
 class GetProductByIdUseCase (private val repository: Repository) {
-   // suspend fun getProductById(id: Int) : Product{
-    suspend fun execute() : Product{
+    suspend fun  getProduct(): Product {
         return  repository.getProductById(id=1)
-       // Log.d("MyLog", "Product: $product")
    }
 }
+
+//Log.d("MyLog", "Product: $product")
