@@ -38,55 +38,70 @@ class MainActivity : AppCompatActivity() {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://dummyjson.com").client(client)
             .addConverterFactory(GsonConverterFactory.create()).build()
-        //val productApi = retrofit.create(ProductApi::class.java)
-        val repository = retrofit.create(Repository::class.java)
+        val productApi = retrofit.create(ProductApi::class.java)
+        //val repositoryImpl = retrofit.create(RepositoryImpl::class.java)
 
         binding.button.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                //val product = productApi.getProductById(id = 2)
+               // val product = productApi.getProductById(2)
 
-                val prod = repository.getProductById(2)
-               val product: Product = getProductByIdUseCase.getProduct()
+                //val productFirst = productApi.getProductById(2)
+                //val product = repositoryImpl.getProductById(2)
 
-                runOnUiThread {
+                val productTitleBy = getProductByIdUseCase.getProduct().title
+               var productTitle = productApi.getProductById(2).title
+                productTitle = productTitleBy
+
+                val productDescrBy = getProductByIdUseCase.getProduct().description
+                var productDescr = productApi.getProductById(2).description
+               productDescr = productDescrBy
+
+
+                       runOnUiThread {
 
                     binding.apply {
-                        tvTitle.text = buildString {
-                            append("Title:  ")
-                            append(prod.title)
-                        }
-                        tvDescr.text = buildString {
-                            append("Description:  ")
-                            append(prod.description)
-                        }
-                        tvPrice.text = buildString {
-                            append("Price:  ")
-                            append(product.price.toString())
-                        }
-                        tvDiscount.text = buildString {
-                            append("DiscountPercentage:  ")
-                            append(product.discountPercentage.toString())
-                        }
-                        tvRating.text = buildString {
-                            append("Rating:  ")
-                            append(product.rating.toString())
-                        }
-                        tvStock.text = buildString {
-                            append("Stock:  ")
-                            append(product.stock.toString())
-                        }
-                        tvBrand.text = buildString {
-                            append("Brand:  ")
-                            append(product.brand)
-                        }
-                        tvCategory.text = buildString {
-                            append("Category:  ")
-                            append(product.category)
-                        }
-                        tvThumbnail.text = buildString {
-                            append("Thumbnail:  ")
-                            append(product.thumbnail)
-                        }
+
+                        tvTitle.text = productTitle
+
+//                        tvTitle.text = buildString {
+//                            append("Title:  ")
+//                            append(product.title)
+//                        }
+
+                           tvDescr.text = productDescr
+                           }
+//                        tvDescr.text = buildString {
+//                            append("Description:  ")
+//                            append(product.description)
+//                        }
+//                        tvPrice.text = buildString {
+//                            append("Price:  ")
+//                            append(product.price.toString())
+//                        }
+//                        tvDiscount.text = buildString {
+//                            append("DiscountPercentage:  ")
+//                            append(product.discountPercentage.toString())
+//                        }
+//                        tvRating.text = buildString {
+//                            append("Rating:  ")
+//                            append(product.rating.toString())
+//                        }
+//                        tvStock.text = buildString {
+//                            append("Stock:  ")
+//                            append(product.stock.toString())
+//                        }
+//                        tvBrand.text = buildString {
+//                            append("Brand:  ")
+//                            append(product.brand)
+//                        }
+//                        tvCategory.text = buildString {
+//                            append("Category:  ")
+//                            append(product.category)
+//                        }
+//                        tvThumbnail.text = buildString {
+//                            append("Thumbnail:  ")
+//                            append(product.thumbnail)
+//                        }
 //                        Picasso.get().load(product.images[1]).into(ivImageOne)
 //                        Picasso.get().load(product.images[2]).into(ivImageTwo)
 //                        Picasso.get().load(product.images[3]).into(ivImageThree)
@@ -95,7 +110,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-}
+
 
 //class MainViewModel : ViewModel() {
 //

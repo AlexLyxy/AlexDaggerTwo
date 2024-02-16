@@ -8,8 +8,11 @@ class RepositoryImpl : Repository {
 
     @GET("products/{id}")
     override suspend fun getProductById(@Path("id") id: Int): Product {
-
-       return Product (   1, "Title", "Mama", "220", "",
-           "", "", "", "", "")
+        return Product(2,"Title" ,"Descr")
     }
+//    {
+//        return Product(
+//            2,  "title", "De", "Mama", "220", "",
+//            "", "", "", "")
+//    }
 }
