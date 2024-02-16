@@ -43,37 +43,31 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-               // val product = productApi.getProductById(2)
+                // val product = productApi.getProductById(2)
 
                 //val productFirst = productApi.getProductById(2)
                 //val product = repositoryImpl.getProductById(2)
 
-                val productTitleBy = getProductByIdUseCase.getProduct().title
-               var productTitle = productApi.getProductById(2).title
-                productTitle = productTitleBy
 
-                val productDescrBy = getProductByIdUseCase.getProduct().description
-                var productDescr = productApi.getProductById(2).description
-               productDescr = productDescrBy
+                val productTitle = productApi.getProductById(2).title
+                getProductByIdUseCase.getProduct().title = productTitle
 
+                val productDescr = productApi.getProductById(2).description
+                getProductByIdUseCase.getProduct().description = productDescr
 
-                       runOnUiThread {
+                runOnUiThread {
 
                     binding.apply {
 
-                        tvTitle.text = productTitle
+                        tvTitle.text = buildString {
+                            append("Title:  ")
+                            append(productTitle)
+                        }
 
-//                        tvTitle.text = buildString {
-//                            append("Title:  ")
-//                            append(product.title)
-//                        }
-
-                           tvDescr.text = productDescr
-                           }
-//                        tvDescr.text = buildString {
-//                            append("Description:  ")
-//                            append(product.description)
-//                        }
+                        tvDescr.text = buildString {
+                            append("Description:  ")
+                            append(productDescr)
+                        }
 //                        tvPrice.text = buildString {
 //                            append("Price:  ")
 //                            append(product.price.toString())
@@ -110,6 +104,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+}
 
 
 //class MainViewModel : ViewModel() {
