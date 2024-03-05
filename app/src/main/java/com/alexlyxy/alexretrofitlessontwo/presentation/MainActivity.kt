@@ -1,13 +1,15 @@
 package com.alexlyxy.alexretrofitlessontwo.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.data.Product
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.data.RepositoryImpl
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
-import com.alexlyxy.alexretrofitlessontwo.domain.GetProductByIdUseCase
+import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.domain.Repository
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,8 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private val repository = RepositoryImpl()
-    private val getProductByIdUseCase = GetProductByIdUseCase(repository)
+//    private val repository = RepositoryImpl()
+    private lateinit var  getProductUseCase:  GetProductUseCase
 
     private lateinit var binding: ActivityMainBinding
 
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        getProductUseCase = GetProductUseCase ()
 
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -44,16 +48,9 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 // val product = productApi.getProductById(2)
+                val product = getProductUseCase.getLatestProduct()
 
-                //val productFirst = productApi.getProductById(2)
-                //val product = repositoryImpl.getProductById(2)
-
-
-                val productTitle = productApi.getProductById(2).title
-                getProductByIdUseCase.getProduct().title = productTitle
-
-                val productDescr = productApi.getProductById(2).description
-                getProductByIdUseCase.getProduct().description = productDescr
+               // Log.d("MyLog", "ProductDescr : ${getProductByIdUseCase.getProduct().description}")
 
                 runOnUiThread {
 
@@ -61,44 +58,44 @@ class MainActivity : AppCompatActivity() {
 
                         tvTitle.text = buildString {
                             append("Title:  ")
-                            append(productTitle)
+                            append(product)
                         }
 
                         tvDescr.text = buildString {
                             append("Description:  ")
-                            append(productDescr)
+                            append(product)
                         }
-//                        tvPrice.text = buildString {
-//                            append("Price:  ")
-//                            append(product.price.toString())
-//                        }
-//                        tvDiscount.text = buildString {
-//                            append("DiscountPercentage:  ")
-//                            append(product.discountPercentage.toString())
-//                        }
-//                        tvRating.text = buildString {
-//                            append("Rating:  ")
-//                            append(product.rating.toString())
-//                        }
-//                        tvStock.text = buildString {
-//                            append("Stock:  ")
-//                            append(product.stock.toString())
-//                        }
-//                        tvBrand.text = buildString {
-//                            append("Brand:  ")
-//                            append(product.brand)
-//                        }
-//                        tvCategory.text = buildString {
-//                            append("Category:  ")
-//                            append(product.category)
-//                        }
-//                        tvThumbnail.text = buildString {
-//                            append("Thumbnail:  ")
-//                            append(product.thumbnail)
-//                        }
-//                        Picasso.get().load(product.images[1]).into(ivImageOne)
-//                        Picasso.get().load(product.images[2]).into(ivImageTwo)
-//                        Picasso.get().load(product.images[3]).into(ivImageThree)
+                        tvPrice.text = buildString {
+                            append("Price:  ")
+                            append(product.price.toString())
+                        }
+                        tvDiscount.text = buildString {
+                            append("DiscountPercentage:  ")
+                            append(product.discountPercentage.toString())
+                        }
+                        tvRating.text = buildString {
+                            append("Rating:  ")
+                            append(product.rating.toString())
+                        }
+                        tvStock.text = buildString {
+                            append("Stock:  ")
+                            append(product.stock.toString())
+                        }
+                        tvBrand.text = buildString {
+                            append("Brand:  ")
+                            append(product.brand)
+                        }
+                        tvCategory.text = buildString {
+                            append("Category:  ")
+                            append(product.category)
+                        }
+                        tvThumbnail.text = buildString {
+                            append("Thumbnail:  ")
+                            append(product.thumbnail)
+                        }
+                        Picasso.get().load(product.images[1]).into(ivImageOne)
+                        Picasso.get().load(product.images[2]).into(ivImageTwo)
+                        Picasso.get().load(product.images[3]).into(ivImageThree)
                     }
                 }
             }
