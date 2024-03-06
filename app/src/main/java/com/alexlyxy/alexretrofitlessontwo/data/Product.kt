@@ -1,9 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo.data
 
-import com.google.gson.annotations.SerializedName
-
 data class Product(
-   // (@SerializedName("products/{id}")
     val id: Int,
     var title: String,
    var description: String,
