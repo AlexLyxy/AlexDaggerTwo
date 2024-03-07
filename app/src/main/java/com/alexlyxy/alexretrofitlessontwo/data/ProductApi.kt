@@ -6,5 +6,4 @@ import retrofit2.http.Path
 interface ProductApi  {
     @GET("products/{id}")
     suspend fun getProduct(@Path("id") id: Int): Product
-
 }

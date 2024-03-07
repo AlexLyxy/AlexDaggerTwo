@@ -3,6 +3,7 @@ package com.alexlyxy.alexretrofitlessontwo.presentation
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.alexlyxy.alexretrofitlessontwo.data.RepositoryImpl
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
 import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
 import com.squareup.picasso.Picasso
@@ -12,7 +13,10 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var  getProductUseCase:  GetProductUseCase
+    //private lateinit var  getProductUseCase:  GetProductUseCase
+
+    private val  repository = RepositoryImpl()
+    private val getProductUseCase = GetProductUseCase(repository)
 
     private lateinit var binding: ActivityMainBinding
 
@@ -21,11 +25,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getProductUseCase = GetProductUseCase ()
+        //getProductUseCase = GetProductUseCase ()
 
         binding.button.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                val product = getProductUseCase.getLatestProduct()
+               // val product = getProductUseCase.getLatestProduct()
+                val product = getProductUseCase.getLocalProduct()
 
                 Log.d("MyLog", "Product : $product")
 
@@ -43,19 +48,19 @@ class MainActivity : AppCompatActivity() {
                         }
                         tvPrice.text = buildString {
                             append("Price:  ")
-                            append(product.price.toString())
+                            append(product.price)
                         }
                         tvDiscount.text = buildString {
                             append("DiscountPercentage:  ")
-                            append(product.discountPercentage.toString())
+                            append(product.discountPercentage)
                         }
                         tvRating.text = buildString {
                             append("Rating:  ")
-                            append(product.rating.toString())
+                            append(product.rating)
                         }
                         tvStock.text = buildString {
                             append("Stock:  ")
-                            append(product.stock.toString())
+                            append(product.stock)
                         }
                         tvBrand.text = buildString {
                             append("Brand:  ")
@@ -69,9 +74,10 @@ class MainActivity : AppCompatActivity() {
                             append("Thumbnail:  ")
                             append(product.thumbnail)
                         }
-                        Picasso.get().load(product.images[1]).into(ivImageOne)
-                        Picasso.get().load(product.images[2]).into(ivImageTwo)
-                        Picasso.get().load(product.images[3]).into(ivImageThree)
+//                        Picasso.get().load(product.images[1]).into(ivImageOne)
+//                        Picasso.get().load(product.images[2]).into(ivImageTwo)
+//                        Picasso.get().load(product.images[3]).into(ivImageThree)
+
                     }
                 }
             }

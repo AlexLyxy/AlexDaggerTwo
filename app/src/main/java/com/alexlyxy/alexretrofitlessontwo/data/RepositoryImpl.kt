@@ -1,19 +1,35 @@
 package com.alexlyxy.alexretrofitlessontwo.data
 
-import retrofit2.http.GET
-import retrofit2.http.Path
+import com.alexlyxy.alexretrofitlessontwo.Constants
+import com.alexlyxy.alexretrofitlessontwo.domain.Repository
+import com.squareup.picasso.Picasso
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
-class RepositoryImpl {
-    @GET("products/{id}")
-    override suspend fun getProductById(@Path("id") id: Int): Product {
-        //return Product(2,"Title" ,"Description")
-        return Product(2,"Title", "Description" )}
+class RepositoryImpl: Repository {
 
-    //   override suspend fun getProductById(): Product
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(Constants.BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create()).build()
+    private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
 
-//    {
-//        return Product(
-//            2,  "title", "De", "Mama", "220", "",
-//            "", "", "", "")
-//    }
+    override suspend fun getLatestProduct(id: Int): Product {
+        return productApi.getProduct(8)
+    }
+
+    override suspend fun getLocalProduct(id: Int): Product {
+        return Product(
+            id = 2,
+            title = "Title",
+            description = "Description",
+            price = 549,
+            discountPercentage = 12.96,
+            rating = 4.69,
+            stock = 94,
+            brand = "Brand",
+            category = "Category",
+            thumbnail = "Thumb",
+            images = ArrayList(3)
+        )
+    }
 }
