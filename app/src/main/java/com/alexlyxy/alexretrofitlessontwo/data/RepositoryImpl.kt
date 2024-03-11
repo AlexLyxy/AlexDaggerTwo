@@ -6,7 +6,7 @@ import com.squareup.picasso.Picasso
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RepositoryImpl: Repository {
+class RepositoryImpl : Repository {
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)
@@ -29,7 +29,12 @@ class RepositoryImpl: Repository {
             brand = "Brand",
             category = "Category",
             thumbnail = "Thumb",
-            images = ArrayList(3)
+            images = arrayListOf(
+                "",
+                "https://cdn.dummyjson.com/product-images/8/1.jpg",
+                "https://cdn.dummyjson.com/product-images/8/2.jpg",
+                "https://cdn.dummyjson.com/product-images/8/3.jpg"
+            )
         )
     }
 }

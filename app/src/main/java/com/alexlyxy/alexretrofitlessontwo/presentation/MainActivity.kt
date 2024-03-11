@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-               // val product = getProductUseCase.getLatestProduct()
-                val product = getProductUseCase.getLocalProduct()
+               val product = getProductUseCase.getLatestProduct()
+                //val product = getProductUseCase.getLocalProduct()
 
                 Log.d("MyLog", "Product : $product")
 
@@ -74,10 +74,9 @@ class MainActivity : AppCompatActivity() {
                             append("Thumbnail:  ")
                             append(product.thumbnail)
                         }
-//                        Picasso.get().load(product.images[1]).into(ivImageOne)
-//                        Picasso.get().load(product.images[2]).into(ivImageTwo)
-//                        Picasso.get().load(product.images[3]).into(ivImageThree)
-
+                        Picasso.get().load(product.images[1]).into(ivImageOne)
+                        Picasso.get().load(product.images[2]).into(ivImageTwo)
+                        Picasso.get().load(product.images[3]).into(ivImageThree)
                     }
                 }
             }
