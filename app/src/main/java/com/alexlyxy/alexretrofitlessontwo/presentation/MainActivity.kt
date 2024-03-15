@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
+import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.presentation.dialogs.ServerErrorDialogFragment
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +20,7 @@ import kotlin.coroutines.cancellation.CancellationException
 
 class MainActivity : AppCompatActivity() {
 
-    //private lateinit var  getProductUseCase:  GetProductUseCase
+    private lateinit var  getProductUseCase: GetProductUseCase
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //getProductUseCase = GetProductUseCase ()
+        getProductUseCase = GetProductUseCase ()
 
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
@@ -44,8 +45,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                //val product = getProductUseCase.getLatestProduct()
-                val product = productApi.getProduct(8)
+                val product = getProductUseCase.getLatestProduct()
+               // val product = productApi.getProduct(8)
 
                 Log.d("MyLog", "Product : $product")
 
@@ -168,7 +169,6 @@ class MainActivity : AppCompatActivity() {
                             Picasso.get().load(response.body()!!.images[3]).into(ivImageThree)
                         }
 
-
                 } else {
                     onFetchFailed()
                 }
@@ -177,8 +177,8 @@ class MainActivity : AppCompatActivity() {
                     onFetchFailed()
                 }
             } finally {
-            }
 
+            }
         }
     }
 
@@ -187,7 +187,6 @@ class MainActivity : AppCompatActivity() {
             .add(ServerErrorDialogFragment.newInstance(), null)
             .commitAllowingStateLoss()
     }
-
 }
 
 
