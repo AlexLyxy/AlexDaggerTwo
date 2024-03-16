@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+
+
+
+
+
+
+
+
+
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:windowActionBar">true</item>
+        <item name="android:windowNoTitle">false</item>
+
+        <item name="actionBarSize">75dp</item>
+    <item name="titleTextColor">@color/black</item>
+
+        <item name="android:titleTextStyle">@style/Base.Theme.AlexRetrofitLessonTwo</item>
+
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+</resources>
