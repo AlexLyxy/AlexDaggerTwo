@@ -116,9 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvThumbnail"
-        app:srcCompat="@drawable/fishing"
-        tools:layout_editor_absoluteX="184dp"
-        tools:layout_editor_absoluteY="335dp" />
+        app:srcCompat="@color/abc_decor_view_status_guard_light" />
 
     <ImageView
         android:id="@+id/ivImageTwo"
