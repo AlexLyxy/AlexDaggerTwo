@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
+import com.alexlyxy.alexretrofitlessontwo.data.ProductRepositoryImpl
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
 import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.presentation.dialogs.ServerErrorDialogFragment
@@ -24,7 +25,10 @@ import kotlin.coroutines.cancellation.CancellationException
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var  getProductUseCase: GetProductUseCase
+    private val  repository = ProductRepositoryImpl()
+    private val getProductUseCase = GetProductUseCase(repository)
+
+    //private lateinit var  getProductUseCase: GetProductUseCase
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getProductUseCase = GetProductUseCase ()
+       // getProductUseCase = GetProductUseCase ()
 
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
