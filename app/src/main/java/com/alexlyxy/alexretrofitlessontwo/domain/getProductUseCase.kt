@@ -15,6 +15,7 @@ class GetProductUseCase {
     private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
 
     suspend fun getLatestProduct(): Response<Product> {
+
         return productApi.getProduct(9)
     }
 }
