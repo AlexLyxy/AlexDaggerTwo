@@ -39,8 +39,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
-
         getProductUseCase = GetProductUseCase ()
 
         val retrofit = Retrofit.Builder()
@@ -50,7 +48,8 @@ class MainActivity : AppCompatActivity() {
         productApi = retrofit.create(ProductApi::class.java)
 
         binding.button.setOnClickListener {
-            progressBarCircus.visibility = View.VISIBLE
+            fetchStart()
+            //progressBarCircus.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.IO).launch {
 
                 delay(10000)
@@ -61,7 +60,8 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MyLog", "Product : $product")
 
                 runOnUiThread {
-                    progressBarCircus.visibility = View.INVISIBLE
+
+                    fetchStop()
                     binding.apply {
 
                         tvTitle.text = buildString {
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         progressBarCircus.visibility = View.VISIBLE
     }
 
-    private fun fetchStop (){
+     private fun fetchStop (){
         val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
         progressBarCircus.visibility = View.INVISIBLE
     }
