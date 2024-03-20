@@ -2,8 +2,11 @@ package com.alexlyxy.alexretrofitlessontwo.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.Constants
+import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
 import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
@@ -13,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
+
         getProductUseCase = GetProductUseCase ()
 
         val retrofit = Retrofit.Builder()
@@ -44,14 +50,18 @@ class MainActivity : AppCompatActivity() {
         productApi = retrofit.create(ProductApi::class.java)
 
         binding.button.setOnClickListener {
+            progressBarCircus.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.IO).launch {
+
+                delay(10000)
+
                 val product = getProductUseCase.getLatestProduct()
                // val product = productApi.getProduct(8)
 
                 Log.d("MyLog", "Product : $product")
 
                 runOnUiThread {
-
+                    progressBarCircus.visibility = View.INVISIBLE
                     binding.apply {
 
                         tvTitle.text = buildString {
@@ -103,12 +113,24 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         if (!isDataLoaded) {
             fetchProduct()
+            fetchStart()
         }
     }
 
     override fun onStop() {
         super.onStop()
         coroutineScope.coroutineContext.cancelChildren()
+        fetchStop()
+    }
+
+    private fun fetchStart (){
+        val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
+        progressBarCircus.visibility = View.VISIBLE
+    }
+
+    private fun fetchStop (){
+        val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
+        progressBarCircus.visibility = View.INVISIBLE
     }
 
     private fun fetchProduct() {
@@ -120,6 +142,9 @@ class MainActivity : AppCompatActivity() {
         productApi = retrofit.create(ProductApi::class.java)
 
         coroutineScope.launch {
+
+            delay(10000)
+
             try {
                 val response = productApi.getProduct(2)
                 if (response.isSuccessful && response.body() != null) {
@@ -177,7 +202,7 @@ class MainActivity : AppCompatActivity() {
                     onFetchFailed()
                 }
             } finally {
-
+                fetchStop()
             }
         }
     }
