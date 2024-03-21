@@ -7,18 +7,13 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class GetProductUseCase {
+class GetProductUseCase  (private  val productRepository: ProductRepository) {
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create()).build()
-    private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
+    suspend fun getLatestProduct(): Product {
+        return productRepository.getLatestProduct(0)
+    }
 
-    suspend fun getLatestProduct(): Response<Product> {
-
-        return productApi.getProduct(9)
+    suspend fun getLocalProduct(): Product {
+        return productRepository.getLocalProduct(id = 0)
     }
 }
-
-
-

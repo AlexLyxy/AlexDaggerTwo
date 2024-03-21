@@ -12,7 +12,7 @@ class ProductRepositoryImpl {
         .addConverterFactory(GsonConverterFactory.create()).build()
     private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
 
-    override suspend fun getLatestProduct(id: Int): Response<Product> {
+    override suspend fun getLatestProduct(id: Int): Product {
         return productApi.getProduct(8)
     }
 
