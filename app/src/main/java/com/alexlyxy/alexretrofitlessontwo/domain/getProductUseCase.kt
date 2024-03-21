@@ -9,7 +9,6 @@ class GetProductUseCase(private val productRepository: ProductRepositoryImpl) {
     suspend fun getLatestProduct(): Response<Product> {
         return productRepository.getLatestProduct(0)
     }
-
     suspend fun getLocalProduct(): Response<Product> {
         return productRepository.getLocalProduct(id = 0)
     }

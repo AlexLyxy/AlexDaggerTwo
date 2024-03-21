@@ -53,13 +53,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             fetchStart()
-            //progressBarCircus.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.IO).launch {
 
-                delay(10000)
+                delay(5000)
 
-                val product = getProductUseCase.getLatestProduct()
-               // val product = productApi.getProduct(8)
+            //val product = getProductUseCase.getLatestProduct()
+               val product = getProductUseCase.getLocalProduct()
 
                 Log.d("MyLog", "Product : $product")
 
@@ -147,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
         coroutineScope.launch {
 
-            delay(10000)
+            delay(5000)
 
             try {
                 val response = productApi.getProduct(2)
