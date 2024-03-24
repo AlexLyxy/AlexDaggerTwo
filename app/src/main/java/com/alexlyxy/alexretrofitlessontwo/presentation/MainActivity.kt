@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,6 +26,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  getProductUseCase:  GetProductUseCase
 
     private lateinit var binding: ActivityMainBinding
+
+    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
+    private lateinit var productApi: ProductApi
+
+    private var isDataLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
