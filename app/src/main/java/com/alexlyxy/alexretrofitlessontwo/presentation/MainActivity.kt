@@ -52,41 +52,37 @@ class MainActivity : AppCompatActivity() {
                             append(product.body()?.title)
                         }
 
-                        tvTitle.text = buildString {
-                            append("Title:  ")
-                            append(product.title)
-                        }
                         tvDescr.text = buildString {
                             append("Description:  ")
-                            append(product.description)
+                            append(product.body()?.description)
                         }
                         tvPrice.text = buildString {
                             append("Price:  ")
-                            append(product.price.toString())
+                            append(product.body()?.price)
                         }
                         tvDiscount.text = buildString {
                             append("DiscountPercentage:  ")
-                            append(product.discountPercentage.toString())
+                            append(product.body()?.discountPercentage)
                         }
                         tvRating.text = buildString {
                             append("Rating:  ")
-                            append(product.rating.toString())
+                            append(product.body()?.rating)
                         }
                         tvStock.text = buildString {
                             append("Stock:  ")
-                            append(product.stock.toString())
+                            append(product.body()?.stock)
                         }
                         tvBrand.text = buildString {
                             append("Brand:  ")
-                            append(product.brand)
+                            append(product.body()?.brand)
                         }
                         tvCategory.text = buildString {
                             append("Category:  ")
-                            append(product.category)
+                            append(product.body()?.category)
                         }
                         tvThumbnail.text = buildString {
                             append("Thumbnail:  ")
-                            append(product.thumbnail)
+                            append(product.body()?.thumbnail)
                         }
                         Picasso.get().load(product.images[1]).into(ivImageOne)
                         Picasso.get().load(product.images[2]).into(ivImageTwo)
