@@ -186,7 +186,7 @@ class MainActivity : AppCompatActivity() {
                     onFetchFailed()
                 }
             } finally {
-               // fetchStop()
+                // fetchStop()
             }
         }
     }
@@ -197,3 +197,4 @@ class MainActivity : AppCompatActivity() {
             .commitAllowingStateLoss()
     }
 }
+
