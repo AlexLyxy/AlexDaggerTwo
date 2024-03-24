@@ -7,9 +7,11 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
+import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
 import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancelChildren
@@ -90,43 +92,43 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         if (!isDataLoaded) {
             fetchProduct()
-            fetchStart()
+            //fetchStart()
         }
     }
 
     override fun onStop() {
         super.onStop()
         coroutineScope.coroutineContext.cancelChildren()
-        fetchStop()
+       //fetchStop()
     }
 
-    private fun fetchStart() {
-        val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
-        progressBarCircus.visibility = View.VISIBLE
-    }
-
-    private fun fetchStop() {
-        val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
-        progressBarCircus.visibility = View.INVISIBLE
-    }
+//    private fun fetchStart() {
+//        val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
+//        progressBarCircus.visibility = View.VISIBLE
+//    }
+//
+//    private fun fetchStop() {
+//        val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
+//        progressBarCircus.visibility = View.INVISIBLE
+//    }
 
     private fun fetchProduct() {
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        productApiApp = retrofit.create(ProductApiApp::class.java)
+        productApi = retrofit.create(ProductApi::class.java)
 
         coroutineScope.launch {
 
             delay(1000)
             try {
                 //val response = getProductUseCase.getLatestProduct()
-                val response = getProductAppUseCase.getProductApp()
+                val response = getProductUseCase.getProduct()
 
                 if (response.isSuccessful && response.body() != null) {
                     isDataLoaded = true
-                    Log.d("MyLog", "ResponseApp : ${productApiApp.getProduct(3)}")
+                    Log.d("MyLog", "ResponseApp : ${productApi.getProduct(3)}")
 
                     binding.apply {
 
