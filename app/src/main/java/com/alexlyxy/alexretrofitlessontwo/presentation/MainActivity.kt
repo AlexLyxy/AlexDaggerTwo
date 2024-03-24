@@ -6,10 +6,14 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.Constants
+import com.alexlyxy.alexretrofitlessontwo.MyApplication
 import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
+import com.alexlyxy.alexretrofitlessontwo.data.ProductApiApp
+import com.alexlyxy.alexretrofitlessontwo.data.ProductRepositoryAppImpl
 import com.alexlyxy.alexretrofitlessontwo.data.ProductRepositoryImpl
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
+import com.alexlyxy.alexretrofitlessontwo.domain.GetProductAppUseCase
 import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.presentation.dialogs.ServerErrorDialogFragment
 import com.squareup.picasso.Picasso
@@ -25,8 +29,10 @@ import kotlin.coroutines.cancellation.CancellationException
 
 class MainActivity : AppCompatActivity() {
 
-    private val  repository = ProductRepositoryImpl()
-    private val getProductUseCase = GetProductUseCase(repository)
+    private val repository = ProductRepositoryImpl()
+    private val repositoryApp = ProductRepositoryAppImpl()
+    private var getProductUseCase = GetProductUseCase(repository)
+    private var getProductAppUseCase = GetProductAppUseCase(repositoryApp)
 
     //private lateinit var  getProductUseCase: GetProductUseCase
 
@@ -36,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var productApi: ProductApi
 
+    private lateinit var productApiApp: ProductApiApp
+
     private var isDataLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,24 +51,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-       // getProductUseCase = GetProductUseCase ()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        productApi = retrofit.create(ProductApi::class.java)
+        //fetchProduct()
 
         binding.button.setOnClickListener {
             fetchStart()
             CoroutineScope(Dispatchers.IO).launch {
-
-                delay(5000)
-
-            //val product = getProductUseCase.getLatestProduct()
-               val product = getProductUseCase.getLocalProduct()
+                delay(1000)
+                val product = getProductUseCase.getLatestProduct()
+                //val product = getProductUseCase.getLocalProduct()
 
                 Log.d("MyLog", "Product : $product")
+                //Log.d("MyLog", "Response : ${getProductUseCase.getLatestProduct()}")
 
                 runOnUiThread {
 
@@ -126,76 +127,76 @@ class MainActivity : AppCompatActivity() {
         fetchStop()
     }
 
-    private fun fetchStart (){
+    private fun fetchStart() {
         val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
         progressBarCircus.visibility = View.VISIBLE
     }
 
-     private fun fetchStop (){
+    private fun fetchStop() {
         val progressBarCircus: ProgressBar = findViewById(R.id.progressBarCircus)
         progressBarCircus.visibility = View.INVISIBLE
     }
 
     private fun fetchProduct() {
-
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        productApi = retrofit.create(ProductApi::class.java)
+        productApiApp = retrofit.create(ProductApiApp::class.java)
 
         coroutineScope.launch {
 
-            delay(5000)
-
+            delay(1000)
             try {
-                val response = productApi.getProduct(2)
+                //val response = getProductUseCase.getLatestProduct()
+                val response = getProductAppUseCase.getProductApp()
+
                 if (response.isSuccessful && response.body() != null) {
                     isDataLoaded = true
-                    Log.d("MyLog", "Response : ${productApi.getProduct(2)}")
+                    Log.d("MyLog", "ResponseApp : ${productApiApp.getProduct(3)}")
 
-                        binding.apply {
+                    binding.apply {
 
-                            tvTitle.text = buildString {
-                                append("Title:  ")
-                                append(response.body()?.title)
-                            }
-                            tvDescr.text = buildString {
-                                append("Description:  ")
-                                append(response.body()?.description)
-                            }
-                            tvPrice.text = buildString {
-                                append("Price:  ")
-                                append(response.body()?.price)
-                            }
-                            tvDiscount.text = buildString {
-                                append("DiscountPercentage:  ")
-                                append(response.body()?.discountPercentage)
-                            }
-                            tvRating.text = buildString {
-                                append("Rating:  ")
-                                append(response.body()?.rating)
-                            }
-                            tvStock.text = buildString {
-                                append("Stock:  ")
-                                append(response.body()?.stock)
-                            }
-                            tvBrand.text = buildString {
-                                append("Brand:  ")
-                                append(response.body()?.brand)
-                            }
-                            tvCategory.text = buildString {
-                                append("Category:  ")
-                                append(response.body()?.category)
-                            }
-                            tvThumbnail.text = buildString {
-                                append("Thumbnail:  ")
-                                append(response.body()?.thumbnail)
-                            }
-                            Picasso.get().load(response.body()!!.images[1]).into(ivImageOne)
-                            Picasso.get().load(response.body()!!.images[2]).into(ivImageTwo)
-                            Picasso.get().load(response.body()!!.images[3]).into(ivImageThree)
+                        tvTitle.text = buildString {
+                            append("Title:  ")
+                            append(response.body()?.title)
                         }
+                        tvDescr.text = buildString {
+                            append("Description:  ")
+                            append(response.body()?.description)
+                        }
+                        tvPrice.text = buildString {
+                            append("Price:  ")
+                            append(response.body()?.price)
+                        }
+                        tvDiscount.text = buildString {
+                            append("DiscountPercentage:  ")
+                            append(response.body()?.discountPercentage)
+                        }
+                        tvRating.text = buildString {
+                            append("Rating:  ")
+                            append(response.body()?.rating)
+                        }
+                        tvStock.text = buildString {
+                            append("Stock:  ")
+                            append(response.body()?.stock)
+                        }
+                        tvBrand.text = buildString {
+                            append("Brand:  ")
+                            append(response.body()?.brand)
+                        }
+                        tvCategory.text = buildString {
+                            append("Category:  ")
+                            append(response.body()?.category)
+                        }
+                        tvThumbnail.text = buildString {
+                            append("Thumbnail:  ")
+                            append(response.body()?.thumbnail)
+                        }
+                        Picasso.get().load(response.body()!!.images[1]).into(ivImageOne)
+                        Picasso.get().load(response.body()!!.images[2]).into(ivImageTwo)
+                        Picasso.get().load(response.body()!!.images[3]).into(ivImageThree)
+                    }
 
                 } else {
                     onFetchFailed()
@@ -216,6 +217,8 @@ class MainActivity : AppCompatActivity() {
             .commitAllowingStateLoss()
     }
 }
+
+
 
 
 

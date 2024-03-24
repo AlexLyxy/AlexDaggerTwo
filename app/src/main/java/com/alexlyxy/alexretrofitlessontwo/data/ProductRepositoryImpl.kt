@@ -17,8 +17,9 @@ class ProductRepositoryImpl : ProductRepository{
         return productApi.getProduct(8)
     }
 
-    override suspend fun getLocalProduct(id: Int): Response<Product>{
-        return productApi.getProduct(10)
+    override suspend fun getLocalProduct(id: Int): Response<Product> {
+        return productApi.getProduct(2)
+    }
 
 //        return Product (
 //            id = 2,
@@ -39,4 +40,3 @@ class ProductRepositoryImpl : ProductRepository{
 //            )
 //        )
     }
-}
