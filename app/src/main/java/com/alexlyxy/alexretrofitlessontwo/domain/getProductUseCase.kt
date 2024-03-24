@@ -13,7 +13,7 @@ class GetProductUseCase {
         .addConverterFactory(GsonConverterFactory.create()).build()
     private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
 
-    suspend fun getLatestProduct(): Product {
+    suspend fun getLatestProduct(): Result<Product> {
         return productApi.getProduct(9)
     }
 }

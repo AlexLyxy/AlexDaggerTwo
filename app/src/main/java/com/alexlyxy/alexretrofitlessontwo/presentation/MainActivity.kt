@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var  getProductUseCase:  GetProductUseCase
+    private lateinit var getProductUseCase: GetProductUseCase
 
     private lateinit var binding: ActivityMainBinding
 
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getProductUseCase = GetProductUseCase ()
+        getProductUseCase = GetProductUseCase()
 
         binding.button.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         coroutineScope.coroutineContext.cancelChildren()
-       //fetchStop()
+        //fetchStop()
     }
 
 //    private fun fetchStart() {
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
             delay(1000)
             try {
                 //val response = getProductUseCase.getLatestProduct()
-                val response = getProductUseCase.getProduct()
+                val response = getProductUseCase.getLatestProduct()
 
                 if (response.isSuccessful && response.body() != null) {
                     isDataLoaded = true
@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                     onFetchFailed()
                 }
             } finally {
-                fetchStop()
+               // fetchStop()
             }
         }
     }
