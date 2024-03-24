@@ -84,9 +84,9 @@ class MainActivity : AppCompatActivity() {
                             append("Thumbnail:  ")
                             append(product.body()?.thumbnail)
                         }
-                        Picasso.get().load(product.images[1]).into(ivImageOne)
-                        Picasso.get().load(product.images[2]).into(ivImageTwo)
-                        Picasso.get().load(product.images[3]).into(ivImageThree)
+                        Picasso.get().load(product.body()!!.images[1]).into(ivImageOne)
+                        Picasso.get().load(product.body()!!.images[2]).into(ivImageTwo)
+                        Picasso.get().load(product.body()!!.images[3]).into(ivImageThree)
                     }
                 }
             }

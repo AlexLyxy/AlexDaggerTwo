@@ -8,7 +8,7 @@ import com.alexlyxy.alexretrofitlessontwo.R
 
 class ServerErrorDialogFragment {
 
-    class ServerErrorDialogFragment: DialogFragment() {
+    class ServerErrorDialogFragment : DialogFragment() {
 
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             return AlertDialog.Builder(activity).let {
@@ -19,9 +19,10 @@ class ServerErrorDialogFragment {
             }
         }
 
-    companion object {
-        fun newInstance(): ServerErrorDialogFragment {
-            return ServerErrorDialogFragment()
+        companion object {
+            fun newInstance(): ServerErrorDialogFragment {
+                return ServerErrorDialogFragment()
+            }
         }
     }
 }
