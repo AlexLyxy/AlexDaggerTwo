@@ -49,6 +49,11 @@ class MainActivity : AppCompatActivity() {
 
                         tvTitle.text = buildString {
                             append("Title:  ")
+                            append(product.body()?.title)
+                        }
+
+                        tvTitle.text = buildString {
+                            append("Title:  ")
                             append(product.title)
                         }
                         tvDescr.text = buildString {
