@@ -17,6 +17,10 @@ class GetProductUseCase {
     suspend fun getLatestProduct(): Response<Product> {
         return productApi.getProduct(9)
     }
+
+    suspend fun getLocalProduct(): Response<Product> {
+        return productApi.getProduct(2)
+    }
 }
 
 

@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
             delay(1000)
             try {
                 //val response = getProductUseCase.getLatestProduct()
-                val response = getProductUseCase.getLatestProduct()
+                val response = getProductUseCase.getLocalProduct()
 
                 if (response.isSuccessful && response.body() != null) {
                     isDataLoaded = true
