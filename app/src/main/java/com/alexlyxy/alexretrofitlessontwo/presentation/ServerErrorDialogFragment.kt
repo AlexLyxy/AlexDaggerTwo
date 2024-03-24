@@ -25,4 +25,11 @@ class ServerErrorDialogFragment {
             }
         }
     }
+
+
+    companion object {
+        fun newInstance(): ServerErrorDialogFragment {
+            return ServerErrorDialogFragment()
+        }
+    }
 }

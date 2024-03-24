@@ -2,11 +2,8 @@ package com.alexlyxy.alexretrofitlessontwo.presentation
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.Constants
-import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
 import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
