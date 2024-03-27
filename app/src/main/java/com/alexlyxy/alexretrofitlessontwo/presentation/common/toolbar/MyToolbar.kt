@@ -1,4 +1,4 @@
-package com.alexlyxy.alexretrofitlessontwo.presentation.toolbar
+package com.alexlyxy.alexretrofitlessontwo.presentation.common.toolbar
 
 import android.content.Context
 import android.util.AttributeSet

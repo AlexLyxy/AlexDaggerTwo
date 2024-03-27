@@ -6,20 +6,20 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ProductRepositoryImpl : ProductRepository{
+//class ProductRepositoryImpl : ProductRepository{
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create()).build()
-    private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
-
-    override suspend fun getLatestProduct(id: Int): Response<Product> {
-        return productApi.getProduct(8)
-    }
-
-    override suspend fun getLocalProduct(id: Int): Response<Product> {
-        return productApi.getProduct(2)
-    }
+//    private val retrofit = Retrofit.Builder()
+//        .baseUrl(Constants.BASE_URL)
+//        .addConverterFactory(GsonConverterFactory.create()).build()
+//    private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
+//
+//    override suspend fun getLatestProduct(id: Int): Response<Product> {
+//        return productApi.getProduct(8)
+//    }
+//
+//    override suspend fun getLocalProduct(id: Int): Response<Product> {
+//        return productApi.getProduct(2)
+    //}
 
 //        return Product (
 //            id = 2,
@@ -39,4 +39,4 @@ class ProductRepositoryImpl : ProductRepository{
 //                "https://cdn.dummyjson.com/product-images/8/3.jpg"
 //            )
 //        )
-    }
+ //   }

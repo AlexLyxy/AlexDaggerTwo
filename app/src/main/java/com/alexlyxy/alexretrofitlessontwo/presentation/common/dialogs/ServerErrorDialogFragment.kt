@@ -1,4 +1,4 @@
-package com.alexlyxy.alexretrofitlessontwo.presentation.dialogs
+package com.alexlyxy.alexretrofitlessontwo.presentation.common.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog
