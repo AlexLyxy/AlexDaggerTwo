@@ -6,14 +6,10 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.Constants
-import com.alexlyxy.alexretrofitlessontwo.MyApplication
 import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
-import com.alexlyxy.alexretrofitlessontwo.data.ProductApiApp
-import com.alexlyxy.alexretrofitlessontwo.data.ProductRepositoryAppImpl
 import com.alexlyxy.alexretrofitlessontwo.data.ProductRepositoryImpl
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
-import com.alexlyxy.alexretrofitlessontwo.domain.GetProductAppUseCase
 import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.presentation.dialogs.ServerErrorDialogFragment
 import com.squareup.picasso.Picasso
@@ -30,9 +26,7 @@ import kotlin.coroutines.cancellation.CancellationException
 class MainActivity : AppCompatActivity() {
 
     private val repository = ProductRepositoryImpl()
-    private val repositoryApp = ProductRepositoryAppImpl()
     private var getProductUseCase = GetProductUseCase(repository)
-    private var getProductAppUseCase = GetProductAppUseCase(repositoryApp)
 
     //private lateinit var  getProductUseCase: GetProductUseCase
 
@@ -42,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var productApi: ProductApi
 
-    private lateinit var productApiApp: ProductApiApp
 
     private var isDataLoaded = false
 
@@ -142,18 +135,18 @@ class MainActivity : AppCompatActivity() {
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        productApiApp = retrofit.create(ProductApiApp::class.java)
+        productApi = retrofit.create(ProductApi::class.java)
 
         coroutineScope.launch {
 
             delay(1000)
             try {
-                //val response = getProductUseCase.getLatestProduct()
-                val response = getProductAppUseCase.getProductApp()
+                val response = getProductUseCase.getLocalProduct()
+                //val response = getProductUseCase.getProduct()
 
                 if (response.isSuccessful && response.body() != null) {
                     isDataLoaded = true
-                    Log.d("MyLog", "ResponseApp : ${productApiApp.getProduct(3)}")
+                    Log.d("MyLog", "ResponseApp : ${productApi.getProduct(3)}")
 
                     binding.apply {
 

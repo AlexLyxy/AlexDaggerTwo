@@ -1,7 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo
 
 import android.app.Application
-import com.alexlyxy.alexretrofitlessontwo.data.ProductApiApp
 import com.alexlyxy.alexretrofitlessontwo.data.ProductRepositoryImpl
 import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
 import retrofit2.Retrofit
@@ -13,8 +12,6 @@ class MyApplication: Application (){
         .baseUrl(Constants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
-    public val productApiApp: ProductApiApp = retrofit.create(ProductApiApp::class.java)
 
     public val getProductAppUseCase get() = GetProductUseCase(productRepository = ProductRepositoryImpl())
 
