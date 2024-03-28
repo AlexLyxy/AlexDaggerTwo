@@ -19,7 +19,7 @@ import kotlin.coroutines.cancellation.CancellationException
 class GetProductUseCase(private val productApi: ProductApi) {
 
     sealed class Result {
-        class Success(val products: Product) : Result()
+        class Success(val products: String) : Result()
         object Failure: Result()
     }
 
@@ -28,7 +28,7 @@ class GetProductUseCase(private val productApi: ProductApi) {
             try {
                 val response = productApi.getProduct(2)
                 if (response.isSuccessful && response.body() != null) {
-                    return@withContext Result.Success(response.body()!!)
+                    return@withContext Result.Success(response.body()!!.description)
                 } else {
                     return@withContext Result.Failure
                 }
@@ -42,22 +42,22 @@ class GetProductUseCase(private val productApi: ProductApi) {
         }
     }
 
-    suspend fun getLocalProduct(): Result {
-        return withContext(Dispatchers.IO) {
-            try {
-                val response = productApi.getProduct(2)
-                if (response.isSuccessful && response.body() != null) {
-                    return@withContext Result.Success(response.body()!!)
-                } else {
-                    return@withContext Result.Failure
-                }
-            } catch (t: Throwable) {
-                if (t !is CancellationException) {
-                    return@withContext Result.Failure
-                } else {
-                    throw t
-                }
-            }
-        }
-    }
+//    suspend fun getLocalProduct(): Result {
+//        return withContext(Dispatchers.IO) {
+//            try {
+//                val response = productApi.getProduct(2)
+//                if (response.isSuccessful && response.body() != null) {
+//                    return@withContext Result.Success(response.body()!!)
+//                } else {
+//                    return@withContext Result.Failure
+//                }
+//            } catch (t: Throwable) {
+//                if (t !is CancellationException) {
+//                    return@withContext Result.Failure
+//                } else {
+//                    throw t
+//                }
+//            }
+//        }
+//    }
 }
