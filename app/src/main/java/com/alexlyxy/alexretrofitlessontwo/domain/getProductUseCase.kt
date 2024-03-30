@@ -2,7 +2,9 @@ package com.alexlyxy.alexretrofitlessontwo.domain
 
 import com.alexlyxy.alexretrofitlessontwo.data.Product
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import kotlin.coroutines.cancellation.CancellationException
@@ -21,14 +23,13 @@ class GetProductUseCase(private val productApi: ProductApi) {
 
     sealed class Result {
         class Success(val products: Response<Product>) : Result()
-        object Failure: Result()
+        object Failure : Result()
     }
-
     suspend fun getLatestProduct(): Result {
         return withContext(Dispatchers.IO) {
             try {
                 val response = productApi.getProduct(2)
-                if (response.isSuccessful ) {
+                if (response.isSuccessful) {
                     return@withContext Result.Success(response)
                 } else {
                     return@withContext Result.Failure

@@ -223,9 +223,10 @@ class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-            .add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
+//        supportFragmentManager.beginTransaction()
+//            .add(ServerErrorDialogFragment.newInstance(), null)
+//            .commitAllowingStateLoss()
     }
 }
 

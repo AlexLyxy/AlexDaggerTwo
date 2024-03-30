@@ -16,7 +16,9 @@ class ListViewMvc(
 ) : BaseViewMvc<ListViewMvc.Listener>(
     layoutInflater,
     parent,
-    R.layout.activity_main
+    //R.layout.activity_main
+    R.layout.layout_products_list
+
 ) {
 
     interface Listener {
