@@ -4,6 +4,7 @@ import com.alexlyxy.alexretrofitlessontwo.data.Product
 import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 import kotlin.coroutines.cancellation.CancellationException
 
 //class GetProductUseCase(private val productRepository: ProductRepositoryImpl) {
@@ -19,7 +20,7 @@ import kotlin.coroutines.cancellation.CancellationException
 class GetProductUseCase(private val productApi: ProductApi) {
 
     sealed class Result {
-        class Success(val products: String) : Result()
+        class Success(val products: Response<Product>) : Result()
         object Failure: Result()
     }
 
@@ -27,8 +28,8 @@ class GetProductUseCase(private val productApi: ProductApi) {
         return withContext(Dispatchers.IO) {
             try {
                 val response = productApi.getProduct(2)
-                if (response.isSuccessful && response.body() != null) {
-                    return@withContext Result.Success(response.body()!!.description)
+                if (response.isSuccessful ) {
+                    return@withContext Result.Success(response)
                 } else {
                     return@withContext Result.Failure
                 }
