@@ -1,5 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo.presentation.common.toolbar
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -30,15 +31,17 @@ class MyToolbar: Toolbar {
         init(context)
     }
 
+    @SuppressLint("MissingInflatedId")
     private fun init(context: Context) {
-        val view = LayoutInflater.from(context).inflate(R.layout.activity_main, this, true)
+        val view = LayoutInflater.from(context).inflate(R.layout.layout_products_list, this, true)
         setContentInsetsRelative(0, 0)
         navigateUp = view.findViewById(R.id.navigate_up)
-        navigateUp.setOnClickListener { navigateUpListener.invoke() }
+        navigateUp.setOnClickListener { navigateUpListener.invoke()
+            }
     }
 
     fun setNavigateUpListener(navigateUpListener: () -> Unit) {
-        this.navigateUpListener = navigateUpListener
-        navigateUp.visibility = View.VISIBLE
+//        this.navigateUpListener = navigateUpListener
+//        navigateUp.visibility = View.VISIBLE
     }
 }

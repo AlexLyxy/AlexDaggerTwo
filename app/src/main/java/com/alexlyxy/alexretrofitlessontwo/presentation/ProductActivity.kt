@@ -5,12 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.MyApplication
-import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
 import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.presentation.common.dialogs.DialogsNavigator
-import com.alexlyxy.alexretrofitlessontwo.presentation.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.presentation.common.viewsmvc.ScreensNavigator
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -35,7 +32,9 @@ class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
 
     private lateinit var screensNavigator: ScreensNavigator
 
-    //private lateinit var binding: ActivityMainBinding
+    //private lateinit var binding: ActivityProductBinding
+   // private lateinit var binding: ActivityProductBinding
+
 
     //private lateinit var productApi: ProductApi
 
@@ -43,7 +42,7 @@ class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
         super.onCreate(savedInstanceState)
 
         viewMvc = ListViewMvc(LayoutInflater.from(this), null)
-        //binding = ActivityMainBinding.inflate(layoutInflater)
+        //binding = ActivityProductBinding.inflate(layoutInflater)
 
         //setContentView(binding.root)
         setContentView(viewMvc.rootView)
@@ -160,9 +159,9 @@ class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
 
     private fun fetchProduct() {
         coroutineScope.launch {
-            delay(5000)
+            //delay(5000)
             viewMvc.showProgressIndication()
-            delay(1000)
+
             try {
                 //val response = getProductUseCase.getProduct()
                 // if (response.isSuccessful && response.body() != null) {
@@ -171,6 +170,8 @@ class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
                     is GetProductUseCase.Result.Success -> {
                         isDataLoaded = true
                         Log.d("MyLog", "Response : ${response.products}")
+
+
 //                        binding.apply {
 //                            tvTitle.text = buildString {
 //                                append("Title:  ")
