@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var productApi: ProductApi
+    //private lateinit var productApi: ProductApi
 
     private var isDataLoaded = false
 
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getProductUseCase = GetProductUseCase(productApi)
+       // getProductUseCase = GetProductUseCase(productApi)
 
         getProductUseCase = (application as MyApp).getProductUseCase
 
