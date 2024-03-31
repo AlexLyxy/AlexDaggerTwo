@@ -1,8 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo
 
 import android.app.Application
-import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
-import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

@@ -1,18 +1,16 @@
-package com.alexlyxy.alexretrofitlessontwo.presentation
+package com.alexlyxy.alexretrofitlessontwo
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.alexlyxy.alexretrofitlessontwo.MyApplication
-import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
+import com.alexlyxy.alexretrofitlessontwo.databinding.LayoutProductsListBinding
 import com.alexlyxy.alexretrofitlessontwo.presentation.common.dialogs.DialogsNavigator
 import com.alexlyxy.alexretrofitlessontwo.presentation.common.viewsmvc.ScreensNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
@@ -32,9 +30,7 @@ class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
 
     private lateinit var screensNavigator: ScreensNavigator
 
-    //private lateinit var binding: ActivityProductBinding
-   // private lateinit var binding: ActivityProductBinding
-
+    private lateinit var binding: LayoutProductsListBinding
 
     //private lateinit var productApi: ProductApi
 
@@ -42,7 +38,7 @@ class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
         super.onCreate(savedInstanceState)
 
         viewMvc = ListViewMvc(LayoutInflater.from(this), null)
-        //binding = ActivityProductBinding.inflate(layoutInflater)
+        binding = LayoutProductsListBinding.inflate(layoutInflater)
 
         //setContentView(binding.root)
         setContentView(viewMvc.rootView)
@@ -55,7 +51,7 @@ class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
 //        val productApi: ProductApi = retrofit.create(ProductApi::class.java)
 
         //getProductUseCase = GetProductUseCase(productApi)
-
+       // getProductUseCase = (application as MyApplication).getProductUseCase
         getProductUseCase = (application as MyApplication).getProductUseCase
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
@@ -160,23 +156,25 @@ class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
     private fun fetchProduct() {
         coroutineScope.launch {
             //delay(5000)
-            viewMvc.showProgressIndication()
-
+            //viewMvc.showProgressIndication()
             try {
                 //val response = getProductUseCase.getProduct()
                 // if (response.isSuccessful && response.body() != null) {
-                when (val response = getProductUseCase.getLatestProduct()) {
+                when (val response = getProductUseCase.getLatestProduct())
+                {
                    // when (val response = productApi.getProduct(2)) {
                     is GetProductUseCase.Result.Success -> {
                         isDataLoaded = true
                         Log.d("MyLog", "Response : ${response.products}")
 
+                        binding.apply {
+                            tvTitle.text = buildString {
+                                append("Title:  ")
+                                append(response.products.body())
+                            }
 
-//                        binding.apply {
-//                            tvTitle.text = buildString {
-//                                append("Title:  ")
-//                                append(response.products.title)
-//                            }
+                            Log.d("MyLog", "ResponseBody : ${response.products.body()}")
+
 //                            tvDescr.text = buildString {
 //                                append("Description:  ")
 //                                append(response.products.description)
@@ -212,13 +210,14 @@ class ProductActivity : AppCompatActivity(), ListViewMvc.Listener {
 //                            Picasso.get().load(response.products.images[1]).into(ivImageOne)
 //                            Picasso.get().load(response.products.images[2]).into(ivImageTwo)
 //                            Picasso.get().load(response.products.images[3]).into(ivImageThree)
-                        //}
+                            //}
+                        }
                     }
 
                     is GetProductUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
-                viewMvc.hideProgressIndication()
+               // viewMvc.hideProgressIndication()
             }
         }
     }

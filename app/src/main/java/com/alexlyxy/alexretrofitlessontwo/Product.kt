@@ -1,4 +1,4 @@
-package com.alexlyxy.alexretrofitlessontwo.data
+package com.alexlyxy.alexretrofitlessontwo
 
 data class Product(
     val id: Int,

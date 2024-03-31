@@ -1,10 +1,6 @@
-package com.alexlyxy.alexretrofitlessontwo.domain
+package com.alexlyxy.alexretrofitlessontwo
 
-import com.alexlyxy.alexretrofitlessontwo.data.Product
-import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import kotlin.coroutines.cancellation.CancellationException
@@ -25,11 +21,12 @@ class GetProductUseCase(private val productApi: ProductApi) {
         class Success(val products: Response<Product>) : Result()
         object Failure : Result()
     }
+
     suspend fun getLatestProduct(): Result {
         return withContext(Dispatchers.IO) {
             try {
                 val response = productApi.getProduct(2)
-                if (response.isSuccessful) {
+                if (response.isSuccessful && response.body() != null) {
                     return@withContext Result.Success(response)
                 } else {
                     return@withContext Result.Failure
@@ -43,23 +40,4 @@ class GetProductUseCase(private val productApi: ProductApi) {
             }
         }
     }
-
-//    suspend fun getLocalProduct(): Result {
-//        return withContext(Dispatchers.IO) {
-//            try {
-//                val response = productApi.getProduct(2)
-//                if (response.isSuccessful && response.body() != null) {
-//                    return@withContext Result.Success(response.body()!!)
-//                } else {
-//                    return@withContext Result.Failure
-//                }
-//            } catch (t: Throwable) {
-//                if (t !is CancellationException) {
-//                    return@withContext Result.Failure
-//                } else {
-//                    throw t
-//                }
-//            }
-//        }
-//    }
 }

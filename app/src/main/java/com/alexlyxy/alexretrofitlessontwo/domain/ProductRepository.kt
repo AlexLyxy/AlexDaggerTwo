@@ -1,6 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo.domain
 
-import com.alexlyxy.alexretrofitlessontwo.data.Product
+import com.alexlyxy.alexretrofitlessontwo.Product
 import retrofit2.Response
 
 interface ProductRepository {
