@@ -1,8 +1,7 @@
-package com.alexlyxy.alexretrofitlessontwo.domain
+package com.alexlyxy.alexretrofitlessontwo.products
 
 import com.alexlyxy.alexretrofitlessontwo.Constants
-import com.alexlyxy.alexretrofitlessontwo.data.Product
-import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
+import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

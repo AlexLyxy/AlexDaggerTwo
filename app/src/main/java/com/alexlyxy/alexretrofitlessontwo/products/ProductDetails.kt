@@ -1,6 +1,6 @@
-package com.alexlyxy.alexretrofitlessontwo.data
+package com.alexlyxy.alexretrofitlessontwo.products
 
-data class Product(
+data class ProductDetails(
     val id: Int,
     var title: String,
    var description: String,

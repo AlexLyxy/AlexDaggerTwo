@@ -1,13 +1,14 @@
-package com.alexlyxy.alexretrofitlessontwo.presentation
+package com.alexlyxy.alexretrofitlessontwo.screens.product
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.Constants
-import com.alexlyxy.alexretrofitlessontwo.data.ProductApi
+import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
-import com.alexlyxy.alexretrofitlessontwo.domain.GetProductUseCase
-import com.alexlyxy.alexretrofitlessontwo.presentation.dialogs.ServerErrorDialogFragment
+import com.alexlyxy.alexretrofitlessontwo.products.GetProductDetailsUseCase
+import com.alexlyxy.alexretrofitlessontwo.products.GetProductUseCase
+import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,8 @@ import kotlin.coroutines.cancellation.CancellationException
 class MainActivity : AppCompatActivity() {
 
     private lateinit var  getProductUseCase: GetProductUseCase
+
+    private lateinit var  getProductDetailsUseCase: GetProductDetailsUseCase
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -37,6 +40,8 @@ class MainActivity : AppCompatActivity() {
 
         getProductUseCase = GetProductUseCase ()
 
+        getProductDetailsUseCase = GetProductDetailsUseCase()
+
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -45,10 +50,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                val product = getProductUseCase.getLatestProduct()
+                //val product = getProductUseCase.getLatestProduct()
+                val productDetails = getProductDetailsUseCase.getLatestProductDetails()
                // val product = productApi.getProduct(8)
 
-                Log.d("MyLog", "Product : $product")
+                Log.d("MyLog", "ProductDetails : $productDetails")
 
                 runOnUiThread {
 
@@ -56,43 +62,43 @@ class MainActivity : AppCompatActivity() {
 
                         tvTitle.text = buildString {
                             append("Title:  ")
-                            append(product.body()?.title)
+                            append(productDetails.body()?.title)
                         }
                         tvDescr.text = buildString {
                             append("Description:  ")
-                            append(product.body()?.description)
+                            append(productDetails.body()?.description)
                         }
                         tvPrice.text = buildString {
                             append("Price:  ")
-                            append(product.body()?.price)
+                            append(productDetails.body()?.price)
                         }
                         tvDiscount.text = buildString {
                             append("DiscountPercentage:  ")
-                            append(product.body()?.discountPercentage)
+                            append(productDetails.body()?.discountPercentage)
                         }
                         tvRating.text = buildString {
                             append("Rating:  ")
-                            append(product.body()?.rating)
+                            append(productDetails.body()?.rating)
                         }
                         tvStock.text = buildString {
                             append("Stock:  ")
-                            append(product.body()?.stock)
+                            append(productDetails.body()?.stock)
                         }
                         tvBrand.text = buildString {
                             append("Brand:  ")
-                            append(product.body()?.brand)
+                            append(productDetails.body()?.brand)
                         }
                         tvCategory.text = buildString {
                             append("Category:  ")
-                            append(product.body()?.category)
+                            append(productDetails.body()?.category)
                         }
                         tvThumbnail.text = buildString {
                             append("Thumbnail:  ")
-                            append(product.body()?.thumbnail)
+                            append(productDetails.body()?.thumbnail)
                         }
-                        Picasso.get().load(product.body()!!.images[1]).into(ivImageOne)
-                        Picasso.get().load(product.body()!!.images[2]).into(ivImageTwo)
-                        Picasso.get().load(product.body()!!.images[3]).into(ivImageThree)
+                        Picasso.get().load(productDetails.body()!!.images[1]).into(ivImageOne)
+                        Picasso.get().load(productDetails.body()!!.images[2]).into(ivImageTwo)
+                        Picasso.get().load(productDetails.body()!!.images[3]).into(ivImageThree)
                     }
                 }
             }
@@ -121,7 +127,8 @@ class MainActivity : AppCompatActivity() {
 
         coroutineScope.launch {
             try {
-                val response = productApi.getProduct(2)
+                //val response = productApi.getProduct(2)
+                val response = getProductUseCase.getLatestProduct()
                 if (response.isSuccessful && response.body() != null) {
                     isDataLoaded = true
                     Log.d("MyLog", "Response : ${productApi.getProduct(2)}")
@@ -132,38 +139,38 @@ class MainActivity : AppCompatActivity() {
                                 append("Title:  ")
                                 append(response.body()?.title)
                             }
-                            tvDescr.text = buildString {
-                                append("Description:  ")
-                                append(response.body()?.description)
-                            }
-                            tvPrice.text = buildString {
-                                append("Price:  ")
-                                append(response.body()?.price)
-                            }
-                            tvDiscount.text = buildString {
-                                append("DiscountPercentage:  ")
-                                append(response.body()?.discountPercentage)
-                            }
-                            tvRating.text = buildString {
-                                append("Rating:  ")
-                                append(response.body()?.rating)
-                            }
-                            tvStock.text = buildString {
-                                append("Stock:  ")
-                                append(response.body()?.stock)
-                            }
-                            tvBrand.text = buildString {
-                                append("Brand:  ")
-                                append(response.body()?.brand)
-                            }
-                            tvCategory.text = buildString {
-                                append("Category:  ")
-                                append(response.body()?.category)
-                            }
-                            tvThumbnail.text = buildString {
-                                append("Thumbnail:  ")
-                                append(response.body()?.thumbnail)
-                            }
+//                            tvDescr.text = buildString {
+//                                append("Description:  ")
+//                                append(response.body()?.description)
+//                            }
+//                            tvPrice.text = buildString {
+//                                append("Price:  ")
+//                                append(response.body()?.price)
+//                            }
+//                            tvDiscount.text = buildString {
+//                                append("DiscountPercentage:  ")
+//                                append(response.body()?.discountPercentage)
+//                            }
+//                            tvRating.text = buildString {
+//                                append("Rating:  ")
+//                                append(response.body()?.rating)
+//                            }
+//                            tvStock.text = buildString {
+//                                append("Stock:  ")
+//                                append(response.body()?.stock)
+//                            }
+//                            tvBrand.text = buildString {
+//                                append("Brand:  ")
+//                                append(response.body()?.brand)
+//                            }
+//                            tvCategory.text = buildString {
+//                                append("Category:  ")
+//                                append(response.body()?.category)
+//                            }
+//                            tvThumbnail.text = buildString {
+//                                append("Thumbnail:  ")
+//                                append(response.body()?.thumbnail)
+//                            }
                             Picasso.get().load(response.body()!!.images[1]).into(ivImageOne)
                             Picasso.get().load(response.body()!!.images[2]).into(ivImageTwo)
                             Picasso.get().load(response.body()!!.images[3]).into(ivImageThree)
