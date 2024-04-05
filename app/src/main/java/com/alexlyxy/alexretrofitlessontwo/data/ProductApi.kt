@@ -5,6 +5,10 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ProductApi  {
+
+    @GET("products/{id}")
+    suspend fun getProductDetails(@Path("id") id: Int): Response<Product>
+
     @GET("products/{id}")
     suspend fun getProduct(@Path("id") id: Int): Response<Product>
 
