@@ -8,5 +8,5 @@ interface ProductApi{
 //    suspend fun getProductById(@Path("id") id: Int): Product
 
     @GET("products")
-    suspend fun getAllProductById(@Path("products")product: String): List<Product>
+    suspend fun getAllProduct(@Path("products")product: String): List<Product>
 }
