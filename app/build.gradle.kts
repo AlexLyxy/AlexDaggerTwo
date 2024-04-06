@@ -37,6 +37,8 @@ android {
 
 dependencies {
 
+    implementation("com.sealwu.jsontokotlin:library:3.7.4")
+
     implementation ("com.squareup.okhttp3:logging-interceptor:4.7.2")
     implementation ("com.squareup.okhttp3:okhttp:4.7.2")
 

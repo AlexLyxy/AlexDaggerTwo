@@ -11,7 +11,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val tv = findViewById<TextView>(R.id.tv)
+        val tv = findViewById<TextView>(R.id.Hello)
         val b = findViewById<Button>(R.id.button)
 
         val interceptor = HttpLoggingInterceptor()
@@ -36,9 +35,13 @@ class MainActivity : AppCompatActivity() {
 
         b.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                val product = productApi.getProductById(3)
+                //val product = productApi.getProductById(2)
+                val allProduct = productApi.getAllProductById("")
                 runOnUiThread {
-                    tv.text = product.title
+                   // tv.text = product.title
+                    tv.text = allProduct.toString()
+
+
                 }
             }
         }
