@@ -1,5 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo.networking
 
 import com.alexlyxy.alexretrofitlessontwo.products.Product
+import retrofit2.Response
 
-class ProductResponse (val products: List<Product>)
+class Product (val products: Response<Product>)

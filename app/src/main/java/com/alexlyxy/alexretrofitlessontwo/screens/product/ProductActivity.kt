@@ -46,7 +46,7 @@ class ProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
        // binding = ActivityMainBinding.inflate(layoutInflater)
         ///setContentView(binding.root)
-        setContentView(R.layout.product)
+        setContentView(R.layout.activity_product)
 
 //        getProductUseCase = GetProductUseCase ()
 //        getProductDetailsUseCase = GetProductDetailsUseCase()
@@ -148,11 +148,12 @@ class ProductActivity : AppCompatActivity() {
 //            .build()
 //        productApi = retrofit.create(ProductApi::class.java)
         coroutineScope.launch {
+            showProgressIndication()
             try {
                 val response = productApi.getProduct(2)
                 //val response = getProductUseCase.getLatestProduct()
                 if (response.isSuccessful && response.body() != null) {
-                    productAdapter.bindData(response.body()!!.products)
+                    productAdapter.bindData(response.body()!!.title)
                     isDataLoaded = true
                     Log.d("MyLog", "Response : $response")
 
@@ -232,14 +233,15 @@ class ProductActivity : AppCompatActivity() {
         private val onProductClickListener: (Product) -> Unit
     ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-        private var productList: List<Product> = java.util.ArrayList(0)
+        private var productList: List<Product> = java.util.ArrayList(3)
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val title: TextView = view.findViewById(R.id.txt_question_body)
+            val title: TextView = view.findViewById(R.id.tvTitle)
+            val description : TextView = view.findViewById(R.id.tvDescr)
         }
 
-        fun bindData(product: List<Product>) {
-            productList = ArrayList(product)
+        fun bindData(product: String) {
+            productList = ArrayList(product.toInt())
             notifyDataSetChanged()
         }
 
@@ -259,7 +261,6 @@ class ProductActivity : AppCompatActivity() {
         override fun getItemCount(): Int {
             return productList.size
         }
-
     }
 }
 

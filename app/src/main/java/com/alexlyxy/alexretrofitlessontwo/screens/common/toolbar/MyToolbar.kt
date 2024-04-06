@@ -31,7 +31,7 @@ class MyToolbar: Toolbar {
     }
 
     private fun init(context: Context) {
-        val view = LayoutInflater.from(context).inflate(R.layout.activity_main, this, true)
+        val view = LayoutInflater.from(context).inflate(R.layout.my_toolbar, this, true)
         setContentInsetsRelative(0, 0)
         navigateUp = view.findViewById(R.id.navigate_up)
         navigateUp.setOnClickListener { navigateUpListener.invoke() }
