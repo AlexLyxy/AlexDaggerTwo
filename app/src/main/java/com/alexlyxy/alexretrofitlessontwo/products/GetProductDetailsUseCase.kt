@@ -1,5 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo.products
 
+import AllProduct
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import retrofit2.Response
@@ -13,7 +14,7 @@ class GetProductDetailsUseCase {
         .addConverterFactory(GsonConverterFactory.create()).build()
     private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
 
-    suspend fun getLatestProductDetails(): Response<Product> {
-        return productApi.getProductDetails(2)
+    suspend fun getLatestProductDetails(): Response<AllProduct> {
+        return productApi.getAllProduct("")
     }
 }

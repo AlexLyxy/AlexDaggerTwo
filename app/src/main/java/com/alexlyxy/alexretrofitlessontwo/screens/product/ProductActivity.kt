@@ -150,10 +150,11 @@ class ProductActivity : AppCompatActivity() {
         coroutineScope.launch {
             showProgressIndication()
             try {
-                val response = productApi.getProduct(2)
+                val response = productApi.getAllProduct("")
+                //val response = productApi.getProduct(2)
                 //val response = getProductUseCase.getLatestProduct()
                 if (response.isSuccessful && response.body() != null) {
-                    productAdapter.bindData(response.body()!!.title)
+                    productAdapter.bindData(response.body()!!.products.toString())
                     isDataLoaded = true
                     Log.d("MyLog", "Response : $response")
 
