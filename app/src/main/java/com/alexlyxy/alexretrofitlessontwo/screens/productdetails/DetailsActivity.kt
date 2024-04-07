@@ -56,12 +56,12 @@ class DetailsActivity : AppCompatActivity() {
         productApi = retrofit.create(productApi::class.java)
 
         // retrieve question ID passed from outside
-        productId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
+        productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
     }
 
     override fun onStart() {
         super.onStart()
-        fetchQuestionDetails()
+        fetchProductDetails()
     }
 
     override fun onStop() {
@@ -69,11 +69,11 @@ class DetailsActivity : AppCompatActivity() {
         coroutineScope.coroutineContext.cancelChildren()
     }
 
-    private fun fetchQuestionDetails() {
+    private fun fetchProductDetails() {
         coroutineScope.launch {
             showProgressIndication()
             try {
-                val response = productApi.getProductDetails(2)
+                val response = productApi.getProduct(2)
                 if (response.isSuccessful && response.body() != null) {
                     val productBody = response.body()!!.title
                     txtProductBody.text =
@@ -106,10 +106,10 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID"
+        const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
         fun start(context: Context, questionId: Int) {
             val intent = Intent(context, DetailsActivity::class.java)
-            intent.putExtra(EXTRA_QUESTION_ID, questionId)
+            intent.putExtra(EXTRA_PRODUCT_ID, questionId)
             context.startActivity(intent)
         }
     }
