@@ -155,7 +155,7 @@ class ProductActivity : AppCompatActivity() {
                 //val response = productApi.getProduct(2)
                 //val response = getProductUseCase.getLatestProduct()
                 if (response.isSuccessful && response.body() != null) {
-                    allProductAdapter.bindData(response.body()!!.products.toString())
+                    //allProductAdapter.bindData(response.body()!!.products.toString())
                     isDataLoaded = true
                     Log.d("MyLog", "Response : $response")
 

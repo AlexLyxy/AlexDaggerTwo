@@ -38,7 +38,7 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
-        txtProductBody = findViewById(R.id.tvDescr)
+        txtProductBody = findViewById(R.id.tvTitle)
 
         // init toolbar
         toolbar = findViewById(R.id.toolbar)

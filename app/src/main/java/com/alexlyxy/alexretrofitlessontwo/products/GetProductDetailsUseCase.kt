@@ -1,6 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo.products
 
-import AllProduct
+import com.alexlyxy.alexretrofitlessontwo.products.AllProduct
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import retrofit2.Response
