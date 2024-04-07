@@ -1,6 +1,7 @@
 package com.alexlyxy.alexretrofitlessontwo
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -45,8 +46,13 @@ class MainActivity : AppCompatActivity() {
                    hello.text = product.title
 
                     tv1.text = allProduct.limit.toString()
+                    tv1.text = allProduct.skip.toString()
                     tv2.text = allProduct.total.toString()
                     tv3.text = allProduct.toString()
+
+                    Log.d("MyLog", "Product: $product")
+
+                    Log.d("MyLog", "AllProduct: $allProduct")
 
                 }
             }
