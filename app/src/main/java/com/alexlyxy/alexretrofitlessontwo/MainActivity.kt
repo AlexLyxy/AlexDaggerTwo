@@ -18,7 +18,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val tv = findViewById<TextView>(R.id.Hello)
+        val hello = findViewById<TextView>(R.id.hello)
+        val tv1= findViewById<TextView>(R.id.tv1)
+        val tv2 = findViewById<TextView>(R.id.tv2)
+        val tv3 = findViewById<TextView>(R.id.tv3)
         val b = findViewById<Button>(R.id.button)
 
         val interceptor = HttpLoggingInterceptor()
@@ -35,12 +38,15 @@ class MainActivity : AppCompatActivity() {
 
         b.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                //val product = productApi.getProductById(2)
-                val allProduct = productApi.getAllProductById("")
+                val product = productApi.getProductById(2)
+                val allProduct = productApi.getAllProduct("")
                 runOnUiThread {
-                   // tv.text = product.title
-                    tv.text = allProduct.toString()
 
+                   hello.text = product.title
+
+                    tv1.text = allProduct.limit.toString()
+                    tv2.text = allProduct.total.toString()
+                    tv3.text = allProduct.toString()
 
                 }
             }
