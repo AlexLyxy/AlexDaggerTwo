@@ -1,15 +1,22 @@
 package com.alexlyxy.alexretrofitlessontwo.products
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 data class ProductDetails(
-    val id: Int,
-    var title: String,
-   var description: String,
-    val price: String,
-    val discountPercentage: String,
-    val rating: String,
-    val stock: String,
-    val brand: String,
-    val category: String,
-    val thumbnail: String,
-    val images: List<String>
+    @SerializedName("products")
+    @Expose
+    val products: List<Product>? = null,
+
+    @SerializedName("total")
+    @Expose
+    val total: Int? = null,
+
+    @SerializedName("skip")
+    @Expose
+    val skip: Int? = null,
+
+    @SerializedName("limit")
+    @Expose
+    val limit: Int? = null
 )
