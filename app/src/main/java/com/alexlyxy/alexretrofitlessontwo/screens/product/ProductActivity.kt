@@ -240,19 +240,24 @@ class ProductActivity : AppCompatActivity() {
         private val onProductClickListener: (Product) -> Unit
     ) : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
 
-        private var productList: List<Product> = ArrayList(0)
+        private var productList: List<Product> = ArrayList(2)
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
             val title: TextView = view.findViewById(R.id.tvTitleView)
+
         }
+
+        //private val binding = ActivityProductBinding.bind(view)
 
         fun bindData(products: List<Product>) {
             productList =  ArrayList(products)
             //Picasso.get().load("https://dummyjson.com").into(ivImageOne)
             //Picasso.get().load("https: " + products[1].images[0]).into(ivImageOne)
-            //Picasso.get().load(products["".toInt()].images["".toInt()]).into(R.id.ivImageOne)
+            //Picasso.get().load(products["".toInt()].images["".toInt()]).into(ivImageOne)
             notifyDataSetChanged()
         }
+
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
             val itemView = LayoutInflater.from(parent.context)
