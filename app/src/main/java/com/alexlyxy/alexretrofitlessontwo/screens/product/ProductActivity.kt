@@ -17,6 +17,7 @@ import com.alexlyxy.alexretrofitlessontwo.products.AllProduct
 import com.alexlyxy.alexretrofitlessontwo.products.Product
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -36,7 +37,7 @@ class ProductActivity : AppCompatActivity() {
 
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
-    private lateinit var allProductAdapter: AllProductAdapter
+    private lateinit var productsAdapter: ProductsAdapter
     private lateinit var productApi: ProductApi
 
     private var isDataLoaded = false
@@ -61,10 +62,11 @@ class ProductActivity : AppCompatActivity() {
         // init recycler view
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        allProductAdapter = AllProductAdapter { clickedAllProduct ->
-            clickedAllProduct.products?.get("".toInt())?.let { DetailsActivity.start(this, it.id) }
+        productsAdapter = ProductsAdapter { clickedProduct ->
+           // clickedAllProduct.products?.get("".toInt())?.let { DetailsActivity.start(this, it.id) }
+            DetailsActivity.start(this, clickedProduct.id)
         }
-        recyclerView.adapter = allProductAdapter
+        recyclerView.adapter = productsAdapter
 
         // init retrofit
         val retrofit = Retrofit.Builder()
@@ -155,7 +157,7 @@ class ProductActivity : AppCompatActivity() {
                 //val response = productApi.getProduct(2)
                 //val response = getProductUseCase.getLatestProduct()
                 if (response.isSuccessful && response.body() != null) {
-                    allProductAdapter.bindData(response.body()!!.products)
+                    response.body()!!.products?.let { productsAdapter.bindData(it) }
                     isDataLoaded = true
 
                     Log.d("MyLog", "Response : ${response.body()}")
@@ -232,19 +234,19 @@ class ProductActivity : AppCompatActivity() {
         }
     }
 
-    class AllProductAdapter(
-        private val onProductClickListener: (AllProduct) -> Unit
-    ) : RecyclerView.Adapter<AllProductAdapter.ProductViewHolder>() {
+    class ProductsAdapter(
+        private val onProductClickListener: (Product) -> Unit
+    ) : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
 
-        private var productList: List<AllProduct> = java.util.ArrayList(3)
+        private var productList: List<Product> = ArrayList(0)
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val title: TextView = view.findViewById(R.id.tvTitle)
-            val description: TextView = view.findViewById(R.id.tvDescr)
+            val title: TextView = view.findViewById(R.id.tvTitleView)
         }
 
-        fun bindData(products: List<AllProduct>) {
+        fun bindData(products: List<Product>) {
             productList =  ArrayList(products)
+           //Picasso.get().load("https: " + products[1].images[0])
             notifyDataSetChanged()
         }
 
@@ -255,7 +257,7 @@ class ProductActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-            holder.title.text = productList[position].products.toString()
+            holder.title.text = productList[position].title
             holder.itemView.setOnClickListener {
                 onProductClickListener.invoke(productList[position])
             }

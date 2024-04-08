@@ -18,5 +18,7 @@ data class AllProduct(
 
     @SerializedName("limit")
     @Expose
-    val limit: Int? = null
+    val limit: Int? = null,
+
+    val images: List<String>
 )
