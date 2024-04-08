@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
+import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityProductBinding
+import com.alexlyxy.alexretrofitlessontwo.databinding.ProductItemBinding
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.products.AllProduct
 import com.alexlyxy.alexretrofitlessontwo.products.Product
@@ -42,7 +44,7 @@ class ProductActivity : AppCompatActivity() {
 
     private var isDataLoaded = false
 
-    //private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityProductBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +76,7 @@ class ProductActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         productApi = retrofit.create(ProductApi::class.java)
-
+//
 //        binding.button.setOnClickListener {
 //            CoroutineScope(Dispatchers.IO).launch {
 //                //val product = getProductUseCase.getLatestProduct()
@@ -168,38 +170,38 @@ class ProductActivity : AppCompatActivity() {
 //                                append("Title:  ")
 //                                append(response.body()?.title)
 //                            }
-////                            tvDescr.text = buildString {
-////                                append("Description:  ")
-////                                append(response.body()?.description)
-////                            }
-////                            tvPrice.text = buildString {
-////                                append("Price:  ")
-////                                append(response.body()?.price)
-////                            }
-////                            tvDiscount.text = buildString {
-////                                append("DiscountPercentage:  ")
-////                                append(response.body()?.discountPercentage)
-////                            }
-////                            tvRating.text = buildString {
-////                                append("Rating:  ")
-////                                append(response.body()?.rating)
-////                            }
-////                            tvStock.text = buildString {
-////                                append("Stock:  ")
-////                                append(response.body()?.stock)
-////                            }
-////                            tvBrand.text = buildString {
-////                                append("Brand:  ")
-////                                append(response.body()?.brand)
-////                            }
-////                            tvCategory.text = buildString {
-////                                append("Category:  ")
-////                                append(response.body()?.category)
-////                            }
-////                            tvThumbnail.text = buildString {
-////                                append("Thumbnail:  ")
-////                                append(response.body()?.thumbnail)
-////                            }
+//                            tvDescr.text = buildString {
+//                                append("Description:  ")
+//                                append(response.body()?.description)
+//                            }
+//                            tvPrice.text = buildString {
+//                                append("Price:  ")
+//                                append(response.body()?.price)
+//                            }
+//                            tvDiscount.text = buildString {
+//                                append("DiscountPercentage:  ")
+//                                append(response.body()?.discountPercentage)
+//                            }
+//                            tvRating.text = buildString {
+//                                append("Rating:  ")
+//                                append(response.body()?.rating)
+//                            }
+//                            tvStock.text = buildString {
+//                                append("Stock:  ")
+//                                append(response.body()?.stock)
+//                            }
+//                            tvBrand.text = buildString {
+//                                append("Brand:  ")
+//                                append(response.body()?.brand)
+//                            }
+//                            tvCategory.text = buildString {
+//                                append("Category:  ")
+//                                append(response.body()?.category)
+//                            }
+//                            tvThumbnail.text = buildString {
+//                                append("Thumbnail:  ")
+//                                append(response.body()?.thumbnail)
+//                            }
 //                            Picasso.get().load(response.body()!!.images[1]).into(ivImageOne)
 //                            Picasso.get().load(response.body()!!.images[2]).into(ivImageTwo)
 //                            Picasso.get().load(response.body()!!.images[3]).into(ivImageThree)
@@ -246,7 +248,9 @@ class ProductActivity : AppCompatActivity() {
 
         fun bindData(products: List<Product>) {
             productList =  ArrayList(products)
-           //Picasso.get().load("https: " + products[1].images[0])
+            //Picasso.get().load("https://dummyjson.com").into(ivImageOne)
+            //Picasso.get().load("https: " + products[1].images[0]).into(ivImageOne)
+            //Picasso.get().load(products["".toInt()].images["".toInt()]).into(R.id.ivImageOne)
             notifyDataSetChanged()
         }
 
