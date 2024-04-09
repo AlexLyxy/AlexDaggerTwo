@@ -49,8 +49,8 @@ class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // binding = ActivityMainBinding.inflate(layoutInflater)
-        ///setContentView(binding.root)
-        setContentView(R.layout.activity_product)
+        setContentView(binding.root)
+        //setContentView(R.layout.activity_product)
 
 //        getProductUseCase = GetProductUseCase ()
 //        getProductDetailsUseCase = GetProductDetailsUseCase()
