@@ -1,5 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo.screens.product
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,14 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
-import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityProductBinding
-import com.alexlyxy.alexretrofitlessontwo.databinding.ProductItemBinding
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
-import com.alexlyxy.alexretrofitlessontwo.products.AllProduct
 import com.alexlyxy.alexretrofitlessontwo.products.Product
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.RequestCreator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -44,13 +43,13 @@ class ProductActivity : AppCompatActivity() {
 
     private var isDataLoaded = false
 
-    private lateinit var binding: ActivityProductBinding
+    //private lateinit var binding: ActivityProductBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        //setContentView(R.layout.activity_product)
+        //binding = ActivityProductBinding.inflate(layoutInflater)
+        //setContentView(binding.root)
+        setContentView(R.layout.activity_product)
 
 //        getProductUseCase = GetProductUseCase ()
 //        getProductDetailsUseCase = GetProductDetailsUseCase()
@@ -65,7 +64,7 @@ class ProductActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
         productsAdapter = ProductsAdapter { clickedProduct ->
-           // clickedAllProduct.products?.get("".toInt())?.let { DetailsActivity.start(this, it.id) }
+            // clickedAllProduct.products?.get("".toInt())?.let { DetailsActivity.start(this, it.id) }
             DetailsActivity.start(this, clickedProduct.id)
         }
         recyclerView.adapter = productsAdapter
@@ -137,7 +136,7 @@ class ProductActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (!isDataLoaded) {
-            fetchProduct()
+           fetchProduct()
         }
     }
 
@@ -162,7 +161,7 @@ class ProductActivity : AppCompatActivity() {
                     response.body()!!.products?.let { productsAdapter.bindData(it) }
                     isDataLoaded = true
 
-                    Log.d("MyLog", "Response : ${response.body()}")
+                    //Log.d("MyLog", "Response : ${response.body()}")
 
 //                        binding.apply {
 //
@@ -240,24 +239,27 @@ class ProductActivity : AppCompatActivity() {
         private val onProductClickListener: (Product) -> Unit
     ) : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
 
-        private var productList: List<Product> = ArrayList(2)
+        private var productList: List<Product> = ArrayList(0)
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
             val title: TextView = view.findViewById(R.id.tvTitleView)
+            val descr: TextView = view.findViewById(R.id.tvDescriptionView)
+            //val picture: TextView = view.findViewById(R.id.ivImageOne)
+
+            // private val binding = ActivityProductBinding.bind(view)
 
         }
 
-        //private val binding = ActivityProductBinding.bind(view)
-
+        @SuppressLint("NotifyDataSetChanged")
         fun bindData(products: List<Product>) {
-            productList =  ArrayList(products)
+            productList = ArrayList(products)
+
+            //Log.d("MyLog", "productList : $productList")
             //Picasso.get().load("https://dummyjson.com").into(ivImageOne)
             //Picasso.get().load("https: " + products[1].images[0]).into(ivImageOne)
-            //Picasso.get().load(products["".toInt()].images["".toInt()]).into(ivImageOne)
+            //Picasso.get().load(productList["".toInt()].images["".toInt()]).into(tv)
             notifyDataSetChanged()
         }
-
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
             val itemView = LayoutInflater.from(parent.context)
@@ -267,6 +269,16 @@ class ProductActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
             holder.title.text = productList[position].title
+            holder.descr.text = productList[position].description
+            //holder.picture.text= productList[position].images["".toInt()].toInt().toString()
+
+            Log.d("MyLog", "PictureTitle : ${productList[1].title}")
+            Log.d("MyLog", "PictureDescr : ${productList[1].description}")
+            //Log.d("MyLog", "PicturePicture: ${productList[position].images["".toInt()].toInt()}")
+
+            //holder.picture.id = productList[position].images["".toInt()].toInt()
+            //Picasso.get().load(productList["".toInt()].images["".toInt()]).into(i)
+
             holder.itemView.setOnClickListener {
                 onProductClickListener.invoke(productList[position])
             }
@@ -277,6 +289,10 @@ class ProductActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
+
 
 
 

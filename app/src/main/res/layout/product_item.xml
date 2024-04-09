@@ -14,9 +14,21 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
         android:text="Hello Alex Retrofit Interceptor Lesson Two!"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvDescriptionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:text="Description"
         android:textSize="20sp" />
 
     <ImageView
