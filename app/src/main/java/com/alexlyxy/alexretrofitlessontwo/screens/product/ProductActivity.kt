@@ -1,11 +1,14 @@
 package com.alexlyxy.alexretrofitlessontwo.screens.product
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -161,7 +164,7 @@ class ProductActivity : AppCompatActivity() {
                     response.body()!!.products?.let { productsAdapter.bindData(it) }
                     isDataLoaded = true
 
-                    //Log.d("MyLog", "Response : ${response.body()}")
+                    Log.d("MyLog", "Response : ${response.body()}")
 
 //                        binding.apply {
 //
@@ -244,7 +247,7 @@ class ProductActivity : AppCompatActivity() {
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val title: TextView = view.findViewById(R.id.tvTitleView)
             val descr: TextView = view.findViewById(R.id.tvDescriptionView)
-            //val picture: TextView = view.findViewById(R.id.ivImageOne)
+            //val picture: ImageView = view.findViewById(R.id.ivImageOne)
 
             // private val binding = ActivityProductBinding.bind(view)
 
@@ -256,7 +259,7 @@ class ProductActivity : AppCompatActivity() {
 
             //Log.d("MyLog", "productList : $productList")
             //Picasso.get().load("https://dummyjson.com").into(ivImageOne)
-            //Picasso.get().load("https: " + products[1].images[0]).into(ivImageOne)
+           // Picasso.get().load("https: " + products[0].images[0]).into(R.id.ivImageOne)
             //Picasso.get().load(productList["".toInt()].images["".toInt()]).into(tv)
             notifyDataSetChanged()
         }
@@ -270,11 +273,12 @@ class ProductActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
             holder.title.text = productList[position].title
             holder.descr.text = productList[position].description
-            //holder.picture.text= productList[position].images["".toInt()].toInt().toString()
+            //holder.picture.id= productList[position].images[0].toInt()
+            //Picasso.get().load(productList[position].images[0]).into(ivImageOne = 0)
 
-            Log.d("MyLog", "PictureTitle : ${productList[1].title}")
-            Log.d("MyLog", "PictureDescr : ${productList[1].description}")
-            //Log.d("MyLog", "PicturePicture: ${productList[position].images["".toInt()].toInt()}")
+            Log.d("MyLog", "PictureTitle : ${productList[0].title}")
+            Log.d("MyLog", "PictureDescr : ${productList[0].description}")
+            //Log.d("MyLog", "PicturePicture: ${productList[position].images[0].toInt()}")
 
             //holder.picture.id = productList[position].images["".toInt()].toInt()
             //Picasso.get().load(productList["".toInt()].images["".toInt()]).into(i)
@@ -288,6 +292,10 @@ class ProductActivity : AppCompatActivity() {
             return productList.size
         }
     }
+}
+
+private fun RequestCreator.into(ivImageOne: Int) {
+    TODO("Not yet implemented")
 }
 
 
