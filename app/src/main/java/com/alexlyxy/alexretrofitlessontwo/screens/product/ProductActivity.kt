@@ -274,7 +274,7 @@ class ProductActivity : AppCompatActivity() {
             holder.title.text = productList[position].title
             holder.descr.text = productList[position].description
             //holder.picture.id= productList[position].images[0].toInt()
-            //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
+            //Picasso.get().load(productList[position].images[0]).into(viewR.id.ivImageOne)
            // Picasso.get().load(productList[position].images[0]).resize(50,50).centerCrop().into(R.id.ivImageOne)
 
             Log.d("MyLog", "PictureTitle : ${productList[0].title}")
@@ -293,10 +293,6 @@ class ProductActivity : AppCompatActivity() {
             return productList.size
         }
     }
-}
-
-private fun RequestCreator.into(ivImageOne: Any) {
-    TODO("Not yet implemented")
 }
 
 
