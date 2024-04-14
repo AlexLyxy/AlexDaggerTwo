@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityMainBinding
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -79,8 +80,9 @@ class MainActivity : AppCompatActivity() {
                             append("Thumbnail:  ")
                             append(product.thumbnail)
                         }
-                        Picasso.get().load(product.images[1]).into(ivImageOne)
-                        Picasso.get().load(product.images[2]).into(ivImageTwo)
+                        Glide.with(ivImageOne).load(product.images[1]).into(ivImageOne)
+                        //Picasso.get().load(product.images[1]).into(ivImageOne)
+                        Picasso.get().load(product.images[1]).into(ivImageTwo)
                         Picasso.get().load(product.images[3]).into(ivImageThree)
                     }
                 }
