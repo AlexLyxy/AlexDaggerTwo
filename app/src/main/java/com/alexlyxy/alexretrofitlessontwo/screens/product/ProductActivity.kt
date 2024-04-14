@@ -1,8 +1,8 @@
 package com.alexlyxy.alexretrofitlessontwo.screens.product
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.PictureDrawable
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,17 +11,21 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
+import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityProductBinding
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.products.Product
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.RequestCreator
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -30,7 +34,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.cancellation.CancellationException
-
 class ProductActivity : AppCompatActivity() {
 
 //    private lateinit var  getProductUseCase: GetProductUseCase
@@ -45,6 +48,7 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var productApi: ProductApi
 
     private var isDataLoaded = false
+
 
     //private lateinit var binding: ActivityProductBinding
 
@@ -134,6 +138,11 @@ class ProductActivity : AppCompatActivity() {
 //                }
 //            }
 //        }
+
+       // val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, R.layout.activity_product)
+        //binding.
+
+
     }
 
     override fun onStart() {
@@ -247,7 +256,7 @@ class ProductActivity : AppCompatActivity() {
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val title: TextView = view.findViewById(R.id.tvTitleView)
             val descr: TextView = view.findViewById(R.id.tvDescriptionView)
-            //val picture: ImageView = view.findViewById(R.id.ivImageOne)
+            val picture: ImageView = view.findViewById(R.id.ivImageOne)
 
             // private val binding = ActivityProductBinding.bind(view)
 
@@ -262,6 +271,7 @@ class ProductActivity : AppCompatActivity() {
            // Picasso.get().load("https: " + products[0].images[0]).into(R.id.ivImageOne)
             //Picasso.get().load(productList["".toInt()].images["".toInt()]).into(tv)
             notifyDataSetChanged()
+
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -273,8 +283,16 @@ class ProductActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
             holder.title.text = productList[position].title
             holder.descr.text = productList[position].description
+            //holder.picture.id = productList[position].images[0].toInt()
+
+            val view: String = productList[position].images[0]
+            Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
+
+              //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
+
             //holder.picture.id= productList[position].images[0].toInt()
-            //Picasso.get().load(productList[position].images[0]).into(viewR.id.ivImageOne)
+            //Picasso.get().load(productList[position].images[0]).into(pict)
+
            // Picasso.get().load(productList[position].images[0]).resize(50,50).centerCrop().into(R.id.ivImageOne)
 
             Log.d("MyLog", "PictureTitle : ${productList[0].title}")
@@ -282,7 +300,6 @@ class ProductActivity : AppCompatActivity() {
             Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
 
             //holder.picture.id = productList[position].images["".toInt()].toInt()
-            //Picasso.get().load(productList["".toInt()].images["".toInt()]).into(i)
 
             holder.itemView.setOnClickListener {
                 onProductClickListener.invoke(productList[position])
@@ -293,7 +310,20 @@ class ProductActivity : AppCompatActivity() {
             return productList.size
         }
     }
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter("profileImage")
+        fun loadImage(view: ImageView, profileImage: String) {
+            Glide.with(view.context)
+                .load(profileImage)
+                .into(view)
+        }
+    }
 }
+
+
+
 
 
 
