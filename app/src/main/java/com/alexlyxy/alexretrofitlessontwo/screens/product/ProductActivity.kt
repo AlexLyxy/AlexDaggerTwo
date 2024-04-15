@@ -84,7 +84,8 @@ class ProductActivity : AppCompatActivity() {
             try {
                 val response = productApi.getAllProduct("")
                 if (response.isSuccessful && response.body() != null) {
-                    response.body()!!.products?.let { productsAdapter.bindData(it) }
+                    //response.body()!!.products?.let { productsAdapter.bindData(it) }
+                    productsAdapter.bindData(response.body()!!.products)
                     isDataLoaded = true
 
                     Log.d("MyLog", "Response : ${response.body()}")
@@ -145,14 +146,14 @@ class ProductActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
             holder.title.text = productList[position].title
-            holder.descr.text = productList[position].description
+            //holder.descr.text = productList[position].description
 
             //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
             //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
 
             Log.d("MyLog", "PictureTitle : ${productList[0].title}")
-            Log.d("MyLog", "PictureDescr : ${productList[0].description}")
-            Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
+//            Log.d("MyLog", "PictureDescr : ${productList[0].description}")
+//            Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
 
             holder.itemView.setOnClickListener {
                 onProductClickListener.invoke(productList[position])

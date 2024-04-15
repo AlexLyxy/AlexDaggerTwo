@@ -28,7 +28,6 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
-        android:text="Description"
         android:textSize="20sp" />
 
     <ImageView
@@ -37,7 +36,9 @@
         android:layout_height="100dp"
         android:layout_gravity="center|center_vertical"
         android:layout_marginTop="5dp"
-        app:srcCompat="@drawable/fishing"
-        android:src="@drawable/fishing"/>
+
+        app:srcCompat="@color/abc_decor_view_status_guard_light" />
 
 </LinearLayout>
+
+    <!--android:src="@drawable/fishing"-->

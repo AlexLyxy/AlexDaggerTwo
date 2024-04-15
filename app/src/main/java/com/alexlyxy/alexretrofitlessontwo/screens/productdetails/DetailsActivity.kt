@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
@@ -36,7 +37,7 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+        setContentView(R.layout.activity_details_small)
 
         txtProductBody = findViewById(R.id.tvTitle)
 
@@ -73,11 +74,20 @@ class DetailsActivity : AppCompatActivity() {
         coroutineScope.launch {
             showProgressIndication()
             try {
-                val response = productApi.getProduct(2)
+                val response = productApi.getAllProduct(productId)
                 if (response.isSuccessful && response.body() != null) {
-                    val productBody = response.body()!!.title
-                    txtProductBody.text =
-                        Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+                    val productBody = response.body()!!.products?.get(1)?.title
+
+                    Log.d("MyLog", "AllProduct: $response")
+                    Log.d("MyLog", "ProductBody: $productBody")
+
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+                    } else {
+                        @Suppress("DEPRECATION")
+                        txtProductBody.text = Html.fromHtml(productBody)
+                    }
                 } else {
                     onFetchFailed()
                 }
@@ -88,6 +98,7 @@ class DetailsActivity : AppCompatActivity() {
             } finally {
                 hideProgressIndication()
             }
+
         }
     }
 
@@ -107,9 +118,9 @@ class DetailsActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
-        fun start(context: Context, questionId: Int) {
+        fun start(context: Context, productId: Int) {
             val intent = Intent(context, DetailsActivity::class.java)
-            intent.putExtra(EXTRA_PRODUCT_ID, questionId)
+            intent.putExtra(EXTRA_PRODUCT_ID, productId)
             context.startActivity(intent)
         }
     }
