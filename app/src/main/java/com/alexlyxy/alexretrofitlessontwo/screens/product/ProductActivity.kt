@@ -39,7 +39,6 @@ class ProductActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_product)
 
         // init pull-down-to-refresh
@@ -88,7 +87,7 @@ class ProductActivity : AppCompatActivity() {
                     productsAdapter.bindData(response.body()!!.products)
                     isDataLoaded = true
 
-                    Log.d("MyLog", "Response : ${response.body()}")
+                    Log.d("MyLog", "ResponseBody : ${response.body()!!.products.get(0)}")
 
                 } else {
                     onFetchFailed()
@@ -127,7 +126,7 @@ class ProductActivity : AppCompatActivity() {
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val title: TextView = view.findViewById(R.id.tvTitleView)
-            val descr: TextView = view.findViewById(R.id.tvDescriptionView)
+            //val descr: TextView = view.findViewById(R.id.tvDescriptionView)
         }
 
         //@SuppressLint("NotifyDataSetChanged")

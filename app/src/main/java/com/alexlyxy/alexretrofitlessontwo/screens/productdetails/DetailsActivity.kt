@@ -56,7 +56,7 @@ class DetailsActivity : AppCompatActivity() {
             .build()
         productApi = retrofit.create(productApi::class.java)
 
-        // retrieve question ID passed from outside
+        //retrieve question ID passed from outside
         productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
     }
 
