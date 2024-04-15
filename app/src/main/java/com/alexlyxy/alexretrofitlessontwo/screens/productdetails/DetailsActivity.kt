@@ -76,7 +76,7 @@ class DetailsActivity : AppCompatActivity() {
             try {
                 val response = productApi.getAllProduct(productId)
                 if (response.isSuccessful && response.body() != null) {
-                    val productBody = response.body()!!.products?.get(1)?.title
+                    val productBody = response.body()!!.products[0].title
 
                     Log.d("MyLog", "AllProduct: $response")
                     Log.d("MyLog", "ProductBody: $productBody")
