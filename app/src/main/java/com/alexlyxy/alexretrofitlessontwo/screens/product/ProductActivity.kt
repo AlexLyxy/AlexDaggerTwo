@@ -1,12 +1,14 @@
 package com.alexlyxy.alexretrofitlessontwo.screens.product
 
 import android.annotation.SuppressLint
+import android.health.connect.datatypes.units.Length
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -51,7 +54,11 @@ class ProductActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
         productsAdapter = ProductsAdapter { clickedProduct ->
-            DetailsActivity.start(this, clickedProduct.id)
+            Toast.makeText(applicationContext,"ActivityStart",Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext,"ActivityStartAgain",Toast.LENGTH_LONG).show()
+            Log.d("MyLog", "ResponseID : ${clickedProduct.id}")
+
+            DetailsActivity.start(this,clickedProduct.id)
         }
         recyclerView.adapter = productsAdapter
 
@@ -82,12 +89,16 @@ class ProductActivity : AppCompatActivity() {
             showProgressIndication()
             try {
                 val response = productApi.getAllProduct("")
+                val responseProduct = productApi.getProduct(1)
+
                 if (response.isSuccessful && response.body() != null) {
                     //response.body()!!.products?.let { productsAdapter.bindData(it) }
                     productsAdapter.bindData(response.body()!!.products)
                     isDataLoaded = true
 
-                    Log.d("MyLog", "ResponseBody : ${response.body()!!.products.get(0)}")
+                    Log.d("MyLog", "Response : $response")
+                    Log.d("MyLog", "ResponseProduct : $responseProduct")
+                    Log.d("MyLog", "ResponseBody : ${response.body()!!.products}")
 
                 } else {
                     onFetchFailed()

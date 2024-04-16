@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
+import com.alexlyxy.alexretrofitlessontwo.products.Product
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar.MyToolbar
 import kotlinx.coroutines.CoroutineScope
@@ -33,7 +34,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private lateinit var productApi: ProductApi
 
-    private lateinit var productId: String
+    private lateinit var id: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +58,11 @@ class DetailsActivity : AppCompatActivity() {
         productApi = retrofit.create(productApi::class.java)
 
         //retrieve question ID passed from outside
-        productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
+
+        //productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
+         id = intent.extras!!.getString(EXTRA_ID)!!
+        Log.d("MyLog", "ProductID : $id")
+
     }
 
     override fun onStart() {
@@ -74,9 +79,10 @@ class DetailsActivity : AppCompatActivity() {
         coroutineScope.launch {
             showProgressIndication()
             try {
-                val response = productApi.getAllProduct(productId)
+                //val response = productApi.getAllProduct(productId)
+                val response = productApi.getProduct("".toInt())
                 if (response.isSuccessful && response.body() != null) {
-                    val productBody = response.body()!!.products[0].title
+                    val productBody = response.body()!!.id.toString()
 
                     Log.d("MyLog", "AllProduct: $response")
                     Log.d("MyLog", "ProductBody: $productBody")
@@ -117,10 +123,10 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
-        fun start(context: Context, productId: Int) {
+        const val EXTRA_ID = "EXTRA_ID"
+        fun start(context: Context, id: Int) {
             val intent = Intent(context, DetailsActivity::class.java)
-            intent.putExtra(EXTRA_PRODUCT_ID, productId)
+            intent.putExtra(EXTRA_ID, id)
             context.startActivity(intent)
         }
     }
