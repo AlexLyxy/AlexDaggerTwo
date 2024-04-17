@@ -56,9 +56,10 @@ class ProductActivity : AppCompatActivity() {
         productsAdapter = ProductsAdapter { clickedProduct ->
             Toast.makeText(applicationContext,"ActivityStart",Toast.LENGTH_LONG).show()
             Toast.makeText(applicationContext,"ActivityStartAgain",Toast.LENGTH_LONG).show()
-            Log.d("MyLog", "ResponseID : ${clickedProduct.id}")
+            Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
+            Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.title}")
 
-            DetailsActivity.start(this,clickedProduct.id)
+            DetailsActivity.start(this,clickedProduct.title)
         }
         recyclerView.adapter = productsAdapter
 
@@ -96,10 +97,10 @@ class ProductActivity : AppCompatActivity() {
                     productsAdapter.bindData(response.body()!!.products)
                     isDataLoaded = true
 
-                    Log.d("MyLog", "Response : $response")
-                    Log.d("MyLog", "ResponseProduct : $responseProduct")
-                    Log.d("MyLog", "ResponseBody : ${response.body()!!.products}")
-
+                    Log.d("MyLog", "ResponseProductActivity : $response")
+                    Log.d("MyLog", "ResponseProductProductActivity : $responseProduct")
+                    Log.d("MyLog", "ResponseBodyProductActivity[1] : ${response.body()!!.products [1]}")
+                    Log.d("MyLog", "ResponseBodyProductActivity : ${response.body()!!.products}")
                 } else {
                     onFetchFailed()
                 }
@@ -144,7 +145,7 @@ class ProductActivity : AppCompatActivity() {
         fun bindData(products: List<Product>) {
             productList = ArrayList(products)
             notifyDataSetChanged()
-            Log.d("MyLog", "productList : $productList")
+            Log.d("MyLog", "productListProductActivity : $productList")
 
         }
 
@@ -161,7 +162,7 @@ class ProductActivity : AppCompatActivity() {
             //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
             //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
 
-            Log.d("MyLog", "PictureTitle : ${productList[0].title}")
+            Log.d("MyLog", "PictureTitleProductActivity : ${productList[0].title}")
 //            Log.d("MyLog", "PictureDescr : ${productList[0].description}")
 //            Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
 
