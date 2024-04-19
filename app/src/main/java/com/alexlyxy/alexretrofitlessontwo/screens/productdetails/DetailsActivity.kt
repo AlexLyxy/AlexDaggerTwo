@@ -2,17 +2,14 @@ package com.alexlyxy.alexretrofitlessontwo.screens.productdetails
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html
 import android.util.Log
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
-import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar.MyToolbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +18,6 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.coroutines.cancellation.CancellationException
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -39,7 +35,8 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_small)
 
-        txtProductBody = findViewById(R.id.tvTitleDetails)
+        //txtProductBody = findViewById(R.id.tvTitleDetails)
+        txtProductBody = findViewById(R.id.tvDesrDetails)
 
         // init toolbar
         toolbar = findViewById(R.id.toolbar)
@@ -125,7 +122,7 @@ class DetailsActivity : AppCompatActivity() {
     }
     companion object {
         const val EXTRA_PRODUCTS = "EXTRA_PRODUCTS"
-        fun start(context: Context, products: String) {
+        fun start(context: Context, products: Int) {
             val intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra(EXTRA_PRODUCTS, products)
             context.startActivity(intent)

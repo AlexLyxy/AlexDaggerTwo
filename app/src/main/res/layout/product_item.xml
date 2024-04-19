@@ -28,6 +28,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
+        android:text="Description"
         android:textSize="20sp" />
 
     <ImageView

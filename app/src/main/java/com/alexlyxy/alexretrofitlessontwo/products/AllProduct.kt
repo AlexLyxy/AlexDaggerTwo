@@ -10,15 +10,33 @@ data class AllProduct(
 
     @SerializedName("total")
     @Expose
-    val total: Int? = null,
+    val total: Int,
 
     @SerializedName("skip")
     @Expose
-    val skip: Int? = null,
+    val skip: Int,
 
     @SerializedName("limit")
     @Expose
-    val limit: Int? = null,
+    val limit: Int
 
-    val images: List<String>
 )
+
+//data class Products(
+//    @SerializedName("products")
+//    @Expose
+//    var products: List<Product>? = null,
+//
+//    @SerializedName("total")
+//    @Expose
+//    var total: Int? = null,
+//
+//    @SerializedName("skip")
+//    @Expose
+//    var skip: Int? = null,
+//
+//    @SerializedName("limit")
+//    @Expose
+//    var limit: Int? = null
+//)
+

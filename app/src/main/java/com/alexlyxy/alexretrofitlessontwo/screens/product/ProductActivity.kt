@@ -1,7 +1,5 @@
 package com.alexlyxy.alexretrofitlessontwo.screens.product
 
-import android.annotation.SuppressLint
-import android.health.connect.datatypes.units.Length
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,7 +21,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -59,7 +56,7 @@ class ProductActivity : AppCompatActivity() {
             Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
             Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.title}")
 
-            DetailsActivity.start(this,clickedProduct.title)
+            DetailsActivity.start(this,clickedProduct.id)
         }
         recyclerView.adapter = productsAdapter
 
@@ -85,7 +82,6 @@ class ProductActivity : AppCompatActivity() {
     }
 
     private fun fetchProduct() {
-
         coroutineScope.launch {
             showProgressIndication()
             try {
@@ -138,7 +134,7 @@ class ProductActivity : AppCompatActivity() {
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val title: TextView = view.findViewById(R.id.tvTitleView)
-            //val descr: TextView = view.findViewById(R.id.tvDescriptionView)
+            val descr: TextView = view.findViewById(R.id.tvDescriptionView)
         }
 
         //@SuppressLint("NotifyDataSetChanged")
@@ -157,7 +153,7 @@ class ProductActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
             holder.title.text = productList[position].title
-            //holder.descr.text = productList[position].description
+            holder.descr.text = productList[position].description
 
             //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
             //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
