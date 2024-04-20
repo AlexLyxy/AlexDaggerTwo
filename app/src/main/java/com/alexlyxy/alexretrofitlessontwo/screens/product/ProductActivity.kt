@@ -95,9 +95,7 @@ class ProductActivity : AppCompatActivity() {
 
                     Log.d("MyLog", "ResponseProductActivity : $response")
                     Log.d("MyLog", "ResponseProductProductActivity : $responseProduct")
-                    Log.d(
-                        "MyLog", "ResponseBodyProductActivity[1] : ${response.body()!!.products[2]}"
-                    )
+                    Log.d("MyLog", "ResponseBodyProductActivity[1] : ${response.body()!!.products[2]}")
                     Log.d("MyLog", "ResponseBodyProductActivity : ${response.body()!!.products}")
                 } else {
                     onFetchFailed()
