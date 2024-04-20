@@ -8,14 +8,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class GetProductUseCase {
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create()).build()
-    private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
-
-    suspend fun getLatestProduct(): Response<Product> {
-        return productApi.getProduct(9)
-    }
+//    private val retrofit = Retrofit.Builder()
+//        .baseUrl(Constants.BASE_URL)
+//        .addConverterFactory(GsonConverterFactory.create()).build()
+//    private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
+//
+//    suspend fun getLatestProduct(): Response<Product> {
+//        return productApi.getProduct(9)
+//    }
 }
 
 

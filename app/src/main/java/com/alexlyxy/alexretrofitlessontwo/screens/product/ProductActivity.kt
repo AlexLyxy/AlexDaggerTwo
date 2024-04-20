@@ -51,12 +51,12 @@ class ProductActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
         productsAdapter = ProductsAdapter { clickedProduct ->
-            Toast.makeText(applicationContext,"ActivityStart",Toast.LENGTH_LONG).show()
-            Toast.makeText(applicationContext,"ActivityStartAgain",Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "ActivityStart", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
             Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
-            Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.title}")
+           // Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.description}")
 
-            DetailsActivity.start(this,clickedProduct.id)
+            DetailsActivity.start(this, clickedProduct.id)
         }
         recyclerView.adapter = productsAdapter
 
@@ -86,7 +86,7 @@ class ProductActivity : AppCompatActivity() {
             showProgressIndication()
             try {
                 val response = productApi.getAllProduct("")
-                val responseProduct = productApi.getProduct(1)
+                val responseProduct = productApi.getProduct(id ="").body()!!.product.description
 
                 if (response.isSuccessful && response.body() != null) {
                     //response.body()!!.products?.let { productsAdapter.bindData(it) }
@@ -95,7 +95,9 @@ class ProductActivity : AppCompatActivity() {
 
                     Log.d("MyLog", "ResponseProductActivity : $response")
                     Log.d("MyLog", "ResponseProductProductActivity : $responseProduct")
-                    Log.d("MyLog", "ResponseBodyProductActivity[1] : ${response.body()!!.products [1]}")
+                    Log.d(
+                        "MyLog", "ResponseBodyProductActivity[1] : ${response.body()!!.products[2]}"
+                    )
                     Log.d("MyLog", "ResponseBodyProductActivity : ${response.body()!!.products}")
                 } else {
                     onFetchFailed()
@@ -158,8 +160,8 @@ class ProductActivity : AppCompatActivity() {
             //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
             //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
 
-            Log.d("MyLog", "PictureTitleProductActivity : ${productList[0].title}")
-//            Log.d("MyLog", "PictureDescr : ${productList[0].description}")
+             Log.d("MyLog", "PictureTitleProductActivity : ${productList[0].title}")
+            //Log.d("MyLog", "PictureDescr : ${productList[0].description}")
 //            Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
 
             holder.itemView.setOnClickListener {

@@ -16,7 +16,7 @@ import com.google.gson.annotations.Expose
 data class Product(
     @SerializedName("id")
     @Expose
-    var id: Int,
+    var id: String,
 
     @SerializedName("title")
     @Expose
@@ -24,39 +24,39 @@ data class Product(
 
     @SerializedName("description")
     @Expose
-    var description: String,
+    var description: String
 
-    @SerializedName("price")
-    @Expose
-    var price: Int,
-
-    @SerializedName("discountPercentage")
-    @Expose
-    var discountPercentage: Double,
-
-    @SerializedName("rating")
-    @Expose
-    var rating: Double,
-
-    @SerializedName("stock")
-    @Expose
-    var stock: Int,
-
-    @SerializedName("brand")
-    @Expose
-    var brand: String,
-
-    @SerializedName("category")
-    @Expose
-    var category: String,
-
-    @SerializedName("thumbnail")
-    @Expose
-    var thumbnail: String,
-
-    @SerializedName("images")
-    @Expose
-    var images: List<String>
+//    @SerializedName("price")
+//    @Expose
+//    var price: Int,
+//
+//    @SerializedName("discountPercentage")
+//    @Expose
+//    var discountPercentage: Double,
+//
+//    @SerializedName("rating")
+//    @Expose
+//    var rating: Double,
+//
+//    @SerializedName("stock")
+//    @Expose
+//    var stock: Int,
+//
+//    @SerializedName("brand")
+//    @Expose
+//    var brand: String,
+//
+//    @SerializedName("category")
+//    @Expose
+//    var category: String,
+//
+//    @SerializedName("thumbnail")
+//    @Expose
+//    var thumbnail: String,
+//
+//    @SerializedName("images")
+//    @Expose
+//    var images: List<String>
 )
 
 

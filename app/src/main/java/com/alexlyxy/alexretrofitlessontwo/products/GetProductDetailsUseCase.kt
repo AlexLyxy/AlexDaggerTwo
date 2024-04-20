@@ -9,12 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class GetProductDetailsUseCase {
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create()).build()
-    private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
-
-    suspend fun getLatestProductDetails(): Response<AllProduct> {
-        return productApi.getAllProduct("")
-    }
+//    private val retrofit = Retrofit.Builder()
+//        .baseUrl(Constants.BASE_URL)
+//        .addConverterFactory(GsonConverterFactory.create()).build()
+//    private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
+//
+//    suspend fun getLatestProductDetails(): Response<AllProduct> {
+//        return productApi.getAllProduct("")
+//    }
 }

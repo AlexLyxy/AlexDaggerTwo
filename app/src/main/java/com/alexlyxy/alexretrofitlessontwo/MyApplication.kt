@@ -1,4 +1,11 @@
 package com.alexlyxy.alexretrofitlessontwo
 
-class MyApplication {
+import android.app.Application
+
+class MyApplication: Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+    }
+
 }

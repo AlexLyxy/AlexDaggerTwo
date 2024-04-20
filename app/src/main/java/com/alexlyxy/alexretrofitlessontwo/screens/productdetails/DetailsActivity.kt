@@ -2,15 +2,19 @@ package com.alexlyxy.alexretrofitlessontwo.screens.productdetails
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
+import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar.MyToolbar
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -29,7 +33,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private lateinit var productApi: ProductApi
 
-    private lateinit var products: String
+    private lateinit var productId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +58,8 @@ class DetailsActivity : AppCompatActivity() {
         productApi = retrofit.create(productApi::class.java)
 
         //retrieve question ID passed from outside
-
-        //productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
-         products = intent.extras!!.getString(EXTRA_PRODUCTS)!!
-        Log.d("MyLog", "ProductIDdetails : $products")
+         productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
+        Log.d("MyLog", "ProductIDdetails : $productId")
 
     }
 
@@ -73,58 +75,56 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun fetchProductDetails() {
         coroutineScope.launch {
-            //showProgressIndication()
-            //  try {
-            val response = productApi.getAllProduct(products)
+            showProgressIndication()
+            try {
+            val response = productApi.getProduct(productId)
            // val response = productApi.getProduct(id.toInt())
             if (response.isSuccessful && response.body() != null) {
-                val productBody = response.body()!!.products[0].title
+
+                val productBody = response.body()!!.product.description
 
                 Log.d("MyLog", "AllProductDetails: $response")
                 Log.d("MyLog", "ProductBodyDetails: $productBody")
 
-
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                        txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
-//                    } else {
-//                        @Suppress("DEPRECATION")
-//                        txtProductBody.text = Html.fromHtml(productBody)
-//                    }
-//                } else {
-//                    onFetchFailed()
-//                }
-//            } catch (t: Throwable) {
-//                if (t !is CancellationException) {
-//                    onFetchFailed()
-//                }
-//            } finally {
-//                hideProgressIndication()
-//            }
-
-                //       }
-                //   }
-
-//    private fun onFetchFailed() {
-//        supportFragmentManager.beginTransaction()
-//            .add(ServerErrorDialogFragment.newInstance(), null)
-//            .commitAllowingStateLoss()
-//    }
-//
-//    private fun showProgressIndication() {
-//        swipeRefresh.isRefreshing = true
-//    }
-//
-//    private fun hideProgressIndication() {
-//        swipeRefresh.isRefreshing = false
-//    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+                    } else {
+                        @Suppress("DEPRECATION")
+                        txtProductBody.text = Html.fromHtml(productBody)
+                    }
+                } else {
+                    onFetchFailed()
+                }
+            } catch (t: Throwable) {
+                if (t !is CancellationException) {
+                    onFetchFailed()
+                }
+            } finally {
+                hideProgressIndication()
             }
-        }
+
+                       }
+                   }
+
+    private fun onFetchFailed() {
+        supportFragmentManager.beginTransaction()
+            .add(ServerErrorDialogFragment.newInstance(), null)
+            .commitAllowingStateLoss()
     }
+
+    private fun showProgressIndication() {
+        swipeRefresh.isRefreshing = true
+    }
+
+    private fun hideProgressIndication() {
+        swipeRefresh.isRefreshing = false
+    }
+
     companion object {
-        const val EXTRA_PRODUCTS = "EXTRA_PRODUCTS"
-        fun start(context: Context, products: Int) {
+        const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+        fun start(context: Context, productId: String) {
             val intent = Intent(context, DetailsActivity::class.java)
-            intent.putExtra(EXTRA_PRODUCTS, products)
+            intent.putExtra(EXTRA_PRODUCT_ID, productId)
             context.startActivity(intent)
         }
     }
