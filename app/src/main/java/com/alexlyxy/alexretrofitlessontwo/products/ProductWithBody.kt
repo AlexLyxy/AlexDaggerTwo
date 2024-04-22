@@ -7,7 +7,7 @@ data class ProductWithBody(
 
     @SerializedName("id")
     @Expose
-    var id: Int,
+    var id: String,
 
     @SerializedName("title")
     @Expose

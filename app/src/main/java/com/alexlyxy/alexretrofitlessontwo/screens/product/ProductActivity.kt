@@ -90,7 +90,8 @@ class ProductActivity : AppCompatActivity() {
 
                 if (response.isSuccessful && response.body() != null) {
                     //response.body()!!.products?.let { productsAdapter.bindData(it) }
-                    productsAdapter.bindData(response.body()!!.products)
+                   productsAdapter.bindData(response.body()!!.products)
+
                     isDataLoaded = true
 
                     Log.d("MyLog", "ResponseProductActivity : $response")

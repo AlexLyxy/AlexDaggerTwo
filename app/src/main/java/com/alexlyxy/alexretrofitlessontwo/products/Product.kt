@@ -16,7 +16,7 @@ import com.google.gson.annotations.Expose
 data class Product(
     @SerializedName("id")
     @Expose
-    var id: Int,
+    var id: String,
 
     @SerializedName("title")
     @Expose

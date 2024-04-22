@@ -1,5 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo.networking
 
+import com.alexlyxy.alexretrofitlessontwo.products.Product
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
