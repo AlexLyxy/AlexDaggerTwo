@@ -86,7 +86,7 @@ class ProductActivity : AppCompatActivity() {
             showProgressIndication()
             try {
                 val response = productApi.getAllProduct("")
-                val responseProduct = productApi.getProduct(id ="").body()!!.product.description
+                val responseProduct = productApi.getProduct(0).body()!!.product.description
 
                 if (response.isSuccessful && response.body() != null) {
                     //response.body()!!.products?.let { productsAdapter.bindData(it) }

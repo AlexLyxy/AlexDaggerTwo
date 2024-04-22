@@ -22,6 +22,7 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.properties.Delegates
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -33,7 +34,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private lateinit var productApi: ProductApi
 
-    private lateinit var productId: String
+    private  var productId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +59,7 @@ class DetailsActivity : AppCompatActivity() {
         productApi = retrofit.create(productApi::class.java)
 
         //retrieve question ID passed from outside
-         productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
+        productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
         Log.d("MyLog", "ProductIDdetails : $productId")
 
     }
@@ -77,21 +78,15 @@ class DetailsActivity : AppCompatActivity() {
         coroutineScope.launch {
             showProgressIndication()
             try {
-            val response = productApi.getProduct(productId)
-           // val response = productApi.getProduct(id.toInt())
-            if (response.isSuccessful && response.body() != null) {
+                val response = productApi.getProduct(productId)
+                if (response.isSuccessful && response.body() != null) {
 
-                val productBody = response.body()!!.product.description
+                    val productBody = response.body()!!.product.description
 
-                Log.d("MyLog", "AllProductDetails: $response")
-                Log.d("MyLog", "ProductBodyDetails: $productBody")
+                    Log.d("MyLog", "AllProductDetails: $response")
+                    Log.d("MyLog", "ProductBodyDetails: $productBody")
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
-                    } else {
-                        @Suppress("DEPRECATION")
-                        txtProductBody.text = Html.fromHtml(productBody)
-                    }
+                    txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
                 } else {
                     onFetchFailed()
                 }
@@ -103,8 +98,8 @@ class DetailsActivity : AppCompatActivity() {
                 hideProgressIndication()
             }
 
-                       }
-                   }
+        }
+    }
 
     private fun onFetchFailed() {
         supportFragmentManager.beginTransaction()
@@ -122,7 +117,7 @@ class DetailsActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
-        fun start(context: Context, productId: String) {
+        fun start(context: Context, productId: Int) {
             val intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra(EXTRA_PRODUCT_ID, productId)
             context.startActivity(intent)

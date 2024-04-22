@@ -9,5 +9,5 @@ interface ProductApi  {
     suspend fun getAllProduct(@Path("products") products: String): Response<ProductListResponseSchema>
 
     @GET("products/{id}")
-    suspend fun getProduct(@Path("id") id: String): Response<SingleProductResponseSchema>
+    suspend fun getProduct(@Path("id") id: Int): Response<SingleProductResponseSchema>
 }
