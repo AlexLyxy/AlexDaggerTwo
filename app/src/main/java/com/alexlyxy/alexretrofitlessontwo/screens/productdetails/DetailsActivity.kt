@@ -40,6 +40,8 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_small)
 
+        Toast.makeText(applicationContext, "onCreateDetailed", Toast.LENGTH_LONG).show()
+
         //txtProductBody = findViewById(R.id.tvTitleDetails)
         txtProductBody = findViewById(R.id.tvDesrDetails)
 
@@ -68,7 +70,7 @@ class DetailsActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         //fetchProductDetails()
-        Toast.makeText(applicationContext, "ActivityStart", Toast.LENGTH_LONG).show()
+        Toast.makeText(applicationContext, "ActivityStartDetailed", Toast.LENGTH_LONG).show()
     }
 
     override fun onStop() {
@@ -79,7 +81,7 @@ class DetailsActivity : AppCompatActivity() {
     private fun fetchProductDetails() {
         coroutineScope.launch {
             //showProgressIndication()
-  //          try {
+            //          try {
 //                val response = productApi.getProduct(productId)
 //                if (response.isSuccessful && response.body() != null) {
 //
@@ -88,10 +90,10 @@ class DetailsActivity : AppCompatActivity() {
 //                    Log.d("MyLog", "AllProductDetails: $response")
 //                    //Log.d("MyLog", "ProductBodyDetails: $productBody")
 
-                    //txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
-            "description".also { txtProductBody.text = it }
+            //txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+           // "description".also { txtProductBody.text = it }
 
- //               }
+            //               }
 //            else {
 //                    onFetchFailed()
 //                }
