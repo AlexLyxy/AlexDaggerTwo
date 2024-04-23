@@ -5,13 +5,17 @@ import com.google.gson.annotations.SerializedName
 
 data class ProductWithBody(
 
+//    @SerializedName("products")
+//    @Expose
+//    val products: List<Product>,
+
     @SerializedName("id")
     @Expose
     var id: String,
 
-    @SerializedName("title")
-    @Expose
-    var title: String,
+//    @SerializedName("title")
+//    @Expose
+//    var title: String,
 
     @SerializedName("description")
     @Expose
