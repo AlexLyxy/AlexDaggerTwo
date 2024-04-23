@@ -56,8 +56,9 @@ class ProductActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
             Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
             // Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.description}")
-
+            coroutineScope.coroutineContext.cancelChildren()
             DetailsActivity.start(this, clickedProduct.id)
+            Log.d("MyLog", "ID : ${clickedProduct.id}")
         }
         recyclerView.adapter = productsAdapter
 
@@ -93,10 +94,10 @@ class ProductActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     //response.body()!!.products?.let { productsAdapter.bindData(it) }
                     //productsAdapter.bindData(response.body()!!.products)
+                    coroutineScope.coroutineContext.cancelChildren()
                     productsAdapter.bindData(response.body()!!.products)
 
                     isDataLoaded = true
-
                     Log.d("MyLog", "ResponseProductActivity : $response")
                     //Log.d("MyLog", "ResponseProductProductActivity : $responseProduct")
                     Log.d(

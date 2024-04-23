@@ -128,6 +128,7 @@ class DetailsActivity : AppCompatActivity() {
             val intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra(EXTRA_PRODUCT_ID, productId)
             context.startActivity(intent)
+            Log.d("MyLog", "ProductID : ${productId}")
         }
     }
 }
