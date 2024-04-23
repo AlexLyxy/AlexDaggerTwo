@@ -11,11 +11,11 @@ data class ProductWithBody(
 
     @SerializedName("id")
     @Expose
-    var id: String,
+    var id: Int,
 
-//    @SerializedName("title")
-//    @Expose
-//    var title: String,
+    @SerializedName("title")
+    @Expose
+    var title: String,
 
     @SerializedName("description")
     @Expose

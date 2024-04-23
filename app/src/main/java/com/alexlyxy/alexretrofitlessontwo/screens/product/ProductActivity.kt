@@ -21,6 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -54,7 +55,7 @@ class ProductActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "ActivityStart", Toast.LENGTH_LONG).show()
             Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
             Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
-           // Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.description}")
+            // Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.description}")
 
             DetailsActivity.start(this, clickedProduct.id)
         }
@@ -86,17 +87,22 @@ class ProductActivity : AppCompatActivity() {
             showProgressIndication()
             try {
                 val response = productApi.getAllProduct("")
-                val responseProduct = productApi.getProduct(0).body()!!.product.description
+                //delay(5000)
+                //val responseProduct = productApi.getProduct(2).body()!!.product.description
 
                 if (response.isSuccessful && response.body() != null) {
                     //response.body()!!.products?.let { productsAdapter.bindData(it) }
-                   productsAdapter.bindData(response.body()!!.products)
+                    //productsAdapter.bindData(response.body()!!.products)
+                    productsAdapter.bindData(response.body()!!.products)
 
                     isDataLoaded = true
 
                     Log.d("MyLog", "ResponseProductActivity : $response")
-                    Log.d("MyLog", "ResponseProductProductActivity : $responseProduct")
-                    Log.d("MyLog", "ResponseBodyProductActivity[1] : ${response.body()!!.products[2]}")
+                    //Log.d("MyLog", "ResponseProductProductActivity : $responseProduct")
+                    Log.d(
+                        "MyLog",
+                        "ResponseBodyProductActivity[1] : ${response.body()!!.products[2]}"
+                    )
                     Log.d("MyLog", "ResponseBodyProductActivity : ${response.body()!!.products}")
                 } else {
                     onFetchFailed()
@@ -159,9 +165,9 @@ class ProductActivity : AppCompatActivity() {
             //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
             //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
 
-             Log.d("MyLog", "PictureTitleProductActivity : ${productList[0].title}")
+            Log.d("MyLog", "PictureTitleProductActivity : ${productList[0].title}")
             //Log.d("MyLog", "PictureDescr : ${productList[0].description}")
-//            Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
+            // Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
 
             holder.itemView.setOnClickListener {
                 onProductClickListener.invoke(productList[position])

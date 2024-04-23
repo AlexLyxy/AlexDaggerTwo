@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
@@ -21,6 +22,7 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.properties.Delegates
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -30,9 +32,9 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var txtProductBody: TextView
 
-    private lateinit var productApi: ProductApi
+    //private lateinit var productApi: ProductApi
 
-    private  lateinit var productId: String
+    private var productId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,17 +56,19 @@ class DetailsActivity : AppCompatActivity() {
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        productApi = retrofit.create(productApi::class.java)
+        //productApi = retrofit.create(productApi::class.java)
 
         //retrieve question ID passed from outside
-        productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
+        //productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
+        productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
         Log.d("MyLog", "ProductIDdetails : $productId")
 
     }
 
     override fun onStart() {
         super.onStart()
-        fetchProductDetails()
+        //fetchProductDetails()
+        Toast.makeText(applicationContext, "ActivityStart", Toast.LENGTH_LONG).show()
     }
 
     override fun onStop() {
@@ -74,27 +78,30 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun fetchProductDetails() {
         coroutineScope.launch {
-            showProgressIndication()
-            try {
-                val response = productApi.getProduct(productId.toInt())
-                if (response.isSuccessful && response.body() != null) {
+            //showProgressIndication()
+  //          try {
+//                val response = productApi.getProduct(productId)
+//                if (response.isSuccessful && response.body() != null) {
+//
+//                    val productBody = response.body()!!.product.description
+//
+//                    Log.d("MyLog", "AllProductDetails: $response")
+//                    //Log.d("MyLog", "ProductBodyDetails: $productBody")
 
-                    val productBody = response.body()!!.product.description
+                    //txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+            "description".also { txtProductBody.text = it }
 
-                    Log.d("MyLog", "AllProductDetails: $response")
-                    Log.d("MyLog", "ProductBodyDetails: $productBody")
-
-                    txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
-                } else {
-                    onFetchFailed()
-                }
-            } catch (t: Throwable) {
-                if (t !is CancellationException) {
-                    onFetchFailed()
-                }
-            } finally {
-                hideProgressIndication()
-            }
+ //               }
+//            else {
+//                    onFetchFailed()
+//                }
+//            } catch (t: Throwable) {
+//                if (t !is CancellationException) {
+//                    onFetchFailed()
+//                }
+//            } finally {
+//                hideProgressIndication()
+//            }
 
         }
     }
@@ -115,7 +122,7 @@ class DetailsActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
-        fun start(context: Context, productId: String) {
+        fun start(context: Context, productId: Int) {
             val intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra(EXTRA_PRODUCT_ID, productId)
             context.startActivity(intent)
