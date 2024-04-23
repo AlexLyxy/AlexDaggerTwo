@@ -19,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -80,7 +81,8 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun fetchProductDetails() {
         coroutineScope.launch {
-            //showProgressIndication()
+            delay(5000)
+            showProgressIndication()
             //          try {
 //                val response = productApi.getProduct(productId)
 //                if (response.isSuccessful && response.body() != null) {
@@ -102,7 +104,7 @@ class DetailsActivity : AppCompatActivity() {
 //                    onFetchFailed()
 //                }
 //            } finally {
-//                hideProgressIndication()
+                hideProgressIndication()
 //            }
 
         }
@@ -124,11 +126,15 @@ class DetailsActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+
         fun start(context: Context, productId: Int) {
             val intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra(EXTRA_PRODUCT_ID, productId)
             context.startActivity(intent)
-            Log.d("MyLog", "ProductID : ${productId}")
+            Log.d("MyLog", "ProductID : $productId")
+//            val applicationContext = null
+//            Toast.makeText(applicationContext,"Companion Object", Toast.LENGTH_LONG).show()
         }
     }
 }
+
