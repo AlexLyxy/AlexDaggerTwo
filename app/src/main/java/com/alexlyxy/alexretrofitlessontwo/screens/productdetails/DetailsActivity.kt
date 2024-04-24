@@ -32,13 +32,13 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var toolbar: MyToolbar
     private lateinit var swipeRefresh: SwipeRefreshLayout
 
-//    private lateinit var txtProductBody1: TextView
+    private lateinit var txtProductBody1: TextView
 //    private lateinit var txtProductBody2: TextView
+   // private lateinit var txtProductBody: TextView
 
-    private lateinit var txtProductBody: TextView
+    //private lateinit var productApi: ProductApi
 
-
-    private lateinit var productApi: ProductApi
+    private var isDataLoaded = false
 
     private var productId by Delegates.notNull<Int>()
 
@@ -46,9 +46,11 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_small)
 
+        //start(this, productId)
+
         Toast.makeText(applicationContext, "onCreateDetailed", Toast.LENGTH_LONG).show()
 
-        txtProductBody = findViewById(R.id.tvTitleDetails)
+        txtProductBody1 = findViewById(R.id.tvTitleDetails)
         //txtProductBody2 = findViewById(R.id.tvDesrDetails)
 
         // init toolbar
@@ -64,7 +66,7 @@ class DetailsActivity : AppCompatActivity() {
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        productApi = retrofit.create(productApi::class.java)
+        //productApi = retrofit.create(productApi::class.java)
 
         //retrieve question ID passed from outside
         //productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
@@ -76,7 +78,9 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+       if (!isDataLoaded){
         fetchProductDetails()
+        }
         Toast.makeText(applicationContext, "ActivityStartDetailed", Toast.LENGTH_LONG).show()
     }
 
@@ -91,21 +95,21 @@ class DetailsActivity : AppCompatActivity() {
             showProgressIndication()
             try {
                 //val response = productApi.getProduct(productId)
-                val response = productApi.getAllProduct("1")
+                //val response = productApi.getAllProduct("1")
 
-                //val response = productId
-                 if (response.isSuccessful && response.body() != null) {
-               // if (response != null) {
-                    val productBody = response.body()!!.products.get(1).description
-                    //val productBody1 = response.toString()
+                val response = productId
+                 //if (response.isSuccessful && response.body() != null) {
+                if (response != null) {
+                    //val productBody = response.body()!!.products.get(1).description
+                    val productBody1 = response.toString()
                     //val productBody2 = (response +2).toString()
 //
 //                    Log.d("MyLog", "AllProductDetails: $response")
                     //Log.d("MyLog", "ProductBodyDetails: $productBody")
 
-                     txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+                     //txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
 
-//                    txtProductBody1.text = Html.fromHtml(productBody1, Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBody1.text = Html.fromHtml(productBody1, Html.FROM_HTML_MODE_LEGACY)
 //                    txtProductBody2.text = Html.fromHtml(productBody2, Html.FROM_HTML_MODE_LEGACY)
 
                 } else {
@@ -138,7 +142,6 @@ class DetailsActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
-
         fun start(context: Context, productId: Int) {
             val intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra(EXTRA_PRODUCT_ID, productId)
