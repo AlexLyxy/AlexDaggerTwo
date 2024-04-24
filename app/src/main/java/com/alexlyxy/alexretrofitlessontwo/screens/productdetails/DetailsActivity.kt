@@ -92,13 +92,14 @@ class DetailsActivity : AppCompatActivity() {
                  //if (response.isSuccessful && response.body() != null) {
                 if (response != null) {
                     //val productBody = response.body()!!.product.description
-                    val productBody = response.toString()
+                    val productBody1 = response.toString()
+                    val productBody2 = (response +2).toString()
 //
 //                    Log.d("MyLog", "AllProductDetails: $response")
-                    Log.d("MyLog", "ProductBodyDetails: $productBody")
+                    //Log.d("MyLog", "ProductBodyDetails: $productBody")
 
-                    txtProductBody1.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
-                    txtProductBody2.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBody1.text = Html.fromHtml(productBody1, Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBody2.text = Html.fromHtml(productBody2, Html.FROM_HTML_MODE_LEGACY)
 
                 } else {
                     onFetchFailed()
