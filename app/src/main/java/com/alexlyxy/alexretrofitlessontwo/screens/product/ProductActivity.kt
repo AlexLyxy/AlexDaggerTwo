@@ -52,13 +52,14 @@ class ProductActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
         productsAdapter = ProductsAdapter { clickedProduct ->
+
             Toast.makeText(applicationContext, "ActivityStart", Toast.LENGTH_LONG).show()
             Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
+
             Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
             // Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.description}")
-            coroutineScope.coroutineContext.cancelChildren()
+
             DetailsActivity.start(this, clickedProduct.id)
-            Log.d("MyLog", "ID : ${clickedProduct.id}")
         }
         recyclerView.adapter = productsAdapter
 

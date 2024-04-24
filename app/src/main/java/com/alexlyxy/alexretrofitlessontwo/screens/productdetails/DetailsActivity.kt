@@ -31,7 +31,8 @@ class DetailsActivity : AppCompatActivity() {
 
     private lateinit var toolbar: MyToolbar
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var txtProductBody: TextView
+    private lateinit var txtProductBody1: TextView
+    private lateinit var txtProductBody2: TextView
 
     //private lateinit var productApi: ProductApi
 
@@ -43,8 +44,8 @@ class DetailsActivity : AppCompatActivity() {
 
         Toast.makeText(applicationContext, "onCreateDetailed", Toast.LENGTH_LONG).show()
 
-        //txtProductBody = findViewById(R.id.tvTitleDetails)
-        txtProductBody = findViewById(R.id.tvDesrDetails)
+        txtProductBody1 = findViewById(R.id.tvTitleDetails)
+        txtProductBody2 = findViewById(R.id.tvDesrDetails)
 
         // init toolbar
         toolbar = findViewById(R.id.toolbar)
@@ -63,6 +64,7 @@ class DetailsActivity : AppCompatActivity() {
 
         //retrieve question ID passed from outside
         //productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
+
         productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
         Log.d("MyLog", "ProductIDdetails : $productId")
 
@@ -70,7 +72,7 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        //fetchProductDetails()
+        fetchProductDetails()
         Toast.makeText(applicationContext, "ActivityStartDetailed", Toast.LENGTH_LONG).show()
     }
 
@@ -83,29 +85,31 @@ class DetailsActivity : AppCompatActivity() {
         coroutineScope.launch {
             delay(5000)
             showProgressIndication()
-            //          try {
-//                val response = productApi.getProduct(productId)
-//                if (response.isSuccessful && response.body() != null) {
-//
-//                    val productBody = response.body()!!.product.description
+            try {
+                //val response = productApi.getProduct(productId)
+
+                val response = productId
+                 //if (response.isSuccessful && response.body() != null) {
+                if (response != null) {
+                    //val productBody = response.body()!!.product.description
+                    val productBody = response.toString()
 //
 //                    Log.d("MyLog", "AllProductDetails: $response")
-//                    //Log.d("MyLog", "ProductBodyDetails: $productBody")
+                    Log.d("MyLog", "ProductBodyDetails: $productBody")
 
-            //txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
-           // "description".also { txtProductBody.text = it }
+                    txtProductBody1.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBody2.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
 
-            //               }
-//            else {
-//                    onFetchFailed()
-//                }
-//            } catch (t: Throwable) {
-//                if (t !is CancellationException) {
-//                    onFetchFailed()
-//                }
-//            } finally {
+                } else {
+                    onFetchFailed()
+                }
+            } catch (t: Throwable) {
+                if (t !is CancellationException) {
+                    onFetchFailed()
+                }
+            } finally {
                 hideProgressIndication()
-//            }
+            }
 
         }
     }
