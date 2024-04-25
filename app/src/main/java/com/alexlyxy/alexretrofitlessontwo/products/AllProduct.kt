@@ -3,24 +3,29 @@ package com.alexlyxy.alexretrofitlessontwo.products
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class AllProduct(
-    @SerializedName("products")
-    @Expose
-    val products: List<Product>,
+//data class AllProduct(
 
-    @SerializedName("total")
-    @Expose
-    val total: Int,
+//    @SerializedName("products")
+//    @Expose
+  // val products: List<Product>
 
-    @SerializedName("skip")
-    @Expose
-    val skip: Int,
+    //val products: List<String> = listOf("One", "Two", "Three")
 
-    @SerializedName("limit")
-    @Expose
-    val limit: Int
 
-)
+//
+//    @SerializedName("total")
+//    @Expose
+//    val total: Int,
+//
+//    @SerializedName("skip")
+//    @Expose
+//    val skip: Int,
+//
+//    @SerializedName("limit")
+//    @Expose
+//    val limit: Int
+
+//)
 
 //data class Products(
 //    @SerializedName("products")
