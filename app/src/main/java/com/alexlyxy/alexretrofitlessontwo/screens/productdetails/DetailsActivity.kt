@@ -33,7 +33,7 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
 
     private lateinit var txtProductBody1: TextView
-//    private lateinit var txtProductBody2: TextView
+    private lateinit var txtProductBody2: TextView
    // private lateinit var txtProductBody: TextView
 
     //private lateinit var productApi: ProductApi
@@ -51,7 +51,7 @@ class DetailsActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, "onCreateDetailed", Toast.LENGTH_LONG).show()
 
         txtProductBody1 = findViewById(R.id.tvTitleDetails)
-        //txtProductBody2 = findViewById(R.id.tvDesrDetails)
+        txtProductBody2 = findViewById(R.id.tvDesrDetails)
 
         // init toolbar
         toolbar = findViewById(R.id.toolbar)
@@ -102,7 +102,7 @@ class DetailsActivity : AppCompatActivity() {
                 if (response != null) {
                     //val productBody = response.body()!!.products.get(1).description
                     val productBody1 = response.toString()
-                    //val productBody2 = (response +2).toString()
+                    val productBody2 = (response +2).toString()
 //
 //                    Log.d("MyLog", "AllProductDetails: $response")
                     //Log.d("MyLog", "ProductBodyDetails: $productBody")
@@ -110,7 +110,7 @@ class DetailsActivity : AppCompatActivity() {
                      //txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
 
                     txtProductBody1.text = Html.fromHtml(productBody1, Html.FROM_HTML_MODE_LEGACY)
-//                    txtProductBody2.text = Html.fromHtml(productBody2, Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBody2.text = Html.fromHtml(productBody2, Html.FROM_HTML_MODE_LEGACY)
 
                 } else {
                     onFetchFailed()
