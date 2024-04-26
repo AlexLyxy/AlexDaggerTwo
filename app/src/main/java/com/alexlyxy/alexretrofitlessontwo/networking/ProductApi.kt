@@ -11,8 +11,8 @@ interface ProductApi  {
     //suspend fun getAllProduct(@Path("products") products: String): Response<AllProduct>
     //suspend fun getAllProduct(@Path("products") products: String): Response<ProductListResponseSchema>
 
-   // @GET("products/{id}")
-   // suspend fun getProduct(@Path("id") id: Int): Response<Product>
+    @GET("products/{id}")
+    suspend fun getProduct(@Path("id") id: Int): Response<Product>
     //suspend fun getProduct(@Path("id") id: Int): Response<SingleProductResponseSchema>
 
 }

@@ -15,19 +15,19 @@ import com.google.gson.annotations.Expose
 
 data class Product(
 
-  //  val products: List<Product>,
+    val products: List<Product>,
 
-    //    @SerializedName("id")
-//    @Expose
-    var id: Int = 1,
+        @SerializedName("id")
+    @Expose
+    var id: Int ,
 
-//    @SerializedName("title")
-//    @Expose
-    var title: String = "Samsung",
+    @SerializedName("title")
+    @Expose
+    var title: String ,
 
-//    @SerializedName("description")
-//    @Expose
-    var description: String = "Description Description Description"
+    @SerializedName("description")
+    @Expose
+    var description: String
 
 //    @SerializedName("products")
 //    @Expose

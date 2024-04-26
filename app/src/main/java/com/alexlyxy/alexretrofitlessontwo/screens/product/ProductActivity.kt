@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
+import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.products.Product
+import com.alexlyxy.alexretrofitlessontwo.products.ProductAct
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
 import kotlinx.coroutines.CoroutineScope
@@ -34,8 +36,9 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var productsAdapter: ProductsAdapter
     //private lateinit var productApi: ProductApi
 
-    val id: Int = 1
-    val products: List<Product> = listOf(Product(title = "Samsung", description = "Description Description Description" ))
+    //val id: Int = 3
+    //val products: List<Product> = listOf(Product(id = 1,title = "Samsung", description = "Description Description Description" ))
+    val products: List<ProductAct> =  listOf(ProductAct(id = 3,title = "Samsung", description = "Description Description Description" ))
 
     private var isDataLoaded = false
 
@@ -134,11 +137,11 @@ class ProductActivity : AppCompatActivity() {
     }
 
     class ProductsAdapter(
-        private val onProductClickListener: (Product) -> Unit
+        private val onProductClickListener: (ProductAct) -> Unit
     ) : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
 
         //private var productList: List<Product> = ArrayList(0)
-        private var productList: List<Product> = ArrayList(0)
+        private var productList: List<ProductAct> = ArrayList(0)
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val title: TextView = view.findViewById(R.id.tvTitleView)
@@ -148,7 +151,7 @@ class ProductActivity : AppCompatActivity() {
         //@SuppressLint("NotifyDataSetChanged")
         //fun bindData(products: List<Product>) {
 
-            fun bindData(products: List<Product>) {
+            fun bindData(products: List<ProductAct>) {
             productList =ArrayList(products)
             notifyDataSetChanged()
             Log.d("MyLog", "productListProductActivity : $productList")
