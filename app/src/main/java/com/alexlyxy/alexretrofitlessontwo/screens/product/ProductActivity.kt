@@ -38,7 +38,7 @@ class ProductActivity : AppCompatActivity() {
 
     //val id: Int = 3
     //val products: List<Product> = listOf(Product(id = 1,title = "Samsung", description = "Description Description Description" ))
-    val products: List<ProductAct> =  listOf(ProductAct(id = 3,title = "Samsung", description = "Description Description Description" ))
+    val products: List<ProductAct> =  listOf(ProductAct(id = 1,title = "Samsung", description = "Description Description Description" ))
 
     private var isDataLoaded = false
 

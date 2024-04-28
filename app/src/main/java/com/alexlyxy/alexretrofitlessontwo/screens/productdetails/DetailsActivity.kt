@@ -37,7 +37,8 @@ class DetailsActivity : AppCompatActivity() {
 
     private lateinit var productApi: ProductApi
 
-    private var productId by Delegates.notNull<Int>()
+   // private var productId by Delegates.notNull<Int>()
+    private var productId = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +67,8 @@ class DetailsActivity : AppCompatActivity() {
         //retrieve question ID passed from outside
         //productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
 
-        productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
+        productId = 2
+       // productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
         Log.d("MyLog", "ProductIDdetails : $productId")
 
     }
