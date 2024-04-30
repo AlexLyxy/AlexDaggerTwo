@@ -5,9 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import android.util.AttributeSet
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
@@ -35,7 +40,9 @@ class DetailsActivity : AppCompatActivity() {
 //        private lateinit var txtProductBody1: TextView
 //    private lateinit var txtProductBody2: TextView
 
-    private lateinit var productApi: ProductApi
+//    private lateinit var productApi: ProductApi
+
+    private var productApi: ProductApi? = null
 
    // private var productId by Delegates.notNull<Int>()
     private var productId = 1
@@ -43,6 +50,7 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_small)
+
 
         Toast.makeText(applicationContext, "onCreateDetailed", Toast.LENGTH_LONG).show()
 
@@ -62,7 +70,10 @@ class DetailsActivity : AppCompatActivity() {
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        productApi = retrofit.create(productApi::class.java)
+        productApi= retrofit.create(productApi!!::class.java)
+
+        Log.d("MyLog", "ProductAPI DetaledActivity : $productApi")
+
 
         //retrieve question ID passed from outside
         //productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
@@ -75,7 +86,16 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-            fetchProductDetails()
+            //fetchProductDetails()
+
+//        val retrofit = Retrofit.Builder()
+//            .baseUrl(Constants.BASE_URL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//        productApi = retrofit.create(productApi::class.java)
+//
+//        Log.d("MyLog", "ProductAPI DetaledActivity : $productApi")
+
         Toast.makeText(applicationContext, "ActivityStartDetailed", Toast.LENGTH_LONG).show()
         }
 
@@ -84,42 +104,44 @@ class DetailsActivity : AppCompatActivity() {
         coroutineScope.coroutineContext.cancelChildren()
     }
 
-    private fun fetchProductDetails() {
-        coroutineScope.launch {
-            delay(5000)
-            showProgressIndication()
-            try {
-                val response = productApi.getProduct(productId)
+//    private fun fetchProductDetails() {
+//        coroutineScope.launch {
+//            delay(5000)
+//            //showProgressIndication()
+//            try {
+                //val response = productApi.getProduct(productId)
                 //val response = productApi.getAllProduct("1")
                 //val response = productId
-                if (response.isSuccessful && response.body() != null) {
+                //if (response.isSuccessful && response.body() != null) {
                 //if (response != null) {
                     //val productBody = response.body()!!.products.get(1).description
-                    val productBody = response.body()!!.description
+                    //val productBody = response.body()!!.description
 //                    val productBody1 = response.toString()
 //                    val productBody2 = (response + 5).toString()
 //
 //                    Log.d("MyLog", "AllProductDetails: $response")
                     //Log.d("MyLog", "ProductBodyDetails: $productBody")
 
-                    txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+                   // txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+                //txtProductBody.text = Html.fromHtml("Product Detailed", Html.FROM_HTML_MODE_LEGACY)
+
 
 //                    txtProductBody1.text = Html.fromHtml(productBody1, Html.FROM_HTML_MODE_LEGACY)
 //                    txtProductBody2.text = Html.fromHtml(productBody2, Html.FROM_HTML_MODE_LEGACY)
 
-                } else {
-                    onFetchFailed()
-                }
-            } catch (t: Throwable) {
-                if (t !is CancellationException) {
-                    onFetchFailed()
-                }
-            } finally {
-                hideProgressIndication()
-            }
-
-        }
-    }
+//                } else {
+//                    onFetchFailed()
+//                }
+//            } catch (t: Throwable) {
+//                if (t !is CancellationException) {
+//                    onFetchFailed()
+//                }
+//            } finally {
+//               // hideProgressIndication()
+//            }
+////
+//       }
+//    }
 
     private fun onFetchFailed() {
         supportFragmentManager.beginTransaction()
