@@ -15,7 +15,6 @@ import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.products.Product
-import com.alexlyxy.alexretrofitlessontwo.products.ProductAct
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
 import kotlinx.coroutines.CoroutineScope
@@ -34,11 +33,9 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var productsAdapter: ProductsAdapter
-    //private lateinit var productApi: ProductApi
+    private lateinit var productApi: ProductApi
 
-    //val id: Int = 3
-    //val products: List<Product> = listOf(Product(id = 1,title = "Samsung", description = "Description Description Description" ))
-    val products: List<ProductAct> =  listOf(ProductAct(id = 1,title = "Samsung", description = "Description Description Description" ))
+    //val products: List<ProductAct> =  listOf(ProductAct(id = 1,title = "Samsung", description = "Description Description Description" ))
 
     private var isDataLoaded = false
 
@@ -72,7 +69,7 @@ class ProductActivity : AppCompatActivity() {
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        //productApi = retrofit.create(ProductApi::class.java)
+        productApi = retrofit.create(ProductApi::class.java)
 
     }
 
@@ -92,24 +89,21 @@ class ProductActivity : AppCompatActivity() {
         coroutineScope.launch {
             showProgressIndication()
             try {
-                // val response = productApi.getAllProduct("")
-                //val response = "Descr"
+                val response = productApi.getAllProduct("")
+                if (response.isSuccessful && response.body() != null) {
+                    productsAdapter.bindData(response.body()!!.products)
 
-                //val products: List<Product>
-                val response = products
-                //delay(5000)
-                //val responseProduct = productApi.getProduct(2).body()!!.product.description
-                // if (response.isSuccessful && response.body() != null) {
-
-                //response.body()!!.products?.let { productsAdapter.bindData(it) }
-                //productsAdapter.bindData(response.body()!!.products)
-                productsAdapter.bindData(response)
-
-                isDataLoaded = true
-                Log.d("MyLog", "ResponseProductActivity : $response")
-                //Log.d("MyLog", "ResponseProductProductActivity : $responseProduct")
-//                    Log.d("MyLog", "ResponseBodyProductActivity[1] : ${response.body()!!.products[2]}")
-//                    Log.d("MyLog", "ResponseBodyProductActivity : ${response.body()!!.products}")
+                    isDataLoaded = true
+                    Log.d("MyLog", "ResponseProductActivity : $response")
+                    //Log.d("MyLog", "ResponseProductProductActivity : $responseProduct")
+                    Log.d(
+                        "MyLog",
+                        "ResponseBodyProductActivity[1] : ${response.body()!!.products[2]}"
+                    )
+                    //Log.d("MyLog", "ResponseBodyProductActivity : ${response.body()!!.products}")
+                } else {
+                    onFetchFailed()
+                }
             } catch (t: Throwable) {
                 if (t !is CancellationException) {
                     onFetchFailed()
@@ -137,11 +131,11 @@ class ProductActivity : AppCompatActivity() {
     }
 
     class ProductsAdapter(
-        private val onProductClickListener: (ProductAct) -> Unit
+        private val onProductClickListener: (Product) -> Unit
     ) : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
 
         //private var productList: List<Product> = ArrayList(0)
-        private var productList: List<ProductAct> = ArrayList(0)
+        private var productList: List<Product> = ArrayList(0)
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val title: TextView = view.findViewById(R.id.tvTitleView)
@@ -151,8 +145,8 @@ class ProductActivity : AppCompatActivity() {
         //@SuppressLint("NotifyDataSetChanged")
         //fun bindData(products: List<Product>) {
 
-            fun bindData(products: List<ProductAct>) {
-            productList =ArrayList(products)
+        fun bindData(products: List<Product>) {
+            productList = ArrayList(products)
             notifyDataSetChanged()
             Log.d("MyLog", "productListProductActivity : $productList")
 

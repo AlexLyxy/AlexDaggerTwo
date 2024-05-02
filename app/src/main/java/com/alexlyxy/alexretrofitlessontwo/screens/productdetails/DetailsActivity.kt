@@ -2,33 +2,22 @@ package com.alexlyxy.alexretrofitlessontwo.screens.productdetails
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html
-import android.util.AttributeSet
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
-import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar.MyToolbar
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.properties.Delegates
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -40,17 +29,16 @@ class DetailsActivity : AppCompatActivity() {
 //        private lateinit var txtProductBody1: TextView
 //    private lateinit var txtProductBody2: TextView
 
-//    private lateinit var productApi: ProductApi
-
-    private var productApi: ProductApi? = null
+    //private lateinit var productApi: ProductApi
 
    // private var productId by Delegates.notNull<Int>()
     private var productId = 1
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_small)
-
 
         Toast.makeText(applicationContext, "onCreateDetailed", Toast.LENGTH_LONG).show()
 
@@ -66,13 +54,15 @@ class DetailsActivity : AppCompatActivity() {
         swipeRefresh.isEnabled = false
 
         // init retrofit
+
         val retrofit = Retrofit.Builder()
+            //.baseUrl(Constants.BASE_URL)
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        productApi= retrofit.create(productApi!!::class.java)
+        //productApi= retrofit.create(productApi::class.java)
 
-        Log.d("MyLog", "ProductAPI DetaledActivity : $productApi")
+        //Log.d("MyLog", "ProductAPI DetaledActivity : $productApi")
 
 
         //retrieve question ID passed from outside
@@ -87,16 +77,6 @@ class DetailsActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
             //fetchProductDetails()
-
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl(Constants.BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//        productApi = retrofit.create(productApi::class.java)
-//
-//        Log.d("MyLog", "ProductAPI DetaledActivity : $productApi")
-
-        Toast.makeText(applicationContext, "ActivityStartDetailed", Toast.LENGTH_LONG).show()
         }
 
     override fun onStop() {
