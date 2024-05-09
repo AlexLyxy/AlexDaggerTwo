@@ -21,7 +21,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -87,18 +86,11 @@ class ProductActivity : AppCompatActivity() {
             showProgressIndication()
             try {
                 val response = productApi.getAllProduct("")
-                //delay(5000)
-                //val responseProduct = productApi.getProduct(2).body()!!.product.description
-
                 if (response.isSuccessful && response.body() != null) {
-                    //response.body()!!.products?.let { productsAdapter.bindData(it) }
-                    //productsAdapter.bindData(response.body()!!.products)
                     productsAdapter.bindData(response.body()!!.products)
-
                     isDataLoaded = true
 
                     Log.d("MyLog", "ResponseProductActivity : $response")
-                    //Log.d("MyLog", "ResponseProductProductActivity : $responseProduct")
                     Log.d(
                         "MyLog",
                         "ResponseBodyProductActivity[1] : ${response.body()!!.products[2]}"
@@ -161,6 +153,8 @@ class ProductActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
             holder.title.text = productList[position].title
             holder.descr.text = productList[position].description
+
+            //Dear Vasilij. I tried to show picture using Glide & Picasso. But not work???
 
             //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
             //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)

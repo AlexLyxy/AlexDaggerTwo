@@ -32,7 +32,7 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var txtProductBody: TextView
 
-    //private lateinit var productApi: ProductApi
+    private lateinit var productApi: ProductApi
 
     private var productId by Delegates.notNull<Int>()
 
@@ -56,18 +56,16 @@ class DetailsActivity : AppCompatActivity() {
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        //productApi = retrofit.create(productApi::class.java)
+        productApi = retrofit.create(productApi::class.java)
 
         //retrieve question ID passed from outside
-        //productId = intent.extras!!.getString(EXTRA_PRODUCT_ID)!!
         productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
         Log.d("MyLog", "ProductIDdetails : $productId")
-
     }
 
     override fun onStart() {
         super.onStart()
-        //fetchProductDetails()
+        fetchProductDetails()
         Toast.makeText(applicationContext, "ActivityStart", Toast.LENGTH_LONG).show()
     }
 
@@ -78,30 +76,25 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun fetchProductDetails() {
         coroutineScope.launch {
-            //showProgressIndication()
-  //          try {
-//                val response = productApi.getProduct(productId)
-//                if (response.isSuccessful && response.body() != null) {
-//
-//                    val productBody = response.body()!!.product.description
-//
-//                    Log.d("MyLog", "AllProductDetails: $response")
-//                    //Log.d("MyLog", "ProductBodyDetails: $productBody")
-
-                    //txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
-            "description".also { txtProductBody.text = it }
-
- //               }
-//            else {
-//                    onFetchFailed()
-//                }
-//            } catch (t: Throwable) {
-//                if (t !is CancellationException) {
-//                    onFetchFailed()
-//                }
-//            } finally {
-//                hideProgressIndication()
-//            }
+            showProgressIndication()
+            try {
+                val response = productApi.getProduct(productId)
+                if (response.isSuccessful && response.body() != null) {
+                    val productBody = response.body()!!.product.description
+                    //Log.d("MyLog", "AllProductDetails: $response")
+                    //Log.d("MyLog", "ProductBodyDetails: $productBody")
+                    txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+                }
+            else {
+                    onFetchFailed()
+                }
+            } catch (t: Throwable) {
+                if (t !is CancellationException) {
+                    onFetchFailed()
+                }
+            } finally {
+                hideProgressIndication()
+            }
 
         }
     }
