@@ -52,10 +52,16 @@ class DetailsActivity : AppCompatActivity() {
         swipeRefresh.isEnabled = false
 
         // init retrofit
+
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+
+        //Dear Vasilij. This the  line of App's Crashing. If I comment
+        // everything connecting with Retrofit, DetailedActivity opens
+
         productApi = retrofit.create(productApi::class.java)
 
         //retrieve question ID passed from outside
