@@ -30,7 +30,16 @@ class DetailsActivity : AppCompatActivity() {
 
     private lateinit var toolbar: MyToolbar
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var txtProductBody: TextView
+
+    private lateinit var txtProductBodyTitle: TextView
+    private lateinit var txtProductBodyDescr: TextView
+    private lateinit var txtProductBodyPrice: TextView
+    private lateinit var txtProductBodyDiscount: TextView
+    private lateinit var txtProductBodyRating: TextView
+    private lateinit var txtProductBodyStock: TextView
+    private lateinit var txtProductBodyBrand: TextView
+    private lateinit var txtProductBodyCategory: TextView
+    private lateinit var txtProductBodyThumbnail: TextView
 
     private lateinit var productApi: ProductApi
 
@@ -40,8 +49,15 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_small)
 
-        //txtProductBody = findViewById(R.id.tvTitleDetails)
-        txtProductBody = findViewById(R.id.tvDesrDetails)
+        txtProductBodyTitle = findViewById(R.id.tvTitle)
+        txtProductBodyDescr = findViewById(R.id.tvDesr)
+        txtProductBodyPrice = findViewById(R.id.tvPrice)
+        txtProductBodyDiscount = findViewById(R.id.tvDiscount)
+        txtProductBodyRating = findViewById(R.id.tvRating)
+        txtProductBodyStock = findViewById(R.id.tvStock)
+        txtProductBodyBrand = findViewById(R.id.tvBrand)
+        txtProductBodyCategory = findViewById(R.id.tvCategory)
+        txtProductBodyThumbnail = findViewById(R.id.tvThumbnail)
 
         // init toolbar
         toolbar = findViewById(R.id.toolbar)
@@ -89,10 +105,26 @@ class DetailsActivity : AppCompatActivity() {
                 //val response = productApi.getProduct(productId)
                 val response = productApi.getAllProduct("")
                 if (response.isSuccessful && response.body() != null) {
-                    val productBody = response.body()!!.products[productId-1].description
+                    val productBodyTitle = response.body()!!.products[productId-1].title
+                    val productBodyDescr = response.body()!!.products[productId-1].description
+                    val productBodyPrice = response.body()!!.products[productId-1].price
+                    val productBodyDiscount = response.body()!!.products[productId-1].discountPercentage
+                    val productBodyRating = response.body()!!.products[productId-1].rating
+                    val productBodyStock = response.body()!!.products[productId-1].stock
+                    val productBodyBrand = response.body()!!.products[productId-1].brand
+                    val productBodyCategory = response.body()!!.products[productId-1].category
+                    val productBodyThumbnail = response.body()!!.products[productId-1].thumbnail
                     Log.d("MyLog", "AllProductDetails: $response")
                     //Log.d("MyLog", "ProductBodyDetails: $productBody")
-                    txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBodyTitle.text = Html.fromHtml(productBodyTitle, Html.FROM_HTML_MODE_LEGACY)
+                   // txtProductBodyDescr = Html.fromHtml(productBodyDescr, Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBodyPrice.text = Html.fromHtml(productBodyPrice.toString(), Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBodyDiscount.text = Html.fromHtml(productBodyDiscount.toString(), Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBodyRating.text = Html.fromHtml(productBodyRating.toString(), Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBodyStock.text = Html.fromHtml(productBodyStock.toString(), Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBodyBrand.text = Html.fromHtml(productBodyBrand, Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBodyCategory.text = Html.fromHtml(productBodyCategory, Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBodyThumbnail.text = Html.fromHtml(productBodyThumbnail, Html.FROM_HTML_MODE_LEGACY)
                 }
             else {
                     onFetchFailed()
