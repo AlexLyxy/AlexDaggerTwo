@@ -62,7 +62,7 @@ class DetailsActivity : AppCompatActivity() {
         //Dear Vasilij. This the  line of App's Crashing. If I comment
         // everything connecting with Retrofit, DetailedActivity opens
 
-        productApi = retrofit.create(productApi::class.java)
+        productApi = retrofit.create(ProductApi::class.java)
 
         //retrieve question ID passed from outside
         productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
