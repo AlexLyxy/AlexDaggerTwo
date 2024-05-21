@@ -64,6 +64,8 @@ class DetailsActivity : AppCompatActivity() {
 
         productApi = retrofit.create(ProductApi::class.java)
 
+        productId = 0
+
         //retrieve question ID passed from outside
         productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
         Log.d("MyLog", "ProductIDdetails : $productId")
@@ -84,10 +86,11 @@ class DetailsActivity : AppCompatActivity() {
         coroutineScope.launch {
             showProgressIndication()
             try {
-                val response = productApi.getProduct(productId)
+                //val response = productApi.getProduct(productId)
+                val response = productApi.getAllProduct("")
                 if (response.isSuccessful && response.body() != null) {
-                    val productBody = response.body()!!.product.description
-                    //Log.d("MyLog", "AllProductDetails: $response")
+                    val productBody = response.body()!!.products[productId-1].description
+                    Log.d("MyLog", "AllProductDetails: $response")
                     //Log.d("MyLog", "ProductBodyDetails: $productBody")
                     txtProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
                 }
