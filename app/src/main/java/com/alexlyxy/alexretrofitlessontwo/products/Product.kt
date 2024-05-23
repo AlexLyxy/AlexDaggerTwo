@@ -48,7 +48,7 @@ data class Product(
 
     @SerializedName("images")
     @Expose
-    val images: List<String>?,
+    val images: List<String>,
 
     @SerializedName("thumbnail")
     @Expose

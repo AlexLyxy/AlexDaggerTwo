@@ -37,8 +37,7 @@
         android:layout_height="100dp"
         android:layout_gravity="center|center_vertical"
         android:layout_marginTop="5dp"
-
-        app:srcCompat="@color/abc_decor_view_status_guard_light" />
+        app:srcCompat="@drawable/green" />
 
 </LinearLayout>
 

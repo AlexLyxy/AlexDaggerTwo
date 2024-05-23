@@ -3,6 +3,7 @@ package com.alexlyxy.alexretrofitlessontwo.screens.product
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.PixelCopy
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -18,6 +19,7 @@ import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.products.Product
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -135,7 +137,14 @@ class ProductActivity : AppCompatActivity() {
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val title: TextView = view.findViewById(R.id.tvTitleView)
             val descr: TextView = view.findViewById(R.id.tvDescriptionView)
-            val image: ImageView =
+           // val image: ImageView = Picasso.get().load([position].images[0]).into(R.id.ivImageOne)
+            val image  = Picasso.get().load("https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png").fetch()
+
+//            Picasso.get().load("https://cdn.pixabay.com/photo/2019/04/15/20/42/bitcoin-4130299_1280.png")
+//            .into(ivCoin)
+//
+//            Picasso.get().load(item.dogFaceOne).into(ivDogOne)
+
         }
 
         //@SuppressLint("NotifyDataSetChanged")
@@ -155,11 +164,14 @@ class ProductActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
             holder.title.text = productList[position].title
             holder.descr.text = productList[position].description
-
+            //holder.image.id = productList[position].images[0].toInt()
+            
             //Dear Vasilij. I tried to show picture using Glide & Picasso. But not work???
 
             //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
             //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
+
+
 
             Log.d("MyLog", "PictureTitleProductActivity : ${productList[0].title}")
             //Log.d("MyLog", "PictureDescr : ${productList[0].description}")
@@ -175,6 +187,10 @@ class ProductActivity : AppCompatActivity() {
         }
     }
 }
+//
+//private fun into(ivImageOne: Int): ImageView {
+//return into(R.id.ivImageOne)
+//}
 
 
 
