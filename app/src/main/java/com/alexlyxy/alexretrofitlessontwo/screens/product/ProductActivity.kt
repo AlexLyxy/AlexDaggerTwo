@@ -138,7 +138,8 @@ class ProductActivity : AppCompatActivity() {
             val title: TextView = view.findViewById(R.id.tvTitleView)
             val descr: TextView = view.findViewById(R.id.tvDescriptionView)
            // val image: ImageView = Picasso.get().load([position].images[0]).into(R.id.ivImageOne)
-            val image  = Picasso.get().load("https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png").fetch()
+            val image  = Picasso.get().load("https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png")
+                .fetch()
 
 //            Picasso.get().load("https://cdn.pixabay.com/photo/2019/04/15/20/42/bitcoin-4130299_1280.png")
 //            .into(ivCoin)
