@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -56,7 +57,7 @@ class ProductActivity : AppCompatActivity() {
             Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
             // Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.description}")
 
-            DetailsActivity.start(this, clickedProduct.id)
+            clickedProduct.id?.let { DetailsActivity.start(this, it) }
         }
         recyclerView.adapter = productsAdapter
 
@@ -134,6 +135,7 @@ class ProductActivity : AppCompatActivity() {
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val title: TextView = view.findViewById(R.id.tvTitleView)
             val descr: TextView = view.findViewById(R.id.tvDescriptionView)
+            val image: ImageView =
         }
 
         //@SuppressLint("NotifyDataSetChanged")

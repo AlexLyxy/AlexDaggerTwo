@@ -117,7 +117,7 @@ class DetailsActivity : AppCompatActivity() {
                     Log.d("MyLog", "AllProductDetails: $response")
                     //Log.d("MyLog", "ProductBodyDetails: $productBody")
                     txtProductBodyTitle.text = Html.fromHtml(productBodyTitle, Html.FROM_HTML_MODE_LEGACY)
-                   // txtProductBodyDescr = Html.fromHtml(productBodyDescr, Html.FROM_HTML_MODE_LEGACY)
+                    txtProductBodyDescr.text= Html.fromHtml(productBodyDescr, Html.FROM_HTML_MODE_LEGACY)
                     txtProductBodyPrice.text = Html.fromHtml(productBodyPrice.toString(), Html.FROM_HTML_MODE_LEGACY)
                     txtProductBodyDiscount.text = Html.fromHtml(productBodyDiscount.toString(), Html.FROM_HTML_MODE_LEGACY)
                     txtProductBodyRating.text = Html.fromHtml(productBodyRating.toString(), Html.FROM_HTML_MODE_LEGACY)

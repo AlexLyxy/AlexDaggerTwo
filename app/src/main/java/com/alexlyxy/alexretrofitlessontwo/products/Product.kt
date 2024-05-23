@@ -12,56 +12,48 @@ package com.alexlyxy.alexretrofitlessontwo.products
 import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
 
-
 data class Product(
-
-//    @SerializedName("products")
-//    @Expose
-//    val products: List<Product>,
-
     @SerializedName("id")
     @Expose
-    var id: Int,
-
+    val id: Int?,
     @SerializedName("title")
     @Expose
-    var title: String,
-
+    val title: String?,
     @SerializedName("description")
     @Expose
-    var description: String,
-
+    val description: String?,
+    @SerializedName("category")
+    @Expose
+    val category: String?,
     @SerializedName("price")
     @Expose
-    var price: Int,
-
+    val price: Double?,
     @SerializedName("discountPercentage")
     @Expose
-    var discountPercentage: Double,
-
+    val discountPercentage: Double?,
     @SerializedName("rating")
     @Expose
-    var rating: Double,
-
+    val rating: Double?,
     @SerializedName("stock")
     @Expose
-    var stock: Int,
+    val stock: Int?,
+
+    @SerializedName("tags")
+    @Expose
+    val tags: List<String>?,
 
     @SerializedName("brand")
     @Expose
-    var brand: String,
-
-    @SerializedName("category")
-    @Expose
-    var category: String,
-
-    @SerializedName("thumbnail")
-    @Expose
-    var thumbnail: String,
+    val brand: String?,
 
     @SerializedName("images")
     @Expose
-    var images: List<String>
+    val images: List<String>?,
+
+    @SerializedName("thumbnail")
+    @Expose
+    val thumbnail: String?
 )
+
 
 
