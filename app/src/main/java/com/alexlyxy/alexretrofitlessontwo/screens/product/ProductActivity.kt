@@ -3,11 +3,8 @@ package com.alexlyxy.alexretrofitlessontwo.screens.product
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.PixelCopy
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
+import com.alexlyxy.alexretrofitlessontwo.databinding.ProductItemBinding
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.products.Product
+import com.alexlyxy.alexretrofitlessontwo.products.ProductModel
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
 import com.squareup.picasso.Picasso
@@ -36,6 +35,7 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var productsAdapter: ProductsAdapter
+
     private lateinit var productApi: ProductApi
 
     private var isDataLoaded = false
@@ -135,26 +135,42 @@ class ProductActivity : AppCompatActivity() {
         private var productList: List<Product> = ArrayList(0)
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val title: TextView = view.findViewById(R.id.tvTitleView)
-            val descr: TextView = view.findViewById(R.id.tvDescriptionView)
-           // val image: ImageView = Picasso.get().load([position].images[0]).into(R.id.ivImageOne)
-            val image  = Picasso.get().load("https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png")
-                .fetch()
+            private val binding = ProductItemBinding.bind(view)
+
+            //private var itemProduct: ProductModel? = null
+            private lateinit var itemProduct: ProductModel
+
+            fun bind(item: ProductModel) = with((binding)) {
+                itemProduct = item
+
+                tvTitleView.text = item.titleView
+                tvDescriptionView.text = item.descriptionView
+                Picasso.get().load(productList[position].images[0]).into(ivImageOne)
+
+//            var  image = Picasso.get()
+//                .load("https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png")
+//                .fetch()
 
 //            Picasso.get().load("https://cdn.pixabay.com/photo/2019/04/15/20/42/bitcoin-4130299_1280.png")
 //            .into(ivCoin)
 //
 //            Picasso.get().load(item.dogFaceOne).into(ivDogOne)
-
+            }
         }
 
-        //@SuppressLint("NotifyDataSetChanged")
-        fun bindData(products: List<Product>) {
-            productList = ArrayList(products)
-            notifyDataSetChanged()
-            Log.d("MyLog", "productListProductActivity : $productList")
-
-        }
+            //@SuppressLint("NotifyDataSetChanged")
+            fun bindData(products: List<Product>) {
+                productList = ArrayList(products)
+                notifyDataSetChanged()
+                Log.d("MyLog", "productListProductActivity : $productList")
+                Log.d(
+                    "Mylog", "Picasso : ${
+                        Picasso.get()
+                            .load("https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png")
+                            .fetch()
+                    }"
+                )
+            }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
             val itemView = LayoutInflater.from(parent.context)
@@ -163,31 +179,42 @@ class ProductActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-            holder.title.text = productList[position].title
-            holder.descr.text = productList[position].description
-            //holder.image.id = productList[position].images[0].toInt()
-            
+//            holder.title.text = productList[position].title
+//            holder.descr.text = productList[position].description
+
+
+//                val title: TextView = view.findViewById(R.id.tvTitleView)
+//                val descr: TextView = view.findViewById(R.id.tvDescriptionView)
+                //val image: Image = Picasso.get().load("BASE_URL").into()
+
+
+
+            //holder.image = Picasso.get().load(productList[position].images[0])
+
             //Dear Vasilij. I tried to show picture using Glide & Picasso. But not work???
 
             //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
             //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
 
 
-
             Log.d("MyLog", "PictureTitleProductActivity : ${productList[0].title}")
             //Log.d("MyLog", "PictureDescr : ${productList[0].description}")
             // Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
 
-            holder.itemView.setOnClickListener {
-                onProductClickListener.invoke(productList[position])
-            }
+            holder.bind(getItemId(1)
+
+//            holder.itemView.setOnClickListener {
+//                onProductClickListener.invoke(productList[position])
+//            }
         }
+
 
         override fun getItemCount(): Int {
             return productList.size
         }
     }
 }
+
 //
 //private fun into(ivImageOne: Int): ImageView {
 //return into(R.id.ivImageOne)
