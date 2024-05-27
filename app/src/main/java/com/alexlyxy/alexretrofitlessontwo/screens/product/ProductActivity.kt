@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -142,8 +143,8 @@ class ProductActivity : AppCompatActivity() {
             private val binding = ProductItemBinding.bind(view)
             private var itemProduct: ProductModel? = null
 
-            //private var itemProduct: ProductModel? = null
-            //private lateinit var itemProduct: ProductModel
+//            val title: TextView = view.findViewById(R.id.tvTitleView)
+//            val descr: TextView = view.findViewById(R.id.tvDescriptionView)
 
             fun bind(item: ProductModel) = with((binding)) {
                 itemProduct = item
@@ -152,14 +153,6 @@ class ProductActivity : AppCompatActivity() {
                 tvDescriptionView.text = item.descriptionView
                 Picasso.get().load(productList[position].images[0]).into(ivImageOne)
 
-//            var  image = Picasso.get()
-//                .load("https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png")
-//                .fetch()
-
-//            Picasso.get().load("https://cdn.pixabay.com/photo/2019/04/15/20/42/bitcoin-4130299_1280.png")
-//            .into(ivCoin)
-//
-//            Picasso.get().load(item.dogFaceOne).into(ivDogOne)
             }
         }
 
@@ -184,46 +177,36 @@ class ProductActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-//            holder.title.text = productList[position].title
-//            holder.descr.text = productList[position].description
+
+//                holder.title.text = productList[position].title
+//                holder.descr.text = productList[position].description
+
+                //Dear Vasilij. I tried to show picture using Glide & Picasso. But not work???
+
+                //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
+                //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
 
 
-//                val title: TextView = view.findViewById(R.id.tvTitleView)
-//                val descr: TextView = view.findViewById(R.id.tvDescriptionView)
-                //val image: Image = Picasso.get().load("BASE_URL").into()
+                Log.d("MyLog", "PictureTitleProductActivity : ${productList[0].title}")
+                //Log.d("MyLog", "PictureDescr : ${productList[0].description}")
+                // Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
 
+                holder.bind(item = ProductModel(
+                    titleView = productList[position].title,
+                    descriptionView = productList[position].description,
+                    imageOne = productList[position].images[0]
+                ))
 
-
-            //holder.image = Picasso.get().load(productList[position].images[0])
-
-            //Dear Vasilij. I tried to show picture using Glide & Picasso. But not work???
-
-            //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
-            //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
-
-
-            Log.d("MyLog", "PictureTitleProductActivity : ${productList[0].title}")
-            //Log.d("MyLog", "PictureDescr : ${productList[0].description}")
-            // Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
-
-            //holder.bind(productList[position])
-
-            holder.itemView.setOnClickListener {
-                onProductClickListener.invoke(productList[position])
+                holder.itemView.setOnClickListener {
+                    onProductClickListener.invoke(productList[position])
+                }
             }
-        }
-
 
         override fun getItemCount(): Int {
             return productList.size
         }
     }
 }
-
-//
-//private fun into(ivImageOne: Int): ImageView {
-//return into(R.id.ivImageOne)
-//}
 
 
 

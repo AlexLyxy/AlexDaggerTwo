@@ -74,7 +74,6 @@ class DetailsActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-
         //Dear Vasilij. This the  line of App's Crashing. If I comment
         // everything connecting with Retrofit, DetailedActivity opens
 

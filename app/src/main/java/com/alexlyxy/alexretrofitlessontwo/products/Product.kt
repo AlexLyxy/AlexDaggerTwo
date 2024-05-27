@@ -1,12 +1,3 @@
-//package com.alexlyxy.alexretrofitlessontwo.products
-//
-//data class Product (
-//    val id: Int,
-//    var title: String,
-//    var description: String
-////    val images: List<String>
-//)
-
 package com.alexlyxy.alexretrofitlessontwo.products
 
 import com.google.gson.annotations.SerializedName
@@ -16,24 +7,31 @@ data class Product(
     @SerializedName("id")
     @Expose
     val id: Int?,
+
     @SerializedName("title")
     @Expose
-    val title: String?,
+    val title: String,
+
     @SerializedName("description")
     @Expose
-    val description: String?,
+    val description: String,
+
     @SerializedName("category")
     @Expose
     val category: String?,
+
     @SerializedName("price")
     @Expose
     val price: Double?,
+
     @SerializedName("discountPercentage")
     @Expose
     val discountPercentage: Double?,
+
     @SerializedName("rating")
     @Expose
     val rating: Double?,
+
     @SerializedName("stock")
     @Expose
     val stock: Int?,
