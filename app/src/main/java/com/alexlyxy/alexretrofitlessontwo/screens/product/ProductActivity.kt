@@ -52,7 +52,7 @@ class ProductActivity : AppCompatActivity() {
 
         // init recycler view
         recyclerView = findViewById(R.id.recycler)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this@ProductActivity)
         productsAdapter = ProductsAdapter { clickedProduct ->
             Toast.makeText(applicationContext, "ActivityStart", Toast.LENGTH_LONG).show()
             Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
@@ -62,6 +62,10 @@ class ProductActivity : AppCompatActivity() {
             clickedProduct.id?.let { DetailsActivity.start(this, it) }
         }
         recyclerView.adapter = productsAdapter
+        //model.liveDataList.observe(this) {
+          //  productsAdapter.submitList(it)
+
+
 
         // init retrofit
         val retrofit = Retrofit.Builder()
@@ -136,9 +140,10 @@ class ProductActivity : AppCompatActivity() {
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             private val binding = ProductItemBinding.bind(view)
+            private var itemProduct: ProductModel? = null
 
             //private var itemProduct: ProductModel? = null
-            private lateinit var itemProduct: ProductModel
+            //private lateinit var itemProduct: ProductModel
 
             fun bind(item: ProductModel) = with((binding)) {
                 itemProduct = item
@@ -201,11 +206,11 @@ class ProductActivity : AppCompatActivity() {
             //Log.d("MyLog", "PictureDescr : ${productList[0].description}")
             // Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
 
-            holder.bind(getItemId(1)
+            //holder.bind(productList[position])
 
-//            holder.itemView.setOnClickListener {
-//                onProductClickListener.invoke(productList[position])
-//            }
+            holder.itemView.setOnClickListener {
+                onProductClickListener.invoke(productList[position])
+            }
         }
 
 
