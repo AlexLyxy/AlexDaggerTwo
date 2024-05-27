@@ -14,6 +14,7 @@ import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar.MyToolbar
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -113,6 +114,7 @@ class DetailsActivity : AppCompatActivity() {
                     val productBodyBrand = response.body()!!.products[productId-1].brand
                     val productBodyCategory = response.body()!!.products[productId-1].category
                     val productBodyThumbnail = response.body()!!.products[productId-1].thumbnail
+                    val productPicture = response.body()!!.products[productId-1].images[0]
                     Log.d("MyLog", "AllProductDetails: $response")
                     //Log.d("MyLog", "ProductBodyDetails: $productBody")
                     txtProductBodyTitle.text = Html.fromHtml(productBodyTitle, Html.FROM_HTML_MODE_LEGACY)
@@ -124,6 +126,7 @@ class DetailsActivity : AppCompatActivity() {
                     txtProductBodyBrand.text = Html.fromHtml(productBodyBrand, Html.FROM_HTML_MODE_LEGACY)
                     txtProductBodyCategory.text = Html.fromHtml(productBodyCategory, Html.FROM_HTML_MODE_LEGACY)
                     txtProductBodyThumbnail.text = Html.fromHtml(productBodyThumbnail, Html.FROM_HTML_MODE_LEGACY)
+                    Picasso.get().load(productPicture).into()
                 }
             else {
                     onFetchFailed()
