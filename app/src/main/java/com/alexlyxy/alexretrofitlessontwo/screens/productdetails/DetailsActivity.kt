@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
+import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityProductBinding
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
+import com.alexlyxy.alexretrofitlessontwo.products.Product
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar.MyToolbar
 import com.squareup.picasso.Picasso
@@ -32,6 +35,8 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var toolbar: MyToolbar
     private lateinit var swipeRefresh: SwipeRefreshLayout
 
+    private lateinit var binding: ActivityProductBinding
+
     private lateinit var txtProductBodyTitle: TextView
     private lateinit var txtProductBodyDescr: TextView
     private lateinit var txtProductBodyPrice: TextView
@@ -41,24 +46,39 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var txtProductBodyBrand: TextView
     private lateinit var txtProductBodyCategory: TextView
     private lateinit var txtProductBodyThumbnail: TextView
+    private lateinit var pctProductBodyPicture: TextView
 
     private lateinit var productApi: ProductApi
 
     private var productId by Delegates.notNull<Int>()
 
+    private var itemProduct: Product? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details_small)
+        binding = ActivityProductBinding.inflate(layoutInflater)
+        //setContentView(R.layout.activity_details_small)
+        setContentView(binding.root)
 
-        txtProductBodyTitle = findViewById(R.id.tvTitle)
-        txtProductBodyDescr = findViewById(R.id.tvDesr)
-        txtProductBodyPrice = findViewById(R.id.tvPrice)
-        txtProductBodyDiscount = findViewById(R.id.tvDiscount)
-        txtProductBodyRating = findViewById(R.id.tvRating)
-        txtProductBodyStock = findViewById(R.id.tvStock)
-        txtProductBodyBrand = findViewById(R.id.tvBrand)
-        txtProductBodyCategory = findViewById(R.id.tvCategory)
-        txtProductBodyThumbnail = findViewById(R.id.tvThumbnail)
+       fun bind (item: Product) = with((binding) ) {
+           itemProduct = item
+
+           //Picasso.get().load(itemProduct!!.images[0]).into(iv)
+
+
+           txtProductBodyTitle = findViewById(R.id.tvTitle)
+           txtProductBodyDescr = findViewById(R.id.tvDesr)
+           txtProductBodyPrice = findViewById(R.id.tvPrice)
+           txtProductBodyDiscount = findViewById(R.id.tvDiscount)
+           txtProductBodyRating = findViewById(R.id.tvRating)
+           txtProductBodyStock = findViewById(R.id.tvStock)
+           txtProductBodyBrand = findViewById(R.id.tvBrand)
+           txtProductBodyCategory = findViewById(R.id.tvCategory)
+           txtProductBodyThumbnail = findViewById(R.id.tvThumbnail)
+           // pctProductBodyPicture = findViewById(R.id.ivImageOne)
+
+       }
+
 
         // init toolbar
         toolbar = findViewById(R.id.toolbar)
@@ -115,8 +135,11 @@ class DetailsActivity : AppCompatActivity() {
                     val productBodyCategory = response.body()!!.products[productId-1].category
                     val productBodyThumbnail = response.body()!!.products[productId-1].thumbnail
                     val productPicture = response.body()!!.products[productId-1].images[0]
-                    Log.d("MyLog", "AllProductDetails: $response")
-                    //Log.d("MyLog", "ProductBodyDetails: $productBody")
+                    //Picasso.get().load(productPicture).into(iv)
+
+                    //Log.d("MyLog", "AllProductDetails: $response")
+                    Log.d("MyLog", "ProductPicture: $productPicture")
+
                     txtProductBodyTitle.text = Html.fromHtml(productBodyTitle, Html.FROM_HTML_MODE_LEGACY)
                     txtProductBodyDescr.text= Html.fromHtml(productBodyDescr, Html.FROM_HTML_MODE_LEGACY)
                     txtProductBodyPrice.text = Html.fromHtml(productBodyPrice.toString(), Html.FROM_HTML_MODE_LEGACY)
@@ -126,7 +149,10 @@ class DetailsActivity : AppCompatActivity() {
                     txtProductBodyBrand.text = Html.fromHtml(productBodyBrand, Html.FROM_HTML_MODE_LEGACY)
                     txtProductBodyCategory.text = Html.fromHtml(productBodyCategory, Html.FROM_HTML_MODE_LEGACY)
                     txtProductBodyThumbnail.text = Html.fromHtml(productBodyThumbnail, Html.FROM_HTML_MODE_LEGACY)
-                    Picasso.get().load(productPicture).into()
+                   //productPicture = Picasso.get().load(productPicture).fetch().toString()
+
+                    Log.d("MyLog", "Picasso: $productPicture")
+
                 }
             else {
                     onFetchFailed()
@@ -138,7 +164,6 @@ class DetailsActivity : AppCompatActivity() {
             } finally {
                 hideProgressIndication()
             }
-
         }
     }
 
