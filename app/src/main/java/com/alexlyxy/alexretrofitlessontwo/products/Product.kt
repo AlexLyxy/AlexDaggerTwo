@@ -10,11 +10,11 @@ data class Product(
 
     @SerializedName("title")
     @Expose
-    val title: String,
+    val title: String?,
 
     @SerializedName("description")
     @Expose
-    val description: String,
+    val description: String?,
 
     @SerializedName("category")
     @Expose
@@ -36,9 +36,9 @@ data class Product(
     @Expose
     val stock: Int?,
 
-    @SerializedName("tags")
-    @Expose
-    val tags: List<String>?,
+//    @SerializedName("tags")
+//    @Expose
+//    val tags: List<String>?,
 
     @SerializedName("brand")
     @Expose
@@ -46,12 +46,37 @@ data class Product(
 
     @SerializedName("images")
     @Expose
-    val images: List<String>,
+    var images: List<String>,
 
     @SerializedName("thumbnail")
     @Expose
     val thumbnail: String?
 )
 
+//
+//data class Product(
+//    val id: Int,
+//    val title: String,
+//    val description: String,
+//    val category: String,
+//    val price: Double,
+//    val discountPercentage: Double,
+//    val rating: Double,
+//    val stock: Int,
+//    val tags: List<String>,
+//    val brand: String,
+//    val sku: String,
+//    val weight: Int,
+//    val dimensions: Dimensions,
+//    val warrantyInformation: String,
+//    val shippingInformation: String,
+//    val availabilityStatus: String,
+//    val reviews: List<Review>,
+//    val returnPolicy: String,
+//    val minimumOrderQuantity: Int,
+//    val meta: Meta,
+//    val thumbnail: String,
+//    val images: List<String>
+//)
 
 

@@ -96,6 +96,7 @@ class ProductActivity : AppCompatActivity() {
                 val response = productApi.getAllProduct("")
                 if (response.isSuccessful && response.body() != null) {
                     productsAdapter.bindData(response.body()!!.products)
+
                     isDataLoaded = true
 
                     Log.d("MyLog", "ResponseProductActivity : $response")
@@ -192,11 +193,10 @@ class ProductActivity : AppCompatActivity() {
                 // Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
 
                 holder.bind(item = ProductModel(
-                    titleView = productList[position].title,
-                    descriptionView = productList[position].description,
+                    titleView = productList[position].title!!,
+                    descriptionView = productList[position].description!!,
                     imageOne = productList[position].images[0]
                 ))
-
                 holder.itemView.setOnClickListener {
                     onProductClickListener.invoke(productList[position])
                 }
