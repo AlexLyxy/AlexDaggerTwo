@@ -63,7 +63,7 @@ class DetailsActivity : AppCompatActivity() {
        fun bind (item: Product) = with((binding) ) {
            itemProduct = item
 
-           //Picasso.get().load(itemProduct!!.images[0]).into(iv)
+           Picasso.get().load(itemProduct!!.images[0]).into(iv)
 
 
            txtProductBodyTitle = findViewById(R.id.tvTitle)
