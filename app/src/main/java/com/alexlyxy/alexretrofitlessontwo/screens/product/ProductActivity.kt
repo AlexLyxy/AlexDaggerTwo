@@ -152,7 +152,7 @@ class ProductActivity : AppCompatActivity() {
 
                 tvTitleView.text = item.titleView
                 tvDescriptionView.text = item.descriptionView
-                Picasso.get().load(productList[position].images[0]).into(ivImageOne)
+                Picasso.get().load(productList[position].images[0]).into(ivImageOneProduct)
 
             }
         }
@@ -195,7 +195,7 @@ class ProductActivity : AppCompatActivity() {
                 holder.bind(item = ProductModel(
                     titleView = productList[position].title!!,
                     descriptionView = productList[position].description!!,
-                    imageOne = productList[position].images[0]
+                    imageOneProduct = productList[position].images[0]
                 ))
                 holder.itemView.setOnClickListener {
                     onProductClickListener.invoke(productList[position])

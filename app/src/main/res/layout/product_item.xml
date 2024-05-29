@@ -32,7 +32,7 @@
         android:textSize="20sp" />
 
     <ImageView
-        android:id="@+id/ivImageOne"
+        android:id="@+id/ivImageOneProduct"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center|center_vertical"

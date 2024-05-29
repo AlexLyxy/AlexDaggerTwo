@@ -10,6 +10,6 @@ data class ProductDetailsModel(
     val stock: Int,
 //    val tags: List<String>?,
     val brand: String,
-    var imageOne: String,
+    var imageOneDetails: String,
     val thumbnail: String
 )
