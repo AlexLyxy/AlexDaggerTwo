@@ -55,8 +55,8 @@ class ProductActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(this@ProductActivity)
         productsAdapter = ProductsAdapter { clickedProduct ->
-            Toast.makeText(applicationContext, "ActivityStart", Toast.LENGTH_LONG).show()
-            Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "ActivityProductRecyclerStart", Toast.LENGTH_LONG).show()
+           // Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
             Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
             // Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.description}")
 
@@ -81,6 +81,7 @@ class ProductActivity : AppCompatActivity() {
         super.onStart()
         if (!isDataLoaded) {
             fetchProduct()
+            Toast.makeText(applicationContext, "ActivityProductOnStart", Toast.LENGTH_LONG).show()
         }
     }
 

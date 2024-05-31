@@ -63,8 +63,8 @@ class DetailsActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerDetails)
         recyclerView.layoutManager = LinearLayoutManager(this@DetailsActivity)
         productsDetailsAdapter = ProductsDetailsAdapter { clickedProduct ->
-            Toast.makeText(applicationContext, "ActivityStart", Toast.LENGTH_LONG).show()
-            Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "ActivityDetaisRecyclerStart", Toast.LENGTH_LONG).show()
+            //Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
             Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
             clickedProduct.id?.let { start(this, it) }
         }
@@ -88,7 +88,7 @@ class DetailsActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         fetchProductDetails()
-        Toast.makeText(applicationContext, "ActivityStart", Toast.LENGTH_LONG).show()
+        Toast.makeText(applicationContext, "ActivityDetailsOnStart", Toast.LENGTH_LONG).show()
     }
 
     override fun onStop() {
@@ -101,11 +101,11 @@ class DetailsActivity : AppCompatActivity() {
             showProgressIndication()
             try {
                 val response = productApi.getAllProduct("")
-                //val responseProduct = productApi.getProduct(productId)
+                val responseProduct = productApi.getProduct(productId)
                 if (response.isSuccessful && response.body() != null) {
-                    productsDetailsAdapter.bindData(response.body()!!.products)
-                    //productsDetailsAdapter.bindData(responseProduct.body()!!.product)
-                    Log.d("MyLog", "Response : $response")
+                    productsDetailsAdapter.bindData(response.body()!!.products.subList(productId-1,productId))
+                   // productsDetailsAdapter.bindData(responseProduct.body()!!.products)
+                    Log.d("MyLog", "ResponseProduct : $responseProduct")
 
                     isDataLoaded = true
                 } else {
@@ -139,6 +139,7 @@ class DetailsActivity : AppCompatActivity() {
         private val onProductClickListener: (Product) -> Unit
     ) : RecyclerView.Adapter<ProductsDetailsAdapter.ProductViewHolder>() {
 
+        //private var productsDetailsList: List<ProductWithBody> = ArrayList(0)
         private var productsDetailsList: List<Product> = ArrayList(0)
 
         inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -165,8 +166,8 @@ class DetailsActivity : AppCompatActivity() {
         }
 
         //@SuppressLint("NotifyDataSetChanged")
-        fun bindData(products: List<Product>) {
-            productsDetailsList = ArrayList(products)
+        fun bindData(product: List<Product>) {
+            productsDetailsList = ArrayList(product)
             notifyDataSetChanged()
         }
 
@@ -197,25 +198,6 @@ class DetailsActivity : AppCompatActivity() {
                     imageOneDetails = productsDetailsList[position].images[0],
                     thumbnail = productsDetailsList[position].thumbnail!!
                 )
-            )
-
-            Log.d(
-                "MyLog", "ItemBindDetails: ${
-                    holder.bind(
-                        item = ProductDetailsModel(
-                            title = productsDetailsList[position].title!!,
-                            description = productsDetailsList[position].description!!,
-                            category = productsDetailsList[position].category!!,
-                            price = productsDetailsList[position].price!!,
-                            discountPercentage = productsDetailsList[position].discountPercentage!!,
-                            rating = productsDetailsList[position].rating!!,
-                            stock = productsDetailsList[position].stock!!,
-                            brand = productsDetailsList[position].brand!!,
-                            imageOneDetails = productsDetailsList[position].images[0],
-                            thumbnail = productsDetailsList[position].thumbnail!!
-                        )
-                    )
-                }"
             )
 
             holder.itemView.setOnClickListener {
