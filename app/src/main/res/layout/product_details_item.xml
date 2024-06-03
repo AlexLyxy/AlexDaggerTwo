@@ -106,8 +106,8 @@
 
     <ImageView
         android:id="@+id/ivImageOneDetails"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
         app:layout_constraintBottom_toTopOf="@+id/ivImageTwo"
         app:layout_constraintEnd_toEndOf="parent"

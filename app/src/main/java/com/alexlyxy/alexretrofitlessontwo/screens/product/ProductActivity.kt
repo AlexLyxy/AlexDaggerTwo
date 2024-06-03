@@ -151,8 +151,14 @@ class ProductActivity : AppCompatActivity() {
             fun bind(item: ProductModel) = with((binding)) {
                 itemProduct = item
 
-                tvTitleView.text = item.titleView
-                tvDescriptionView.text = item.descriptionView
+                tvTitleView.text = buildString {
+                    append(" TITLE : ")
+                    append(item.titleView)
+                }
+                tvDescriptionView.text = buildString {
+                    append("      DESCRIPTION : ")
+                    append(item.descriptionView)
+                }
                 Picasso.get().load(productList[position].images[0]).into(ivImageOneProduct)
 
             }

@@ -152,16 +152,44 @@ class DetailsActivity : AppCompatActivity() {
             fun bind(item: ProductDetailsModel) = with((binding)) {
                 itemDetailsProduct = item
 
-                tvTitle.text = item.title
-                tvDescr.text = item.description
-                tvCategory.text = item.category
-                tvPrice.text = item.price.toString()
-                tvDiscount.text = item.discountPercentage.toString()
-                tvRating.text = item.rating.toString()
-                tvStock.text = item.stock.toString()
-                tvBrand.text = item.brand
+                tvTitle.text = buildString {
+                    append(" TITLE : ")
+                    append(item.title)
+                }
+                tvDescr.text =  buildString {
+                    append("      DESCRIPTION : ")
+                    append(item.description)
+                }
+                tvCategory.text =
+                    buildString {
+                        append(" CATEGORY : ")
+                        append(item.category)
+                    }
+                tvPrice.text =  buildString {
+                    append(" PRICE : ")
+                    append(item.price)
+                }
+                tvDiscount.text =  buildString {
+                    append(" DISCOUNT PERCENTAGE : ")
+                    append(item.discountPercentage)
+                }
+                tvRating.text =  buildString {
+                    append(" RATING : ")
+                    append(item.rating)
+                }
+                tvStock.text = buildString {
+                    append(" STOCK : ")
+                    append(item.stock)
+                }
+                tvBrand.text = buildString {
+                    append(" BRAND : ")
+                    append(item.brand)
+                }
                 Picasso.get().load(productsDetailsList[position].images[0]).into(ivImageOneDetails)
-                tvThumbnail.text = item.thumbnail
+                tvThumbnail.text = buildString {
+                    append(" THUMBNAIL : ")
+                    append(item.thumbnail)
+                }
             }
         }
 
