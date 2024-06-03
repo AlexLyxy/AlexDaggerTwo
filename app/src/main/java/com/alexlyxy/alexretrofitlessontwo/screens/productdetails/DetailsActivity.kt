@@ -44,9 +44,6 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var txtDetailsBody: TextView
 
-    //private lateinit var recyclerView: RecyclerView
-    //private lateinit var productsDetailsAdapter: ProductsDetailsAdapter
-
     private lateinit var productApi: ProductApi
 
     private var isDataLoaded = false
@@ -55,7 +52,6 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_details_small)
         setContentView(R.layout.layout_product_details)
 
         txtDetailsBody = findViewById(R.id.tvDescr)
@@ -67,17 +63,6 @@ class DetailsActivity : AppCompatActivity() {
         // init pull-down-to-refresh (used as a progress indicator)
         swipeRefresh = findViewById(R.id.swipeRefresh)
         swipeRefresh.isEnabled = false
-
-//        // init recycler view
-//        recyclerView = findViewById(R.id.recyclerDetails)
-//        recyclerView.layoutManager = LinearLayoutManager(this@DetailsActivity)
-//        productsDetailsAdapter = ProductsDetailsAdapter { clickedProduct ->
-//            Toast.makeText(applicationContext, "ActivityDetaisRecyclerStart", Toast.LENGTH_LONG).show()
-//            //Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
-//            Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
-//            clickedProduct.id?.let { start(this, it) }
-//        }
-//        recyclerView.adapter = productsDetailsAdapter
 
         // init retrofit
 
@@ -120,8 +105,6 @@ class DetailsActivity : AppCompatActivity() {
                         @Suppress("DEPRECATION")
                         txtDetailsBody.text = Html.fromHtml(detailsBody.toString())
                     }
-                    //productsDetailsAdapter.bindData(response.body()!!.products.subList(productId-1,productId))
-                   // productsDetailsAdapter.bindData(responseProduct.body()!!.products)
                     Log.d("MyLog", "Details Body : $detailsBody")
 
                     isDataLoaded = true
@@ -151,109 +134,6 @@ class DetailsActivity : AppCompatActivity() {
     private fun hideProgressIndication() {
         swipeRefresh.isRefreshing = false
     }
-//
-//    class ProductsDetailsAdapter(
-//        private val onProductClickListener: (Product) -> Unit
-//    ) : RecyclerView.Adapter<ProductsDetailsAdapter.ProductViewHolder>() {
-//
-//        //private var productsDetailsList: List<ProductWithBody> = ArrayList(0)
-//        private var productsDetailsList: List<Product> = ArrayList(0)
-//
-//        inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//            private val binding = ProductDetailsItemBinding.bind(view)
-//            private var itemDetailsProduct: ProductDetailsModel? = null
-//
-////            val title: TextView = view.findViewById(R.id.tvTitleView)
-////            val descr: TextView = view.findViewById(R.id.tvDescriptionView)
-//
-//            fun bind(item: ProductDetailsModel) = with((binding)) {
-//                itemDetailsProduct = item
-//
-//                tvTitle.text = buildString {
-//                    append(" TITLE : ")
-//                    append(item.title)
-//                }
-//                tvDescr.text =  buildString {
-//                    append("      DESCRIPTION : ")
-//                    append(item.description)
-//                }
-//                tvCategory.text =
-//                    buildString {
-//                        append(" CATEGORY : ")
-//                        append(item.category)
-//                    }
-//                tvPrice.text =  buildString {
-//                    append(" PRICE : ")
-//                    append(item.price)
-//                }
-//                tvDiscount.text =  buildString {
-//                    append(" DISCOUNT PERCENTAGE : ")
-//                    append(item.discountPercentage)
-//                }
-//                tvRating.text =  buildString {
-//                    append(" RATING : ")
-//                    append(item.rating)
-//                }
-//                tvStock.text = buildString {
-//                    append(" STOCK : ")
-//                    append(item.stock)
-//                }
-//                tvBrand.text = buildString {
-//                    append(" BRAND : ")
-//                    append(item.brand)
-//                }
-//                Picasso.get().load(productsDetailsList[position].images[0]).into(ivImageOneDetails)
-//                tvThumbnail.text = buildString {
-//                    append(" THUMBNAIL : ")
-//                    append(item.thumbnail)
-//                }
-//            }
-//        }
-//
-//        //@SuppressLint("NotifyDataSetChanged")
-//        fun bindData(product: List<Product>) {
-//            productsDetailsList = ArrayList(product)
-//            notifyDataSetChanged()
-//        }
-//
-//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-//            val itemView = LayoutInflater.from(parent.context)
-//                .inflate(R.layout.product_details_item, parent, false)
-//            return ProductViewHolder(itemView)
-//        }
-//
-//        override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-//
-////               holder.title.text = productsDetailsList[position].title
-////                holder.descr.text = productList[position].description
-//
-//            //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
-//            //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
-//
-//            holder.bind(
-//                item = ProductDetailsModel(
-//                    title = productsDetailsList[position].title!!,
-//                    description = productsDetailsList[position].description!!,
-//                    category = productsDetailsList[position].category!!,
-//                    price = productsDetailsList[position].price!!,
-//                    discountPercentage = productsDetailsList[position].discountPercentage!!,
-//                    rating = productsDetailsList[position].rating!!,
-//                    stock = productsDetailsList[position].stock!!,
-//                    brand = productsDetailsList[position].brand!!,
-//                    imageOneDetails = productsDetailsList[position].images[0],
-//                    thumbnail = productsDetailsList[position].thumbnail!!
-//                )
-//            )
-//
-//            holder.itemView.setOnClickListener {
-//                onProductClickListener.invoke(productsDetailsList[position])
-//            }
-//        }
-//
-//        override fun getItemCount(): Int {
-//            return productsDetailsList.size
-//        }
-//    }
 
     companion object {
         const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
