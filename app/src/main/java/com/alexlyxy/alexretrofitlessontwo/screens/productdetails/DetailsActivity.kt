@@ -196,7 +196,7 @@ class DetailsActivity : AppCompatActivity() {
     }
 }
 
-private fun RequestCreator.into(ivImageOne: Int)  {
+private fun RequestCreator?.into(ivImageOne: Int)  {
     into(ivImageOne)
 }
 
