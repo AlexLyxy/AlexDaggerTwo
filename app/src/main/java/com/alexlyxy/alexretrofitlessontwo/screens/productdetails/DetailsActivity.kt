@@ -3,6 +3,7 @@ package com.alexlyxy.alexretrofitlessontwo.screens.productdetails
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.media.Image
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,7 @@ import com.alexlyxy.alexretrofitlessontwo.R.id.ivImageOne
 import com.alexlyxy.alexretrofitlessontwo.R.id.toolbar
 import com.alexlyxy.alexretrofitlessontwo.R.id.tvDescr
 import com.alexlyxy.alexretrofitlessontwo.R.id.tvPrice
+import com.alexlyxy.alexretrofitlessontwo.R.id.tvTitle
 import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityDetailsSmallBinding
 import com.alexlyxy.alexretrofitlessontwo.databinding.ProductDetailsItemBinding
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
@@ -41,6 +43,7 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
 import java.util.ArrayList
 import kotlin.properties.Delegates
 
@@ -48,13 +51,11 @@ class DetailsActivity : AppCompatActivity() {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var binding: ActivityDetailsSmallBinding
-
     private lateinit var toolbar: MyToolbar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var txtDetailsBody: TextView
+    private lateinit var txtProductBodyId: TextView
     private lateinit var pctDetailsBody: ImageView
-
 
     private lateinit var productApi: ProductApi
 
@@ -64,11 +65,12 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        binding = ActivityDetailsSmallBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
         setContentView(R.layout.layout_product_details)
         txtDetailsBody = findViewById(tvDescr)
-         pctDetailsBody = findViewById(ivImageOne)
+        txtProductBodyId = findViewById(tvTitle)
+        pctDetailsBody = findViewById(ivImageOne)
+
+        //pctDetailsBody = Picasso.get().load(pctDetailsBody).into(R.id.ivImageOne)
 
         // init toolbar
         toolbar = findViewById(R.id.toolbar)
@@ -109,60 +111,21 @@ class DetailsActivity : AppCompatActivity() {
             showProgressIndication()
             try {
                 val response = productApi.getAllProduct("")
-                // val response = productApi.getProduct(productId)
-                if (response.isSuccessful && response.body() != null) {
-                    val detailsBody = response.body()!!.products[productId-1].description
+                //val responseProduct = productApi.getProduct("".toInt())
+                if (response.isSuccessful && response.body() != null)  {
+                    val detailsBody = response.body()!!.products[productId - 1]
                     val detailsBodyPicture = response.body()!!.products[productId - 1].images[0]
+                    //val productBodyId = responseProduct.body()!!.productSingle
                     Log.d("MyLog", "Details BodyDescr : $detailsBody")
                     Log.d("MyLog", "Details BodyPicture : $detailsBodyPicture")
 
-//                    fun ImageView.load(path: String, request: (RequestCreator) -> RequestCreator) {
-//                        request(getContext().picasso.load(detailsBody)).into(this)    }
+                    txtDetailsBody.text = Html.fromHtml(detailsBody.toString(), Html.FROM_HTML_MODE_LEGACY)
+                    //txtProductBodyId.text = Html.fromHtml(productBodyId.toString(), Html.FROM_HTML_MODE_LEGACY)
+                    Picasso.get().load(detailsBodyPicture).into(pctDetailsBody)
 
-//                    val picasso = Picasso.get().load(detailsBodyPicture).into( ivImageOne)
-//                    Log.d("MyLog", "Picasso : $picasso")
-
-//                    fun RequestCreator.into(
-//                        ivImageOne: ImageView,
-//                        func: Callback.() -> Unit
-//                    ) {
-//                        val callback = Callback()
-//                        callback.func()
-//                        into(ivImageOne, callback)
-//                    }
-
-//                    Picasso.get()
-//                        .load(detailsBody)
-//                        .into(ivImageOne, object : Callback {
-//                            override fun onSuccess() {
-//                                Log.d(TAG, "success")
-//                            }
-//
-//                            override fun onError(e: Exception?) {
-//                                Log.d(TAG, "error")
-//                            }
-//                        })
-
-//                    Picasso.get().load(detailsBody).into(
-//                        ivImageOne,
-//                        object : Callback {
-//                            override fun onSuccess() {
-//                            }
-//                            override fun onError() {
-//                                // empty method. (looks ugly)
-//                            }
-//                        })
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        txtDetailsBody.text = Html.fromHtml(detailsBody, Html.FROM_HTML_MODE_LEGACY)
-                        //Picasso.get().load(detailsBody).into(ivImageOne)
-                    } else {
-                        @Suppress("DEPRECATION")
-                        txtDetailsBody.text = Html.fromHtml(detailsBody)
-                    }
                     Log.d("MyLog", "Details Body2 : $txtDetailsBody")
 
-                    //isDataLoaded = true
+                    isDataLoaded = true
                 } else {
                     onFetchFailed()
                 }
@@ -199,33 +162,4 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 }
-
-private fun RequestCreator?.into(ivImageOne: Int)  {
-    into(ivImageOne)
-}
-
-//private fun RequestCreator.into(imageView: ImageView,  func: Callback.() -> Unit) {
-//    val callback = Callback()
-//   callback.func()
-//    into(imageView, callback)
-//}
-
-//class Callback : Callback {
-//    private var _onSuccess: (() -> Unit)? = null
-//    private var _onError: (() -> Unit)? = null
-//    override fun onSuccess() {
-//        _onSuccess?.invoke()
-//    }
-//
-//    override fun onError(e: java.lang.Exception?) {
-//        _onError?.invoke()
-//    }
-//}
-
-//private fun RequestCreator.into(ivImageOne: ImageView,
-//    func: Callback.() -> Unit ) {
-//    val callback = Callback()
-//    callback.func()
-//    into(ivImageOne, callback)
-//}
 
