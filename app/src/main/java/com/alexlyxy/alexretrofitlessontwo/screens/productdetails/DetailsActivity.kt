@@ -53,6 +53,8 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var toolbar: MyToolbar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var txtDetailsBody: TextView
+    private lateinit var pctDetailsBody: ImageView
+
 
     private lateinit var productApi: ProductApi
 
@@ -66,7 +68,7 @@ class DetailsActivity : AppCompatActivity() {
 //        setContentView(binding.root)
         setContentView(R.layout.layout_product_details)
         txtDetailsBody = findViewById(tvDescr)
-        // txtDetailsBody =
+         pctDetailsBody = findViewById(ivImageOne)
 
         // init toolbar
         toolbar = findViewById(R.id.toolbar)
@@ -109,14 +111,16 @@ class DetailsActivity : AppCompatActivity() {
                 val response = productApi.getAllProduct("")
                 // val response = productApi.getProduct(productId)
                 if (response.isSuccessful && response.body() != null) {
-                    val detailsBody = response.body()!!.products[productId - 1].images[0]
-                    Log.d("MyLog", "Details Body1 : $detailsBody")
+                    val detailsBody = response.body()!!.products[productId-1].description
+                    val detailsBodyPicture = response.body()!!.products[productId - 1].images[0]
+                    Log.d("MyLog", "Details BodyDescr : $detailsBody")
+                    Log.d("MyLog", "Details BodyPicture : $detailsBodyPicture")
 
 //                    fun ImageView.load(path: String, request: (RequestCreator) -> RequestCreator) {
 //                        request(getContext().picasso.load(detailsBody)).into(this)    }
 
-                    val picasso = Picasso.get().load(detailsBody).into( ivImageOne)
-                    Log.d("MyLog", "Picasso : $picasso")
+//                    val picasso = Picasso.get().load(detailsBodyPicture).into( ivImageOne)
+//                    Log.d("MyLog", "Picasso : $picasso")
 
 //                    fun RequestCreator.into(
 //                        ivImageOne: ImageView,
@@ -151,7 +155,7 @@ class DetailsActivity : AppCompatActivity() {
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         txtDetailsBody.text = Html.fromHtml(detailsBody, Html.FROM_HTML_MODE_LEGACY)
-                        Picasso.get().load(detailsBody).into(ivImageOne)
+                        //Picasso.get().load(detailsBody).into(ivImageOne)
                     } else {
                         @Suppress("DEPRECATION")
                         txtDetailsBody.text = Html.fromHtml(detailsBody)
