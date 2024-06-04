@@ -55,18 +55,10 @@ class ProductActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(this@ProductActivity)
         productsAdapter = ProductsAdapter { clickedProduct ->
-            Toast.makeText(applicationContext, "ActivityProductRecyclerStart", Toast.LENGTH_LONG).show()
-           // Toast.makeText(applicationContext, "ActivityStartAgain", Toast.LENGTH_LONG).show()
-            Log.d("MyLog", "ResponseIDproductActiviyt : ${clickedProduct.id}")
-            // Log.d("MyLog", "ResponseTitleProductActiviy : ${clickedProduct.description}")
-
+            Toast.makeText(applicationContext, "ActivityProductRecyclerStart", Toast.LENGTH_SHORT).show()
             clickedProduct.id?.let { DetailsActivity.start(this, it) }
         }
         recyclerView.adapter = productsAdapter
-        //model.liveDataList.observe(this) {
-          //  productsAdapter.submitList(it)
-
-
 
         // init retrofit
         val retrofit = Retrofit.Builder()
@@ -74,7 +66,6 @@ class ProductActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         productApi = retrofit.create(ProductApi::class.java)
-
     }
 
     override fun onStart() {
@@ -101,11 +92,8 @@ class ProductActivity : AppCompatActivity() {
                     isDataLoaded = true
 
                     Log.d("MyLog", "ResponseProductActivity : $response")
-                    Log.d(
-                        "MyLog",
-                        "ResponseBodyProductActivity[1] : ${response.body()!!.products[2]}"
-                    )
                     Log.d("MyLog", "ResponseBodyProductActivity : ${response.body()!!.products}")
+
                 } else {
                     onFetchFailed()
                 }
@@ -145,12 +133,8 @@ class ProductActivity : AppCompatActivity() {
             private val binding = ProductItemBinding.bind(view)
             private var itemProduct: ProductModel? = null
 
-//            val title: TextView = view.findViewById(R.id.tvTitleView)
-//            val descr: TextView = view.findViewById(R.id.tvDescriptionView)
-
             fun bind(item: ProductModel) = with((binding)) {
                 itemProduct = item
-
                 tvTitleView.text = buildString {
                     append(" TITLE : ")
                     append(item.titleView)
@@ -160,22 +144,13 @@ class ProductActivity : AppCompatActivity() {
                     append(item.descriptionView)
                 }
                 Picasso.get().load(productList[position].images[0]).into(ivImageOneProduct)
-
             }
         }
-
             //@SuppressLint("NotifyDataSetChanged")
             fun bindData(products: List<Product>) {
                 productList = ArrayList(products)
                 notifyDataSetChanged()
                 Log.d("MyLog", "productListProductActivity : $productList")
-                Log.d(
-                    "Mylog", "Picasso : ${
-                        Picasso.get()
-                            .load("https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png")
-                            .fetch()
-                    }"
-                )
             }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -185,19 +160,6 @@ class ProductActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-
-//                holder.title.text = productList[position].title
-//                holder.descr.text = productList[position].description
-
-                //Dear Vasilij. I tried to show picture using Glide & Picasso. But not work???
-
-                //Glide.with().load(productList[position].images[0]).into(R.id.ivImageOne)
-                //Picasso.get().load(productList[position].images[0]).into(R.id.ivImageOne)
-
-
-                Log.d("MyLog", "PictureTitleProductActivity : ${productList[0].title}")
-                //Log.d("MyLog", "PictureDescr : ${productList[0].description}")
-                // Log.d("MyLog", "PicturePicture: ${productList[position].images[0]}")
 
                 holder.bind(item = ProductModel(
                     titleView = productList[position].title!!,
