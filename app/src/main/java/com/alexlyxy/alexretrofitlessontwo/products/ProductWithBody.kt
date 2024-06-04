@@ -37,10 +37,6 @@ data class ProductWithBody(
     @Expose
     val stock: Int?,
 
-//    @SerializedName("tags")
-//    @Expose
-//    val tags: List<String>?,
-
     @SerializedName("brand")
     @Expose
     val brand: String?,
