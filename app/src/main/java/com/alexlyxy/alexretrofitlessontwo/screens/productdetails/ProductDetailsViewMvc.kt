@@ -52,8 +52,6 @@ class ProductDetailsViewMvc (
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
             textProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
-            pictureProductBody. = Html.fromHtml(pictureBody, Html.FROM_HTML_MODE_LEGACY)
-            Picasso.get().load(pictureProductBody).load()
 
         } else {
             @Suppress("DEPRECATION")
