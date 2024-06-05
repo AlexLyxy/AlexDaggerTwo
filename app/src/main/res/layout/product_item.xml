@@ -17,7 +17,8 @@
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
         android:text="Hello Alex Retrofit Interceptor Lesson Two!"
-        android:textSize="20sp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvDescriptionView"
