@@ -146,9 +146,6 @@ class DetailsActivity : AppCompatActivity() {
             private val binding = ProductDetailsItemBinding.bind(view)
             private var itemDetailsProduct: ProductDetailsModel? = null
 
-//            val title: TextView = view.findViewById(R.id.tvTitleView)
-//            val descr: TextView = view.findViewById(R.id.tvDescriptionView)
-
             fun bind(item: ProductDetailsModel) = with((binding)) {
                 itemDetailsProduct = item
 
