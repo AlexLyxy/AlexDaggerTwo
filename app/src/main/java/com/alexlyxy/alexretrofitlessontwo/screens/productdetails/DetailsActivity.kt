@@ -65,8 +65,6 @@ class DetailsActivity : AppCompatActivity() {
             .build()
         productApi = retrofit.create(ProductApi::class.java)
 
-        productId = 0
-
         //retrieve question ID passed from outside
         productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
         Log.d("MyLog", "ProductIDdetails : $productId")
@@ -89,8 +87,8 @@ class DetailsActivity : AppCompatActivity() {
             try {
                 val response = productApi.getAllProduct("")
                 if (response.isSuccessful && response.body() != null)  {
-                    val detailsBody = response.body()!!.products[productId - 1]
-                    val detailsBodyPicture = response.body()!!.products[productId - 1].images[0]
+                    val detailsBody = response.body()!!.products[productId-1]
+                    val detailsBodyPicture = response.body()!!.products[productId-1].images[0]
 
                     Log.d("MyLog", "Details BodyDescr : $detailsBody")
                     Log.d("MyLog", "Details BodyPicture : $detailsBodyPicture")
