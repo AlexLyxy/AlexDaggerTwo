@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">AlexRetrofitLessonTwo</string>
+    <string name="app_name">ALEX PRODUCT SIMPLE</string>
     <string name="server_error_dialog_title">Server Error</string>
     <string name="server_error_dialog_message">Communication with the server failed</string>
     <string name="server_error_dialog_button_caption">OK</string>
+    <string name="image_one">IMAGE ONE</string>
+    <string name="image_one_product">IMAGE ONE PRODUCT</string>
 </resources>

@@ -16,7 +16,8 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
-        android:text="Hello Alex Retrofit Interceptor Lesson Two!"
+        android:text=""
+        android:textColor="@color/abc_decor_view_status_guard"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -29,8 +30,10 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
-        android:text="Description"
-        android:textSize="20sp" />
+        android:text=""
+        android:textColor="@color/abc_decor_view_status_guard"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/ivImageOneProduct"
@@ -38,7 +41,8 @@
         android:layout_height="100dp"
         android:layout_gravity="center|center_vertical"
         android:layout_marginTop="5dp"
-        app:srcCompat="@drawable/green" />
+        android:contentDescription="@string/image_one_product"
+        app:srcCompat="@color/abc_decor_view_status_guard_light" />
 
 </LinearLayout>
 
