@@ -48,11 +48,12 @@ class ProductDetailsViewMvc (
         swipeRefresh.isEnabled = false
     }
 
-    fun bindProductBody(productBody: String) {
+    fun bindProductBody(productBody: String, pictureBody: ImageView) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
             textProductBody.text = Html.fromHtml(productBody, Html.FROM_HTML_MODE_LEGACY)
-            Picasso.get().load(pictureProductBody)
+            pictureProductBody. = Html.fromHtml(pictureBody, Html.FROM_HTML_MODE_LEGACY)
+            Picasso.get().load(pictureProductBody).load()
 
         } else {
             @Suppress("DEPRECATION")
@@ -69,5 +70,4 @@ class ProductDetailsViewMvc (
             swipeRefresh.isRefreshing = false
         }
     }
-
 }
