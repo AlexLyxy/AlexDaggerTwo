@@ -1,40 +1,32 @@
 package com.alexlyxy.alexretrofitlessontwo.screens.productdetails
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.media.Image
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html
+import android.text.Html.FROM_HTML_MODE_LEGACY
+import android.text.Html.fromHtml
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.R.id.ivImageOne
-import com.alexlyxy.alexretrofitlessontwo.R.id.toolbar
+import com.alexlyxy.alexretrofitlessontwo.R.id.tvBrand
+import com.alexlyxy.alexretrofitlessontwo.R.id.tvCategory
 import com.alexlyxy.alexretrofitlessontwo.R.id.tvDescr
+import com.alexlyxy.alexretrofitlessontwo.R.id.tvDiscount
 import com.alexlyxy.alexretrofitlessontwo.R.id.tvPrice
+import com.alexlyxy.alexretrofitlessontwo.R.id.tvRating
+import com.alexlyxy.alexretrofitlessontwo.R.id.tvStock
+import com.alexlyxy.alexretrofitlessontwo.R.id.tvThumbnail
 import com.alexlyxy.alexretrofitlessontwo.R.id.tvTitle
-import com.alexlyxy.alexretrofitlessontwo.databinding.ActivityDetailsSmallBinding
-import com.alexlyxy.alexretrofitlessontwo.databinding.ProductDetailsItemBinding
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
-import com.alexlyxy.alexretrofitlessontwo.products.Product
-import com.alexlyxy.alexretrofitlessontwo.products.ProductDetailsModel
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar.MyToolbar
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.RequestCreator
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,8 +35,6 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
-import java.util.ArrayList
 import kotlin.properties.Delegates
 
 class DetailsActivity : AppCompatActivity() {
@@ -53,9 +43,17 @@ class DetailsActivity : AppCompatActivity() {
 
     private lateinit var toolbar: MyToolbar
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var txtDetailsBody: TextView
-    private lateinit var txtProductBodyId: TextView
-    private lateinit var pctDetailsBody: ImageView
+
+    private lateinit var productTitle: TextView
+    private lateinit var productDescription: TextView
+    private lateinit var productCategory: TextView
+    private lateinit var productPrice: TextView
+    private lateinit var productDiscountPercentage: TextView
+    private lateinit var productRating: TextView
+    private lateinit var productStock: TextView
+    private lateinit var productBrand: TextView
+    private lateinit var productPicture: ImageView
+    private lateinit var productThumbnail: TextView
 
     private lateinit var productApi: ProductApi
 
@@ -66,11 +64,17 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_product_details)
-        txtDetailsBody = findViewById(tvDescr)
-        txtProductBodyId = findViewById(tvTitle)
-        pctDetailsBody = findViewById(ivImageOne)
 
-        //pctDetailsBody = Picasso.get().load(pctDetailsBody).into(R.id.ivImageOne)
+        productTitle = findViewById(tvTitle)
+        productDescription = findViewById(tvDescr)
+        productCategory = findViewById(tvCategory)
+        productPrice = findViewById(tvPrice)
+        productDiscountPercentage = findViewById(tvDiscount)
+        productRating = findViewById(tvRating)
+        productStock = findViewById(tvStock)
+        productBrand = findViewById(tvBrand)
+        productPicture = findViewById(ivImageOne)
+        productThumbnail = findViewById(tvThumbnail)
 
         // init toolbar
         toolbar = findViewById(R.id.toolbar)
@@ -119,11 +123,16 @@ class DetailsActivity : AppCompatActivity() {
                     Log.d("MyLog", "Details BodyDescr : $detailsBody")
                     Log.d("MyLog", "Details BodyPicture : $detailsBodyPicture")
 
-                    txtDetailsBody.text = Html.fromHtml(detailsBody.toString(), Html.FROM_HTML_MODE_LEGACY)
-                    //txtProductBodyId.text = Html.fromHtml(productBodyId.toString(), Html.FROM_HTML_MODE_LEGACY)
-                    Picasso.get().load(detailsBodyPicture).into(pctDetailsBody)
-
-                    Log.d("MyLog", "Details Body2 : $txtDetailsBody")
+                    productTitle.text = fromHtml("TITLE: " + detailsBody.title, FROM_HTML_MODE_LEGACY)
+                    productDescription.text = fromHtml("DESCRIPTION: " +  detailsBody.description, FROM_HTML_MODE_LEGACY)
+                    productPrice.text = fromHtml("PRICE: " + detailsBody.price.toString(), FROM_HTML_MODE_LEGACY)
+                    productDiscountPercentage.text = fromHtml("DISCOUNT PERCENTAGE: " +  detailsBody.discountPercentage.toString(), FROM_HTML_MODE_LEGACY)
+                    productRating.text = fromHtml("RATING: " + detailsBody.rating.toString(), FROM_HTML_MODE_LEGACY)
+                    productStock.text = fromHtml("STOCK: " + detailsBody.stock.toString(), FROM_HTML_MODE_LEGACY)
+                    productBrand.text = fromHtml("BRAND: " + detailsBody.brand, FROM_HTML_MODE_LEGACY)
+                    productCategory.text = fromHtml("CATEGORY: " + detailsBody.category, FROM_HTML_MODE_LEGACY)
+                    productThumbnail.text = fromHtml("THUMBNAIL: " + detailsBody.thumbnail, FROM_HTML_MODE_LEGACY)
+                    Picasso.get().load(detailsBodyPicture).into(productPicture)
 
                     isDataLoaded = true
                 } else {
