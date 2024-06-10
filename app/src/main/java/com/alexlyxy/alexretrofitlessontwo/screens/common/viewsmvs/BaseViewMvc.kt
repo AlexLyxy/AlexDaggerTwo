@@ -8,8 +8,8 @@ import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 
 open class BaseViewMvc <LISTENER_TYPE>(
-    private val layoutInflater: LayoutInflater,
-    private val parent: ViewGroup?,
+    layoutInflater: LayoutInflater,
+    parent: ViewGroup?,
     @LayoutRes private val layoutId: Int
 ){
 
@@ -32,3 +32,4 @@ open class BaseViewMvc <LISTENER_TYPE>(
         return rootView.findViewById<T>(id)
     }
 }
+

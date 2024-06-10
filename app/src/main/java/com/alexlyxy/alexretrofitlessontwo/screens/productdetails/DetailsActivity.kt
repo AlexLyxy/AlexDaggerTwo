@@ -3,21 +3,13 @@ package com.alexlyxy.alexretrofitlessontwo.screens.productdetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Html
 import android.util.Log
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.Constants
-import com.alexlyxy.alexretrofitlessontwo.R
-import com.alexlyxy.alexretrofitlessontwo.R.id.ivImageOne
-import com.alexlyxy.alexretrofitlessontwo.R.id.tvTextProduct
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
-import com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar.MyToolbar
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,34 +20,27 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.properties.Delegates
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var toolbar: MyToolbar
-    private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var textProduct: TextView
-    private lateinit var pictureProduct: ImageView
-
     private lateinit var productApi: ProductApi
 
-    private var isDataLoaded = false
+    private lateinit var viewMvc: ProductDetailsViewMvc
+
+//    private lateinit var toolbar: MyToolbar
+//    private lateinit var swipeRefresh: SwipeRefreshLayout
+//    private lateinit var textProduct: TextView
+//    private lateinit var pictureProduct: ImageView
+    //private var isDataLoaded = false
 
     private var productId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_product_details)
-        textProduct = findViewById(tvTextProduct)
-        pictureProduct = findViewById(ivImageOne)
+        viewMvc = ProductDetailsViewMvc(LayoutInflater.from(this), null)
 
-        // init toolbar
-        toolbar = findViewById(R.id.toolbar)
-        toolbar.setNavigateUpListener { onBackPressed() }
-
-        // init pull-down-to-refresh (used as a progress indicator)
-        swipeRefresh = findViewById(R.id.swipeRefresh)
-        swipeRefresh.isEnabled = false
+        setContentView(viewMvc.rootView)
 
         // init retrofit
 
@@ -72,6 +57,7 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        viewMvc.registerListener(this)
         fetchProductDetails()
         Toast.makeText(applicationContext, "ActivityDetailsOnStart", Toast.LENGTH_LONG).show()
     }
@@ -79,26 +65,23 @@ class DetailsActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         coroutineScope.coroutineContext.cancelChildren()
+        viewMvc.unregisterListener(this)
     }
 
     private fun fetchProductDetails() {
         coroutineScope.launch {
-            showProgressIndication()
+            viewMvc.showProgressIndication()
             try {
                 val response = productApi.getAllProduct("")
-                if (response.isSuccessful && response.body() != null)  {
-                    val detailsBody = response.body()!!.products[productId-1]
-                    val detailsBodyPicture = response.body()!!.products[productId-1].images[0]
+                if (response.isSuccessful && response.body() != null) {
+                    val detailsBody = response.body()!!.products[productId - 1]
+                    val detailsBodyPicture = response.body()!!.products[productId - 1].images[0]
 
                     Log.d("MyLog", "Details BodyDescr : $detailsBody")
                     Log.d("MyLog", "Details BodyPicture : $detailsBodyPicture")
 
-                    textProduct.text = Html.fromHtml(detailsBody.toString(), Html.FROM_HTML_MODE_LEGACY)
-                    Picasso.get().load(detailsBodyPicture).into(pictureProduct)
+                    viewMvc.bindProductBody(detailsBody)
 
-                    Log.d("MyLog", "Details Body2 : $textProduct")
-
-                    isDataLoaded = true
                 } else {
                     onFetchFailed()
                 }
@@ -107,7 +90,7 @@ class DetailsActivity : AppCompatActivity() {
                     onFetchFailed()
                 }
             } finally {
-                hideProgressIndication()
+                viewMvc.hideProgressIndication()
             }
         }
     }
@@ -118,12 +101,8 @@ class DetailsActivity : AppCompatActivity() {
             .commitAllowingStateLoss()
     }
 
-    private fun showProgressIndication() {
-        swipeRefresh.isRefreshing = true
-    }
-
-    private fun hideProgressIndication() {
-        swipeRefresh.isRefreshing = false
+    override fun onBackClicked() {
+        onBackPressed()
     }
 
     companion object {
@@ -135,4 +114,5 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 }
+
 

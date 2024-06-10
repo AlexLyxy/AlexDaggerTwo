@@ -28,36 +28,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.cancellation.CancellationException
 
-class ProductActivity : AppCompatActivity() {
+class ProductActivity : AppCompatActivity(), ProductActivityViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-
-    private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var productsAdapter: ProductsAdapter
 
     private lateinit var productApi: ProductApi
 
     private var isDataLoaded = false
 
+    private lateinit var viewMvc: ProductActivityViewMvc
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product)
-
-        // init pull-down-to-refresh
-        swipeRefresh = findViewById(R.id.swipeRefresh)
-        swipeRefresh.setOnRefreshListener {
-            fetchProduct()
-        }
-
-        // init recycler view
-        recyclerView = findViewById(R.id.recycler)
-        recyclerView.layoutManager = LinearLayoutManager(this@ProductActivity)
-        productsAdapter = ProductsAdapter { clickedProduct ->
-            Toast.makeText(applicationContext, "ActivityProductRecyclerStart", Toast.LENGTH_SHORT).show()
-            clickedProduct.id?.let { DetailsActivity.start(this, it) }
-        }
-        recyclerView.adapter = productsAdapter
+        viewMvc = ProductActivityViewMvc(LayoutInflater.from(this), null)
+        setContentView(viewMvc.rootView)
 
         // init retrofit
         val retrofit = Retrofit.Builder()
@@ -69,6 +53,7 @@ class ProductActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        viewMvc.registerListener(this)
         if (!isDataLoaded) {
             fetchProduct()
             Toast.makeText(applicationContext, "ActivityProductOnStart", Toast.LENGTH_LONG).show()
@@ -78,15 +63,20 @@ class ProductActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         coroutineScope.coroutineContext.cancelChildren()
+        viewMvc.unregisterListener(this)
+    }
+
+    override fun onRefreshClicked() {
+        fetchProduct()
     }
 
     private fun fetchProduct() {
         coroutineScope.launch {
-            showProgressIndication()
+            viewMvc.showProgressIndication()
             try {
                 val response = productApi.getAllProduct("")
                 if (response.isSuccessful && response.body() != null) {
-                    productsAdapter.bindData(response.body()!!.products)
+                    viewMvc.bindProduct(response.body()!!.products)
 
                     isDataLoaded = true
 
@@ -101,7 +91,7 @@ class ProductActivity : AppCompatActivity() {
                     onFetchFailed()
                 }
             } finally {
-                hideProgressIndication()
+                viewMvc.hideProgressIndication()
             }
         }
     }
@@ -112,69 +102,14 @@ class ProductActivity : AppCompatActivity() {
             .commitAllowingStateLoss()
     }
 
-    private fun showProgressIndication() {
-        swipeRefresh.isRefreshing = true
-    }
-
-    private fun hideProgressIndication() {
-        if (swipeRefresh.isRefreshing) {
-            swipeRefresh.isRefreshing = false
-        }
-    }
-
-    class ProductsAdapter(
-        private val onProductClickListener: (Product) -> Unit
-    ) : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
-
-        private var productList: List<Product> = ArrayList(0)
-
-        inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            private val binding = ProductItemBinding.bind(view)
-            private var itemProduct: ProductModel? = null
-
-            fun bind(item: ProductModel) = with((binding)) {
-                itemProduct = item
-                tvTitleView.text = buildString {
-                    append(" TITLE : ")
-                    append(item.titleView)
-                }
-                tvDescriptionView.text = buildString {
-                    append("      DESCRIPTION : ")
-                    append(item.descriptionView)
-                }
-                Picasso.get().load(productList[position].images[0]).into(ivImageOneProduct)
-            }
-        }
-            //@SuppressLint("NotifyDataSetChanged")
-            fun bindData(products: List<Product>) {
-                productList = ArrayList(products)
-                notifyDataSetChanged()
-                Log.d("MyLog", "productListProductActivity : $productList")
-            }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-            val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.product_item, parent, false)
-            return ProductViewHolder(itemView)
-        }
-
-        override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-
-                holder.bind(item = ProductModel(
-                    titleView = productList[position].title!!,
-                    descriptionView = productList[position].description!!,
-                    imageOneProduct = productList[position].images[0]
-                ))
-                holder.itemView.setOnClickListener {
-                    onProductClickListener.invoke(productList[position])
-                }
-            }
-
-        override fun getItemCount(): Int {
-            return productList.size
-        }
+    override fun onProductClicked(clickedProduct: Product) {
+        clickedProduct.id?.let { DetailsActivity.start(this, it) }
     }
 }
+
+
+
+
 
 
 
