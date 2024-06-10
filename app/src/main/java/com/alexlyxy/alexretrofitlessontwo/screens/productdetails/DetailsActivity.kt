@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -73,7 +74,8 @@ class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
                     Log.d("MyLog", "Details BodyDescr : $detailsBody")
                     Log.d("MyLog", "Details BodyPicture : $detailsBodyPicture")
 
-                    viewMvc.bindProductBody(detailsBody)
+                    viewMvc.bindProductBody(detailsBody, detailsBodyPicture)
+                  //  viewMvc.bindProductBody(detailsBodyPicture)
 
                 } else {
                     onFetchFailed()
