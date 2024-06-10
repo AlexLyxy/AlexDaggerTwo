@@ -28,18 +28,11 @@ class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
 
     private lateinit var viewMvc: ProductDetailsViewMvc
 
-//    private lateinit var toolbar: MyToolbar
-//    private lateinit var swipeRefresh: SwipeRefreshLayout
-//    private lateinit var textProduct: TextView
-//    private lateinit var pictureProduct: ImageView
-    //private var isDataLoaded = false
-
     private var productId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = ProductDetailsViewMvc(LayoutInflater.from(this), null)
-
         setContentView(viewMvc.rootView)
 
         // init retrofit
