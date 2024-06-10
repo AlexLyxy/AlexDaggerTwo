@@ -75,7 +75,6 @@ class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
                     Log.d("MyLog", "Details BodyPicture : $detailsBodyPicture")
 
                     viewMvc.bindProductBody(detailsBody, detailsBodyPicture)
-                  //  viewMvc.bindProductBody(detailsBodyPicture)
 
                 } else {
                     onFetchFailed()

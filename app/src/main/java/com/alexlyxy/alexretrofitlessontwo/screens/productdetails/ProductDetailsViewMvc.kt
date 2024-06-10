@@ -14,14 +14,14 @@ import com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar.MyToolbar
 import com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs.BaseViewMvc
 import com.squareup.picasso.Picasso
 
-class ProductDetailsViewMvc (
+class ProductDetailsViewMvc(
     layoutInflater: LayoutInflater,
     parent: ViewGroup?
-): BaseViewMvc<ProductDetailsViewMvc.Listener>(
+) : BaseViewMvc<ProductDetailsViewMvc.Listener>(
     layoutInflater,
     parent,
     R.layout.layout_product_details
-){
+) {
 
     interface Listener {
         fun onBackClicked()
@@ -52,10 +52,9 @@ class ProductDetailsViewMvc (
     fun bindProductBody(productBody: Product, pictureBody: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             textProductBody.text = Html.fromHtml(productBody.toString(), Html.FROM_HTML_MODE_LEGACY)
-            val picasso = Picasso.get().load(pictureBody).into(pictureProductBody)
+            Picasso.get().load(pictureBody).into(pictureProductBody)
 
-           //val picasso = Picasso.get().load(" https://dummyjson.com/products/1'").into(pictureProductBody)
-            Log.d("MyLog", "Picture : $picasso")
+            Log.d("MyLog", "Picture : $pictureBody")
         } else {
             @Suppress("DEPRECATION")
             textProductBody.text = Html.fromHtml(productBody.toString())
