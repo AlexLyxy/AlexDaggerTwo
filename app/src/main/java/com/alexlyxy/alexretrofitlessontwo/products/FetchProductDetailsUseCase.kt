@@ -11,7 +11,7 @@ import kotlin.coroutines.cancellation.CancellationException
 class FetchProductDetailsUseCase {
 
     sealed class Result {
-        class Success(val product: Product) : Result()
+        class Success(val product: Product, val picture: String) : Result()
         object Failure: Result()
     }
 
@@ -27,7 +27,10 @@ class FetchProductDetailsUseCase {
             try {
                 val response = productApi.getAllProduct("")
                 if (response.isSuccessful && response.body() != null) {
-                    return@withContext Result.Success(response.body()!!.products[productId])
+                    //return@withContext Result.Success(response.body()!!.products[productId])
+                    return@withContext Result.Success(
+                        response.body()!!.products[productId-1],
+                        response.body()!!.products[productId-1].images[0])
                 } else {
                     return@withContext Result.Failure
                 }
