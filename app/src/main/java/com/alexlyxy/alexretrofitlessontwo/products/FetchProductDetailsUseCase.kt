@@ -15,11 +15,6 @@ class FetchProductDetailsUseCase (private val retrofit: Retrofit) {
         object Failure: Result()
     }
 
-//    private val retrofit = Retrofit.Builder()
-//        .baseUrl(Constants.BASE_URL)
-//        .addConverterFactory(GsonConverterFactory.create())
-//        .build()
-
     private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
 
     suspend fun fetchProduct(productId: Int): Result {

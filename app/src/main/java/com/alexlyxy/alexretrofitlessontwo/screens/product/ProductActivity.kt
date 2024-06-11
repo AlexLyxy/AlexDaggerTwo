@@ -84,9 +84,6 @@ class ProductActivity : AppCompatActivity(), ProductActivityViewMvc.Listener {
 
     private fun onFetchFailed() {
         dialogsNavigator.showServerErrorDialog()
-//        supportFragmentManager.beginTransaction()
-//            .add(ServerErrorDialogFragment.newInstance(), null)
-//            .commitAllowingStateLoss()
     }
 
     override fun onProductClicked(clickedProduct: Product) {
