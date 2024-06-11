@@ -1,11 +1,9 @@
 package com.alexlyxy.alexretrofitlessontwo.products
 
-import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.cancellation.CancellationException
 
 class FetchProductDetailsUseCase (private val retrofit: Retrofit) {

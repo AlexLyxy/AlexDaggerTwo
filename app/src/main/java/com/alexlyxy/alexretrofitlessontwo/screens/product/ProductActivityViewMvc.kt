@@ -15,8 +15,8 @@ import com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs.BaseViewMvc
 import com.squareup.picasso.Picasso
 
 class ProductActivityViewMvc(
-    layoutInflater: LayoutInflater,
-    parent: ViewGroup?
+    private val layoutInflater: LayoutInflater,
+    private val parent: ViewGroup?
 ) : BaseViewMvc<ProductActivityViewMvc.Listener>(
     layoutInflater,
     parent,
