@@ -7,8 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.alexlyxy.alexretrofitlessontwo.MyApplication
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
+import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.DialogsNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
+import com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs.ScreensNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -24,6 +27,10 @@ class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
 
     private lateinit var fetchProductDetailsUseCase: FetchProductDetailsUseCase
 
+    private lateinit var dialogsNavigator: DialogsNavigator
+
+    private lateinit var screensNavigator: ScreensNavigator
+
     private var productId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +38,12 @@ class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
         viewMvc = ProductDetailsViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
 
-        fetchProductDetailsUseCase = FetchProductDetailsUseCase()
+        fetchProductDetailsUseCase =
+            FetchProductDetailsUseCase((application as MyApplication).retrofit)
+
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+
+        screensNavigator = ScreensNavigator(this)
 
         //retrieve question ID passed from outside
         productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
@@ -56,10 +68,11 @@ class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
             viewMvc.showProgressIndication()
             try {
                 val result = fetchProductDetailsUseCase.fetchProduct(productId)
-                when(result) {
+                when (result) {
                     is FetchProductDetailsUseCase.Result.Success -> {
                         viewMvc.bindProductBody(result.product, result.picture)
                     }
+
                     is FetchProductDetailsUseCase.Result.Failure -> onFetchFailed()
                 }
 
@@ -70,13 +83,11 @@ class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-            .add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
     override fun onBackClicked() {
-        onBackPressed()
+        screensNavigator.navigateBack()
     }
 
     companion object {

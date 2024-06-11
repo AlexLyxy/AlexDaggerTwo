@@ -8,17 +8,17 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.cancellation.CancellationException
 
-class FetchProductUseCase {
+class FetchProductUseCase (private val retrofit: Retrofit) {
 
     sealed class Result {
         class Success(val products: List<Product>) : Result()
         object Failure: Result()
     }
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+//    private val retrofit = Retrofit.Builder()
+//        .baseUrl(Constants.BASE_URL)
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .build()
 
     private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
 

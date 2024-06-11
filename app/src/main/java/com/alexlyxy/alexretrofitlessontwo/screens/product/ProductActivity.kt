@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.alexlyxy.alexretrofitlessontwo.MyApplication
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.Product
+import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.DialogsNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
+import com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs.ScreensNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,12 +27,21 @@ class ProductActivity : AppCompatActivity(), ProductActivityViewMvc.Listener {
 
     private lateinit var fetchProductUseCase: FetchProductUseCase
 
+    private lateinit var dialogsNavigator: DialogsNavigator
+
+    private lateinit var screensNavigator: ScreensNavigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = ProductActivityViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
 
-        fetchProductUseCase = FetchProductUseCase()
+        fetchProductUseCase =
+            FetchProductUseCase(((application as MyApplication).retrofit))
+
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+
+        screensNavigator = ScreensNavigator(this)
    }
 
     override fun onStart() {
@@ -71,13 +83,14 @@ class ProductActivity : AppCompatActivity(), ProductActivityViewMvc.Listener {
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-            .add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
+//        supportFragmentManager.beginTransaction()
+//            .add(ServerErrorDialogFragment.newInstance(), null)
+//            .commitAllowingStateLoss()
     }
 
     override fun onProductClicked(clickedProduct: Product) {
-        clickedProduct.id?.let { DetailsActivity.start(this, it) }
+        clickedProduct.id?.let { screensNavigator.toQuestionDetails(it) }
     }
 }
 
