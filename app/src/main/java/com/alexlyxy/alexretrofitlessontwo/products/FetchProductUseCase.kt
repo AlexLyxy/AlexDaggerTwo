@@ -6,14 +6,12 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import kotlin.coroutines.cancellation.CancellationException
 
-class FetchProductUseCase (private val retrofit: Retrofit) {
+class FetchProductUseCase (private val productApi: ProductApi) {
 
     sealed class Result {
         class Success(val products: List<Product>) : Result()
         object Failure: Result()
     }
-
-    private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
 
     suspend fun fetchLatestProduct(): Result {
         return withContext(Dispatchers.IO) {

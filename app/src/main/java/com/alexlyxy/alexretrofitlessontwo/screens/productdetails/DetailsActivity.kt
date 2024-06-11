@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.MyApplication
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.DialogsNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs.ScreensNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +38,7 @@ class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
         setContentView(viewMvc.rootView)
 
         fetchProductDetailsUseCase =
-            FetchProductDetailsUseCase((application as MyApplication).retrofit)
+            FetchProductDetailsUseCase((application as MyApplication).productApi)
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
 

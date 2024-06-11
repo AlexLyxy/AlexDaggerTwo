@@ -37,7 +37,7 @@ class ProductActivity : AppCompatActivity(), ProductActivityViewMvc.Listener {
         setContentView(viewMvc.rootView)
 
         fetchProductUseCase =
-            FetchProductUseCase(((application as MyApplication).retrofit))
+            FetchProductUseCase(((application as MyApplication).productApi))
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
 
