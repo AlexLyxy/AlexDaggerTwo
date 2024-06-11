@@ -36,12 +36,13 @@ class ProductActivity : AppCompatActivity(), ProductActivityViewMvc.Listener {
         viewMvc = ProductActivityViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
 
-
+        fetchProductUseCase =
+            FetchProductUseCase(((application as MyApplication).productApi))
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
 
         screensNavigator = ScreensNavigator(this)
-   }
+    }
 
     override fun onStart() {
         super.onStart()
@@ -72,6 +73,7 @@ class ProductActivity : AppCompatActivity(), ProductActivityViewMvc.Listener {
                         viewMvc.bindProduct(result.products)
                         isDataLoaded = true
                     }
+
                     is FetchProductUseCase.Result.Failure -> onFetchFailed()
                 }
 
