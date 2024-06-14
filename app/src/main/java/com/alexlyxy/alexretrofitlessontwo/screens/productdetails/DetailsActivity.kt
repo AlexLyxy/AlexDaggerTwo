@@ -37,8 +37,7 @@ class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
         viewMvc = ProductDetailsViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
 
-        fetchProductDetailsUseCase =
-            FetchProductDetailsUseCase((application as MyApplication).productApi)
+        fetchProductDetailsUseCase = (application as MyApplication).fetchProductDetailsUseCase
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
 
