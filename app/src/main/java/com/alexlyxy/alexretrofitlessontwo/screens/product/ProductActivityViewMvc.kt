@@ -11,7 +11,7 @@ import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.databinding.ProductItemBinding
 import com.alexlyxy.alexretrofitlessontwo.products.Product
 import com.alexlyxy.alexretrofitlessontwo.products.ProductModel
-import com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs.BaseViewMvc
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.BaseViewMvc
 import com.squareup.picasso.Picasso
 
 class ProductActivityViewMvc(

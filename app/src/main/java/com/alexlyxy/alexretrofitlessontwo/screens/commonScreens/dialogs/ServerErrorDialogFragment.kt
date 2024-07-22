@@ -1,4 +1,4 @@
-package com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs
+package com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog

@@ -1,4 +1,4 @@
-package com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs
+package com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs
 
 import android.app.Activity
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity

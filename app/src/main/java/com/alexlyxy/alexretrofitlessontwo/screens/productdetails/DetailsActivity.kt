@@ -9,8 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.MyApplication
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
-import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.DialogsNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs.ScreensNavigator
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.activities.BaseActivity
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ScreensNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,7 +19,7 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
-class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
+class DetailsActivity : BaseActivity(), ProductDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -37,7 +38,7 @@ class DetailsActivity : AppCompatActivity(), ProductDetailsViewMvc.Listener {
         viewMvc = ProductDetailsViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
 
-        fetchProductDetailsUseCase = (application as MyApplication).fetchProductDetailsUseCase
+        fetchProductDetailsUseCase = compositionRoot.fetchProductDetailsUseCase
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
 

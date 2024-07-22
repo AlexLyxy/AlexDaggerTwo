@@ -1,4 +1,4 @@
-package com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar
+package com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.toolbar
 
 import android.content.Context
 import android.util.AttributeSet

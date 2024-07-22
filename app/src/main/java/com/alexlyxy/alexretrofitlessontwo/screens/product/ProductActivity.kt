@@ -7,17 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.MyApplication
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.Product
-import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.DialogsNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.common.dialogs.ServerErrorDialogFragment
-import com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs.ScreensNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.activities.BaseActivity
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ScreensNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 
-class ProductActivity : AppCompatActivity(), ProductActivityViewMvc.Listener {
+class ProductActivity : BaseActivity(), ProductActivityViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -36,7 +35,7 @@ class ProductActivity : AppCompatActivity(), ProductActivityViewMvc.Listener {
         viewMvc = ProductActivityViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
 
-        fetchProductUseCase = (application as MyApplication).fetchProductUseCase
+        fetchProductUseCase = compositionRoot.fetchProductUseCase
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
 

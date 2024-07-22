@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexlyxy.alexretrofitlessontwo.R
 import com.alexlyxy.alexretrofitlessontwo.products.Product
-import com.alexlyxy.alexretrofitlessontwo.screens.common.toolbar.MyToolbar
-import com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs.BaseViewMvc
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.toolbar.MyToolbar
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.BaseViewMvc
 import com.squareup.picasso.Picasso
 
 class ProductDetailsViewMvc(

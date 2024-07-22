@@ -1,4 +1,4 @@
-package com.alexlyxy.alexretrofitlessontwo.screens.common.viewsmvs
+package com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs
 
 import android.content.Context
 import android.view.LayoutInflater
