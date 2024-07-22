@@ -1,5 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.composition
 
+import android.support.annotation.UiThread
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
@@ -7,13 +8,19 @@ import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+@UiThread
 class AppCompositionRoot {
-    private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
 
-    private val productApi: ProductApi = retrofit.create(ProductApi::class.java)
+    private val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    private val productApi: ProductApi by lazy {
+        retrofit.create(ProductApi::class.java)
+    }
 
     val fetchProductUseCase get() = FetchProductUseCase(productApi)
 
