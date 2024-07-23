@@ -42,7 +42,7 @@ class DetailsActivity : BaseActivity(), ProductDetailsViewMvc.Listener {
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
 
-        screensNavigator = ScreensNavigator(this)
+        screensNavigator = compositionRoot.screensNavigator
 
         //retrieve question ID passed from outside
         productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)

@@ -20,7 +20,7 @@ class AppCompositionRoot {
             .build()
     }
 
-    private val productApi: ProductApi by lazy {
+    val productApi: ProductApi by lazy {
         retrofit.create(ProductApi::class.java)
     }
 

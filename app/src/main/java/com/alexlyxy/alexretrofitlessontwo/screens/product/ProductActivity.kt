@@ -39,7 +39,7 @@ class ProductActivity : BaseActivity(), ProductActivityViewMvc.Listener {
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
 
-        screensNavigator = compositionRoot.screensNavigator(this)
+        screensNavigator = compositionRoot.screensNavigator
     }
 
     override fun onStart() {
