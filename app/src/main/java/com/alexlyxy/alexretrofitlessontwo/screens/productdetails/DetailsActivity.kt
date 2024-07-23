@@ -40,7 +40,7 @@ class DetailsActivity : BaseActivity(), ProductDetailsViewMvc.Listener {
 
         fetchProductDetailsUseCase = compositionRoot.fetchProductDetailsUseCase
 
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        dialogsNavigator = compositionRoot.dialogsNavigator
 
         screensNavigator = compositionRoot.screensNavigator
 

@@ -37,7 +37,7 @@ class ProductActivity : BaseActivity(), ProductActivityViewMvc.Listener {
 
         fetchProductUseCase = compositionRoot.fetchProductUseCase
 
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        dialogsNavigator = compositionRoot.dialogsNavigator
 
         screensNavigator = compositionRoot.screensNavigator
     }
