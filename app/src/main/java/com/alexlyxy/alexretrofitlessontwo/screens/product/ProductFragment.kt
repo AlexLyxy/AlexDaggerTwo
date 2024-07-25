@@ -34,7 +34,7 @@ class ProductFragment : BaseFragment(), ProductActivityViewMvc.Listener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         //return super.onCreateView(inflater, container, savedInstanceState)
         viewMvc = ProductActivityViewMvc(LayoutInflater.from(requireContext()), container)
         //Parent = null for Activityy, but for Fragment not. Use "container"
