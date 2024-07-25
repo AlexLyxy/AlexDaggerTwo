@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.alexlyxy.alexretrofitlessontwo.MyApplication
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.activities.BaseActivity
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
@@ -36,6 +34,7 @@ class DetailsActivity : BaseActivity(), ProductDetailsViewMvc.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewMvc = ProductDetailsViewMvc(LayoutInflater.from(this), null)
+        //Parent = null for Activityy, but for Fragment not
         setContentView(viewMvc.rootView)
 
         fetchProductDetailsUseCase = compositionRoot.fetchProductDetailsUseCase
