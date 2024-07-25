@@ -1,6 +1,7 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.composition
 
 import android.app.Activity
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
@@ -15,6 +16,8 @@ class ActivityCompositionRoot(
     val screensNavigator by lazy {
         ScreensNavigator(activity)
     }
+
+    private val layoutInflater get() = LayoutInflater.from(activity)
 
     private val fragmentManager get() = activity.supportFragmentManager
 
