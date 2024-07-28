@@ -1,19 +1,8 @@
 package com.alexlyxy.alexretrofitlessontwo.screens.product
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.Toast
 import com.alexlyxy.alexretrofitlessontwo.R
-import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
-import com.alexlyxy.alexretrofitlessontwo.products.Product
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.activities.BaseActivity
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ScreensNavigator
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancelChildren
-import kotlinx.coroutines.launch
 
 class ProductActivity : BaseActivity()  {
 //    , ProductActivityViewMvc.Listener {

@@ -1,12 +1,10 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.composition
 
-import android.app.Activity
 import android.support.annotation.UiThread
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ScreensNavigator
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

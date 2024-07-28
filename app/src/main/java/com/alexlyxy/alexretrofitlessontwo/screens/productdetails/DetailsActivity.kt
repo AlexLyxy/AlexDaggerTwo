@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.activities.BaseActivity
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ScreensNavigator
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -33,7 +33,10 @@ class DetailsActivity : BaseActivity(), ProductDetailsViewMvc.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewMvc = ProductDetailsViewMvc(LayoutInflater.from(this), null)
+
+       // viewMvc = ProductDetailsViewMvc(LayoutInflater.from(this), null)
+        viewMvc = compositionRoot.viewMvcFactory.newProductDetailsViewMvc(null)
+
         //Parent = null for Activityy, but for Fragment not
         setContentView(viewMvc.rootView)
 

@@ -1,12 +1,12 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.composition
 
-import android.app.Activity
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ScreensNavigator
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ViewMvcFactory
 
 class ActivityCompositionRoot(
     private val activity: AppCompatActivity,
@@ -18,6 +18,8 @@ class ActivityCompositionRoot(
     }
 
     private val layoutInflater get() = LayoutInflater.from(activity)
+
+    val viewMvcFactory get() = ViewMvcFactory(layoutInflater)
 
     private val fragmentManager get() = activity.supportFragmentManager
 

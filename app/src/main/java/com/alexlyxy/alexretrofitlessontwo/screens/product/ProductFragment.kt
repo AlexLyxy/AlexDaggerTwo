@@ -9,7 +9,7 @@ import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.Product
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.fragments.BaseFragment
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ScreensNavigator
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -35,8 +35,10 @@ class ProductFragment : BaseFragment(), ProductActivityViewMvc.Listener {
         savedInstanceState: Bundle?
     ): View {
         //return super.onCreateView(inflater, container, savedInstanceState)
-        viewMvc = ProductActivityViewMvc(LayoutInflater.from(requireContext()), container)
+        //viewMvc = ProductActivityViewMvc(LayoutInflater
+        //    .from(requireContext()), container)
         //Parent = null for Activityy, but for Fragment not. Use "container"
+        viewMvc = compositionRoot.viewMvcFactory.newProductViewMvc(container)
         return viewMvc.rootView
     }
 
