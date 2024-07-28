@@ -20,15 +20,13 @@ class ProductFragment : BaseFragment(), ProductActivityViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private var isDataLoaded = false
+    private lateinit var fetchProductUseCase: FetchProductUseCase
+    private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
     private lateinit var viewMvc: ProductActivityViewMvc
 
-    private lateinit var fetchProductUseCase: FetchProductUseCase
-
-    private lateinit var dialogsNavigator: DialogsNavigator
-
-    private lateinit var screensNavigator: ScreensNavigator
+    private var isDataLoaded = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,11 +45,8 @@ class ProductFragment : BaseFragment(), ProductActivityViewMvc.Listener {
 //        viewMvc = ProductActivityViewMvc(LayoutInflater.from(this), null)
 //        //Parent = null for Activityy, but for Fragment not. Use "container"
 //        setContentView(viewMvc.rootView)
-
         fetchProductUseCase = compositionRoot.fetchProductUseCase
-
         dialogsNavigator = compositionRoot.dialogsNavigator
-
         screensNavigator = compositionRoot.screensNavigator
     }
 

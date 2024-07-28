@@ -17,18 +17,10 @@ class ActivityCompositionRoot(
         ScreensNavigator(activity)
     }
 
-    private val layoutInflater get() = LayoutInflater.from(activity)
+    val layoutInflater get() = LayoutInflater.from(activity)
 
-    val viewMvcFactory get() = ViewMvcFactory(layoutInflater)
+    val fragmentManager get() = activity.supportFragmentManager
 
-    private val fragmentManager get() = activity.supportFragmentManager
-
-    val dialogsNavigator get() = DialogsNavigator(fragmentManager)
-
-   private val productApi get() = appCompositionRoot.productApi
-
-    val fetchProductUseCase get() = FetchProductUseCase(productApi)
-
-    val fetchProductDetailsUseCase get() = FetchProductDetailsUseCase(productApi)
+    val productApi get() = appCompositionRoot.productApi
 
 }

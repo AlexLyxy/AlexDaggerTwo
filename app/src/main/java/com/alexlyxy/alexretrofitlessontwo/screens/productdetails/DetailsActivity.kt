@@ -4,12 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.widget.Toast
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.activities.BaseActivity
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -21,13 +20,11 @@ class DetailsActivity : BaseActivity(), ProductDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var viewMvc: ProductDetailsViewMvc
-
     private lateinit var fetchProductDetailsUseCase: FetchProductDetailsUseCase
-
     private lateinit var dialogsNavigator: DialogsNavigator
-
     private lateinit var screensNavigator: ScreensNavigator
+
+    private lateinit var viewMvc: ProductDetailsViewMvc
 
     private var productId by Delegates.notNull<Int>()
 
@@ -36,14 +33,11 @@ class DetailsActivity : BaseActivity(), ProductDetailsViewMvc.Listener {
 
        // viewMvc = ProductDetailsViewMvc(LayoutInflater.from(this), null)
         viewMvc = compositionRoot.viewMvcFactory.newProductDetailsViewMvc(null)
-
         //Parent = null for Activityy, but for Fragment not
         setContentView(viewMvc.rootView)
 
         fetchProductDetailsUseCase = compositionRoot.fetchProductDetailsUseCase
-
         dialogsNavigator = compositionRoot.dialogsNavigator
-
         screensNavigator = compositionRoot.screensNavigator
 
         //retrieve question ID passed from outside
