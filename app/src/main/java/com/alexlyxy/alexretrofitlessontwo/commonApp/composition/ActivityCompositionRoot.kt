@@ -9,13 +9,16 @@ import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ViewMvcFactory
 
 class ActivityCompositionRoot(
-    private val activity: AppCompatActivity,
+//    private val activity: AppCompatActivity,
+    val activity: AppCompatActivity,
     private val appCompositionRoot: AppCompositionRoot
 ){
 
     val screensNavigator by lazy {
         ScreensNavigator(activity)
     }
+
+    val application get() = appCompositionRoot.application
 
     val layoutInflater get() = LayoutInflater.from(activity)
 
