@@ -5,10 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.Service
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.activities.BaseActivity
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ViewMvcFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -20,27 +22,21 @@ class DetailsActivity : BaseActivity(), ProductDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var fetchProductDetailsUseCase: FetchProductDetailsUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var fetchProductDetailsUseCase: FetchProductDetailsUseCase
+    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: ProductDetailsViewMvc
 
     private var productId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
-
-       // viewMvc = ProductDetailsViewMvc(LayoutInflater.from(this), null)
-        viewMvc = compositionRoot.viewMvcFactory.newProductDetailsViewMvc(null)
-        //Parent = null for Activityy, but for Fragment not
+        viewMvc = viewMvcFactory.newProductDetailsViewMvc(null)
         setContentView(viewMvc.rootView)
 
-        fetchProductDetailsUseCase = compositionRoot.fetchProductDetailsUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
-
-        //retrieve question ID passed from outside
         productId = intent.extras!!.getInt(EXTRA_PRODUCT_ID)
         Log.d("MyLog", "ProductIDdetails : $productId")
     }

@@ -1,4 +1,4 @@
-package com.alexlyxy.alexretrofitlessontwo.commonApp.composition
+package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection
 
 import android.app.Application
 import android.support.annotation.UiThread
@@ -23,8 +23,8 @@ class AppCompositionRoot (val application: Application){
         retrofit.create(ProductApi::class.java)
     }
 
-    val fetchProductUseCase get() = FetchProductUseCase(productApi)
-
-    val fetchProductDetailsUseCase get() = FetchProductDetailsUseCase(productApi)
+//    val fetchProductUseCase get() = FetchProductUseCase(productApi)
+//
+//    val fetchProductDetailsUseCase get() = FetchProductDetailsUseCase(productApi)
 
 }

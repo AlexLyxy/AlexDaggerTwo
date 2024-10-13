@@ -1,12 +1,8 @@
-package com.alexlyxy.alexretrofitlessontwo.commonApp.composition
+package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
-import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ViewMvcFactory
 
 class ActivityCompositionRoot(
     val activity: AppCompatActivity,
