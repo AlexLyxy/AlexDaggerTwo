@@ -1,5 +1,6 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.composition
 
+import android.app.Application
 import android.support.annotation.UiThread
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
@@ -9,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @UiThread
-class AppCompositionRoot {
+class AppCompositionRoot (val application: Application){
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
