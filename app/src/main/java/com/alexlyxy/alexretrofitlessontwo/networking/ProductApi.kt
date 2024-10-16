@@ -7,8 +7,5 @@ import retrofit2.http.Path
 interface ProductApi {
     @GET("products/{products}")
     //suspend fun getAllProduct(@Path("products") products: String): Response<AllProduct>
-    suspend fun getAllProduct(
-        @Path("products")
-        products: String
-    ): Response<ProductListResponseSchema>
+    suspend fun getAllProduct(@Path("products") products: String): Response<ProductListResponseSchema>
 }

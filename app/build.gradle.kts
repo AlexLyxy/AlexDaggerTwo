@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-   id("kotlin-kapt")
+    id("kotlin-kapt")
 }
 
 android {
@@ -44,8 +44,10 @@ android {
 
 dependencies {
 
-    implementation("com.google.dagger:dagger:2.28.3")
-    annotationProcessor("com.google.dagger:dagger-compiler:2.28.3")
+    implementation("com.google.dagger:dagger:2.47")
+    //annotationProcessor("com.google.dagger:dagger-compiler:2.47")
+    kapt ("com.google.dagger:dagger-compiler:2.47")
+
 
     implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
