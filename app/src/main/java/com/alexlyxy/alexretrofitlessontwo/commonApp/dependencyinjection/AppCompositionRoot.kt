@@ -22,9 +22,4 @@ class AppCompositionRoot (val application: Application){
     val productApi: ProductApi by lazy {
         retrofit.create(ProductApi::class.java)
     }
-
-//    val fetchProductUseCase get() = FetchProductUseCase(productApi)
-//
-//    val fetchProductDetailsUseCase get() = FetchProductDetailsUseCase(productApi)
-
 }

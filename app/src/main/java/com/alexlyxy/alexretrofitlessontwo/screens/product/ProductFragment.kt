@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.Service
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.Product
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.fragments.BaseFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ViewMvcFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -20,34 +22,26 @@ class ProductFragment : BaseFragment(), ProductActivityViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var fetchProductUseCase: FetchProductUseCase
-    private lateinit var dialogsNavigator: DialogsNavigator
-    private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var fetchProductUseCase: FetchProductUseCase
+    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: ProductActivityViewMvc
 
     private var isDataLoaded = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //return super.onCreateView(inflater, container, savedInstanceState)
-        //viewMvc = ProductActivityViewMvc(LayoutInflater
-        //    .from(requireContext()), container)
-        //Parent = null for Activityy, but for Fragment not. Use "container"
-        viewMvc = compositionRoot.viewMvcFactory.newProductViewMvc(container)
+        viewMvc =viewMvcFactory.newProductViewMvc(container)
         return viewMvc.rootView
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        viewMvc = ProductActivityViewMvc(LayoutInflater.from(this), null)
-//        //Parent = null for Activityy, but for Fragment not. Use "container"
-//        setContentView(viewMvc.rootView)
-        fetchProductUseCase = compositionRoot.fetchProductUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
     }
 
     override fun onStart() {
