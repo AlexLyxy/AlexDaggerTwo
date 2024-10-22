@@ -9,6 +9,7 @@ import dagger.internal.DaggerCollections
 import dagger.internal.DaggerGenerated
 import java.lang.reflect.Field
 
+//class Injector(private val component: PresentationComponent) {
 class Injector(private val component: PresentationComponent) {
 
     fun inject(client: Any) {

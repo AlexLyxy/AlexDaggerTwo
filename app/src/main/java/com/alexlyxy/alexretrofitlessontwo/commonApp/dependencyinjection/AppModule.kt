@@ -1,16 +1,16 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection
 
 import android.app.Application
-import android.support.annotation.UiThread
 import com.alexlyxy.alexretrofitlessontwo.Constants
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
-import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
-import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
+import dagger.Module
+import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-@UiThread
-class AppCompositionRoot (val application: Application){
+
+@Module
+class AppModule(val application: Application) {
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
@@ -19,7 +19,14 @@ class AppCompositionRoot (val application: Application){
             .build()
     }
 
-    val productApi: ProductApi by lazy {
+    private val stackoverflowApi: ProductApi by lazy {
         retrofit.create(ProductApi::class.java)
     }
+
+    @Provides
+    fun application() = application
+
+    @Provides
+    fun productApi() = stackoverflowApi
+
 }
