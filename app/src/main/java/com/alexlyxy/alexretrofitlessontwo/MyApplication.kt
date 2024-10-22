@@ -1,8 +1,8 @@
 package com.alexlyxy.alexretrofitlessontwo
 
 import android.app.Application
-import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.AppModule
-import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.DaggerAppComponent
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.app.AppModule
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.app.DaggerAppComponent
 
 class MyApplication: Application() {
 

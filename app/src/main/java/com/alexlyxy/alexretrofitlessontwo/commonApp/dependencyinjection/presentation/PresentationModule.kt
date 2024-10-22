@@ -1,7 +1,8 @@
-package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection
+package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activity.ActivityComponent
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase

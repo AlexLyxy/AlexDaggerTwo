@@ -1,12 +1,11 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection
 
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation.PresentationComponent
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ViewMvcFactory
-import dagger.internal.DaggerCollections
-import dagger.internal.DaggerGenerated
 import java.lang.reflect.Field
 
 //class Injector(private val component: PresentationComponent) {

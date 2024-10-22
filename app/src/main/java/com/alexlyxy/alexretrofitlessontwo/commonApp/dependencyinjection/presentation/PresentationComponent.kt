@@ -1,4 +1,4 @@
-package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection
+package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation
 
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
