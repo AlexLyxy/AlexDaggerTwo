@@ -9,7 +9,7 @@ class ScreensNavigator  (private val activity: Activity){
         activity.onBackPressed()
     }
 
-    fun toQuestionDetails(productId: Int) {
+    fun toProductDetails(productId: Int) {
         DetailsActivity.start(activity, productId)
     }
 }

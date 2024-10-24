@@ -17,15 +17,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ProductFragment : BaseFragment(), ProductActivityViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    @field:Service private lateinit var fetchProductUseCase: FetchProductUseCase
-    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
-    @field:Service private lateinit var screensNavigator: ScreensNavigator
-    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject  lateinit var fetchProductUseCase: FetchProductUseCase
+    @Inject  lateinit var dialogsNavigator: DialogsNavigator
+    @Inject  lateinit var screensNavigator: ScreensNavigator
+    @Inject  lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: ProductActivityViewMvc
 
@@ -88,7 +89,7 @@ class ProductFragment : BaseFragment(), ProductActivityViewMvc.Listener {
     }
 
     override fun onProductClicked(clickedProduct: Product) {
-        clickedProduct.id?.let { screensNavigator.toQuestionDetails(it) }
+        clickedProduct.id?.let { screensNavigator.toProductDetails(it) }
     }
 }
 

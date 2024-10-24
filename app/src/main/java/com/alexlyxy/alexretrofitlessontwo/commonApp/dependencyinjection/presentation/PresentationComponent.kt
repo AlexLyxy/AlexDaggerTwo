@@ -1,24 +1,13 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation
 
-import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
-import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ViewMvcFactory
+import com.alexlyxy.alexretrofitlessontwo.screens.product.ProductFragment
+import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
 import dagger.Component
 
 @Component(modules = [PresentationModule::class])
 interface PresentationComponent {
 
-//    fun viewMvcFactory(): ViewMvcFactory
-//
-//    fun screensNavigator(): ScreensNavigator
-//
-//    fun dialogsNavigator(): DialogsNavigator
-//
-//    fun fetchProductUseCase(): FetchProductUseCase
-//
-//    fun fetchProductDetailsUseCase(): FetchProductDetailsUseCase
-
+    fun inject(fragment: ProductFragment)
+    fun inject(activity: DetailsActivity)
 
 }

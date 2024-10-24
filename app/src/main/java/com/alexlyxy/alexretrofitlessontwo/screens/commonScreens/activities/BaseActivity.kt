@@ -2,7 +2,6 @@ package com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexretrofitlessontwo.MyApplication
-import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.Injector
 import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activity.ActivityModule
 import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activity.DaggerActivityComponent
 import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation.DaggerPresentationComponent
@@ -23,5 +22,5 @@ open class BaseActivity : AppCompatActivity() {
             .presentationModule(PresentationModule(activityComponent))
             .build()
     }
-    protected val injector get() = Injector(presentationComponent)
+    protected val injector get() = presentationComponent
 }
