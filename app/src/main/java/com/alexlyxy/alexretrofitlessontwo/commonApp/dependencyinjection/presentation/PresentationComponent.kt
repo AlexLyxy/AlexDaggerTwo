@@ -10,13 +10,15 @@ import dagger.Component
 @Component(modules = [PresentationModule::class])
 interface PresentationComponent {
 
-    fun viewMvcFactory(): ViewMvcFactory
+//    fun viewMvcFactory(): ViewMvcFactory
+//
+//    fun screensNavigator(): ScreensNavigator
+//
+//    fun dialogsNavigator(): DialogsNavigator
+//
+//    fun fetchProductUseCase(): FetchProductUseCase
+//
+//    fun fetchProductDetailsUseCase(): FetchProductDetailsUseCase
 
-    fun screensNavigator(): ScreensNavigator
 
-    fun dialogsNavigator(): DialogsNavigator
-
-    fun fetchProductUseCase(): FetchProductUseCase
-
-    fun fetchProductDetailsUseCase(): FetchProductDetailsUseCase
 }
