@@ -2,7 +2,6 @@ package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.present
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
-import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activity.ActivityComponent
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
@@ -12,22 +11,22 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class PresentationModule(private val activityComponent: ActivityComponent) {
+class PresentationModule  {
 
-    @Provides
-    fun layoutInflater () = activityComponent.layoutInflater()
-
-    @Provides
-   fun fragmentManager () = activityComponent.fragmentManager()
-
-    @Provides
-   fun productApi () = activityComponent.productApi()
-
-    @Provides
-   fun activity () = activityComponent.activity()
-
-    @Provides
-    fun screensNavigator () = activityComponent.screensNavigator()
+//    @Provides
+//    fun layoutInflater () = activityComponent.layoutInflater()
+//
+//    @Provides
+//   fun fragmentManager () = activityComponent.fragmentManager()
+//
+//    @Provides
+//   fun productApi () = activityComponent.productApi()
+//
+//    @Provides
+//   fun activity () = activityComponent.activity()
+//
+//    @Provides
+//    fun screensNavigator () = activityComponent.screensNavigator()
 
     @Provides
     fun viewMvcFactory (layoutInflater: LayoutInflater) = ViewMvcFactory(layoutInflater)

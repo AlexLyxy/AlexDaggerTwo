@@ -1,10 +1,11 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.app
 
 import android.app.Application
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation.PresentationScope
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import dagger.Component
 
-@AppScope
+@PresentationScope
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
