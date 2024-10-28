@@ -5,6 +5,7 @@ import com.alexlyxy.alexretrofitlessontwo.MyApplication
 import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activity.ActivityModule
 import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activity.DaggerActivityComponent
 import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation.PresentationModule
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation.UseCasesModule
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -18,7 +19,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private val presentationComponent by lazy {
-        activityComponent.newPresentationComponent(PresentationModule())
+        activityComponent.newPresentationComponent(PresentationModule(), UseCasesModule())
     }
     protected val injector get() = presentationComponent
 }

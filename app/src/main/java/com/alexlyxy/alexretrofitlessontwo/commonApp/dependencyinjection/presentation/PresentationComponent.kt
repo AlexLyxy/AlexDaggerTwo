@@ -5,7 +5,7 @@ import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
 import dagger.Subcomponent
 
 @PresentationScope
-@Subcomponent( modules = [PresentationModule::class])
+@Subcomponent( modules = [PresentationModule::class, UseCasesModule::class])
 interface PresentationComponent {
     fun inject(fragment: ProductFragment)
     fun inject(activity: DetailsActivity)
