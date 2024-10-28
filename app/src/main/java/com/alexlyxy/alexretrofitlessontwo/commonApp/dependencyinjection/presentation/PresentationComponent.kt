@@ -4,9 +4,10 @@ import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activity
 import com.alexlyxy.alexretrofitlessontwo.screens.product.ProductFragment
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.DetailsActivity
 import dagger.Component
+import dagger.Subcomponent
 
 @PresentationScope
-@Component(dependencies = [ActivityComponent::class], modules = [PresentationModule::class])
+@Subcomponent( modules = [PresentationModule::class])
 interface PresentationComponent {
 
     fun inject(fragment: ProductFragment)

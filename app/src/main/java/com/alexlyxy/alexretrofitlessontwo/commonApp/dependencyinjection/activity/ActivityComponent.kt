@@ -1,24 +1,15 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activity
 
-import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.app.AppComponent
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation.PresentationComponent
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation.PresentationModule
 import dagger.Component
 
 @ActivityScope
-@Component(modules = [ActivityModule::class])
+@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class])
 interface ActivityComponent {
 
-    fun activity(): AppCompatActivity
+    fun newPresentationComponent(presentationModule: PresentationModule): PresentationComponent
 
-    fun layoutInflater(): LayoutInflater
-
-    fun fragmentManager(): FragmentManager
-
-    fun productApi(): ProductApi
-
-    fun screensNavigator(): ScreensNavigator
 
 }
