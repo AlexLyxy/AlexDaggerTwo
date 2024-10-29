@@ -1,15 +1,14 @@
 package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.app
 
-import android.app.Application
-import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation.PresentationScope
-import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activity.ActivityComponent
+import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activity.ActivityModule
 import dagger.Component
 
-@PresentationScope
+@AppScope
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
-    fun application(): Application
-    fun productApi(): ProductApi
+    fun newActivityComponent(activityModule: ActivityModule): ActivityComponent
+
 
 }

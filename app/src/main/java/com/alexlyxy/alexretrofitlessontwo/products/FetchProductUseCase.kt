@@ -3,10 +3,10 @@ package com.alexlyxy.alexretrofitlessontwo.products
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
+import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
-class FetchProductUseCase (private val productApi: ProductApi) {
+class FetchProductUseCase @Inject constructor (private val productApi: ProductApi) {
 
     sealed class Result {
         class Success(val products: List<Product>) : Result()

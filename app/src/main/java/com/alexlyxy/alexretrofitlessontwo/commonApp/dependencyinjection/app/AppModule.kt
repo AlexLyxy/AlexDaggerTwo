@@ -2,13 +2,11 @@ package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.app
 
 import android.app.Application
 import com.alexlyxy.alexretrofitlessontwo.Constants
-import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.presentation.PresentationScope
 import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 @Module
 class AppModule(val application: Application) {
@@ -25,8 +23,8 @@ class AppModule(val application: Application) {
     @Provides
     fun application() = application
 
-    @AppScope
     @Provides
+    @AppScope
     fun productApi(retrofit: Retrofit) = retrofit.create(ProductApi::class.java)
 
 }

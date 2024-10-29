@@ -4,9 +4,10 @@ import com.alexlyxy.alexretrofitlessontwo.networking.ProductApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
-class FetchProductDetailsUseCase(private val productApi: ProductApi) {
+class FetchProductDetailsUseCase @Inject constructor(private val productApi: ProductApi) {
 
     sealed class Result {
         class Success(val product: Product, val picture: String) : Result()

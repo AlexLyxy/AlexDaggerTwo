@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.alexlyxy.alexretrofitlessontwo.screens.product.ProductActivityViewMvc
 import com.alexlyxy.alexretrofitlessontwo.screens.productdetails.ProductDetailsViewMvc
+import javax.inject.Inject
 
-class ViewMvcFactory(private val layoutInflater: LayoutInflater) {
+class ViewMvcFactory @Inject constructor(private val layoutInflater: LayoutInflater) {
 
     fun newProductViewMvc(parent: ViewGroup?): ProductActivityViewMvc {
         return ProductActivityViewMvc(layoutInflater, parent)
