@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.Service
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductDetailsUseCase
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.activities.BaseActivity

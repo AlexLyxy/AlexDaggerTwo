@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.Service
 import com.alexlyxy.alexretrofitlessontwo.products.FetchProductUseCase
 import com.alexlyxy.alexretrofitlessontwo.products.Product
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.dialogs.DialogsNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.fragments.BaseFragment
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.viewsmvs.ViewMvcFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

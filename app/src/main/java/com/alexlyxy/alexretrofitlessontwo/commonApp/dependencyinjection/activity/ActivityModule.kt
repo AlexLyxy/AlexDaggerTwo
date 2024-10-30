@@ -2,7 +2,6 @@ package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activit
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import dagger.Module
 import dagger.Provides
 
