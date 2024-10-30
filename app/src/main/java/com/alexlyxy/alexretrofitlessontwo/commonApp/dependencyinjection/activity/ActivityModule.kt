@@ -2,6 +2,7 @@ package com.alexlyxy.alexretrofitlessontwo.commonApp.dependencyinjection.activit
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.ScreensNavigator
 import dagger.Module
 import dagger.Provides
 
@@ -12,6 +13,10 @@ class ActivityModule(
 
     @Provides
     fun activity() = activity
+
+    @Provides
+    @ActivityScope
+    fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
 
     @Provides
     fun layoutInflater(activity: AppCompatActivity) = LayoutInflater.from(activity)
