@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.alexlyxy.alexretrofitlessontwo.screens.commonScreens.toolbar.MyToolbar
+    <com.alexlyxy.alexdaggertwo.screens.commonScreens.toolbar.MyToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
@@ -28,7 +27,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvTextProduct"
+                    android:id="@+id/tvTextProductGlide"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -43,15 +42,42 @@
                     app:layout_constraintBottom_toTopOf="@+id/tvDesr" />
 
                 <ImageView
+                    android:id="@+id/ivImageOneGlide"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/image_one"
+                    app:layout_constraintBottom_toTopOf="@+id/ivImageTwo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@color/abc_decor_view_status_guard_light" />
+
+                <TextView
+                    android:id="@+id/tvTextProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text=""
+                    android:textColor="@color/abc_decor_view_status_guard"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/tvDesr" />
+
+
+                <ImageView
                     android:id="@+id/ivImageOne"
                     android:layout_width="300dp"
                     android:layout_height="300dp"
                     android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/image_one"
                     app:layout_constraintBottom_toTopOf="@+id/ivImageTwo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@color/abc_decor_view_status_guard_light"
-                    android:contentDescription="@string/image_one" />
+                    app:srcCompat="@color/abc_decor_view_status_guard_light" />
 
             </LinearLayout>
 
