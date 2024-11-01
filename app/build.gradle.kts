@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.alexlyxy.alexretrofitlessontwo"
+    namespace = "com.alexlyxy.alexdaggertwo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.alexlyxy.alexretrofitlessontwo"
+        applicationId = "com.alexlyxy.alexdaggertwo"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
