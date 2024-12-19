@@ -3,25 +3,24 @@ package com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.activity
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.ScreensNavigator
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
 @Module
-class ActivityModule(
-    val activity: AppCompatActivity
+abstract  class ActivityModule(
 ) {
 
-    @Provides
-    fun activity() = activity
-
-    @Provides
     @ActivityScope
-    fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
+    @Binds
+    abstract fun screensNavigator(screensNavigatorImpl: ScreensNavigatorImpl): ScreensNavigator
 
-    @Provides
-    fun layoutInflater(activity: AppCompatActivity) = LayoutInflater.from(activity)
+    companion object {
+        @Provides
+        fun layoutInflater(activity: AppCompatActivity) = LayoutInflater.from(activity)
 
-    @Provides
-    fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
+        @Provides
+        fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
+    }
 
 }
