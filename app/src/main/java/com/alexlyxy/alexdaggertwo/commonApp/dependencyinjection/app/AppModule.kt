@@ -13,18 +13,33 @@ class AppModule(val application: Application) {
 
     @Provides
     @AppScope
-    fun retrofit() : Retrofit {
-         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+    @Retrofit1
+    fun retrofit1(urlProvider: UrlProvider): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(urlProvider.getBaseUrl1())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    @Provides
+    @AppScope
+    @Retrofit2
+    fun retrofit2(urlProvider: UrlProvider): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(urlProvider.getBaseUrl2())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @AppScope
+    @Provides
+    fun urlProvider() = UrlProvider()
 
     @Provides
     fun application() = application
 
     @Provides
     @AppScope
-    fun productApi(retrofit: Retrofit) = retrofit.create(ProductApi::class.java)
+    fun productApi(@Retrofit1 retrofit: Retrofit) = retrofit.create(ProductApi::class.java)
 
 }

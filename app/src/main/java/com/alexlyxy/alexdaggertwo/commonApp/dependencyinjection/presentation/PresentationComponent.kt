@@ -6,9 +6,10 @@ import com.alexlyxy.alexdaggertwo.screens.productdetails.DetailsActivity
 import dagger.Subcomponent
 
 @PresentationScope
-@Subcomponent()
+@Subcomponent(modules = [PresentationModule::class, ViewModelModule::class])
 interface PresentationComponent {
     fun inject(fragment: ProductFragment)
     fun inject(activity: DetailsActivity)
     fun inject(productActivity: ProductActivity)
+    fun inject(viewModelActivity: ViewModelActivity)
 }
