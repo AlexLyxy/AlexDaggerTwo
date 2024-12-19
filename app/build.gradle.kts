@@ -45,6 +45,7 @@ android {
 dependencies {
 
     implementation("com.google.dagger:dagger:2.47")
+    implementation("androidx.compose.ui:ui-desktop:1.7.0")
     //annotationProcessor("com.google.dagger:dagger-compiler:2.47")
     kapt ("com.google.dagger:dagger-compiler:2.47")
 

@@ -2,6 +2,7 @@ package com.alexlyxy.alexdaggertwo.products
 
 import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
+import java.io.Serializable
 
 data class Product(
     @SerializedName("id")
@@ -47,6 +48,6 @@ data class Product(
     @SerializedName("thumbnail")
     @Expose
     val thumbnail: String?
-)
+): Serializable
 
 
