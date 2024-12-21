@@ -54,6 +54,7 @@ class ProductDetailsViewMvc(
 
         textProductBodyGlide = findViewById(R.id.tvTextProductGlide)
         pictureProductBodyGlide = findViewById(R.id.ivImageOneGlide)
+
     }
 
     fun bindProductBody(productBody: Product, pictureBody: String) {

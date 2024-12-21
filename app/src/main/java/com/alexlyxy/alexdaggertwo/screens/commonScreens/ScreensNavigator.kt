@@ -1,17 +1,9 @@
 package com.alexlyxy.alexdaggertwo.screens.commonScreens
 
-import androidx.appcompat.app.AppCompatActivity
-import com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.activity.ActivityScope
-import com.alexlyxy.alexdaggertwo.screens.productdetails.DetailsActivity
+interface ScreensNavigator {
 
-@ActivityScope
-class ScreensNavigator  (private val activity: AppCompatActivity){
+    fun navigateBack()
 
-    fun navigateBack() {
-        activity.onBackPressed()
-    }
-
-    fun toProductDetails(productId: Int) {
-        DetailsActivity.start(activity, productId)
-    }
+    fun toProductDetails(productId: Int)
+    fun toViewModel()
 }

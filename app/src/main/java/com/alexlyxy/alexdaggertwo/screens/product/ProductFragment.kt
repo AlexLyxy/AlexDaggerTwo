@@ -90,6 +90,10 @@ class ProductFragment : BaseFragment(), ProductActivityViewMvc.Listener {
     override fun onProductClicked(clickedProduct: Product) {
         clickedProduct.id?.let { screensNavigator.toProductDetails(it) }
     }
+
+    override fun onViewModelClicked() {
+        screensNavigator.toViewModel()
+    }
 }
 
 

@@ -13,8 +13,11 @@ open class BaseActivity : AppCompatActivity() {
             .activity(this)
             .build()
     }
+
     private val presentationComponent by lazy {
-        activityComponent.newPresentationComponent(PresentationModule(this))
+        activityComponent.newPresentationComponent(
+            PresentationModule(this))
     }
+
     protected val injector get() = presentationComponent
 }

@@ -3,13 +3,13 @@ package com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.activity
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.ScreensNavigator
+import com.alexlyxy.alexdaggertwo.screens.commonScreens.ScreensNavigatorImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
 @Module
-abstract  class ActivityModule(
-) {
+abstract  class ActivityModule{
 
     @ActivityScope
     @Binds

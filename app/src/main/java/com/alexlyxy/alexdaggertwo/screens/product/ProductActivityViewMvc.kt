@@ -11,6 +11,7 @@ import com.alexlyxy.alexdaggertwo.R
 import com.alexlyxy.alexdaggertwo.databinding.ProductItemBinding
 import com.alexlyxy.alexdaggertwo.products.Product
 import com.alexlyxy.alexdaggertwo.products.ProductModel
+import com.alexlyxy.alexdaggertwo.screens.commonScreens.toolbar.MyToolbar
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.viewsmvs.BaseViewMvc
 import com.squareup.picasso.Picasso
 
@@ -26,13 +27,22 @@ class ProductActivityViewMvc(
     interface Listener {
         fun onRefreshClicked()
         fun onProductClicked(clickedProduct: Product)
+        fun onViewModelClicked()
     }
 
+    private val toolbar: MyToolbar
     private val swipeRefresh: SwipeRefreshLayout
     private val recyclerView: RecyclerView
     private val productAdapter: ProductAdapter
 
     init {
+
+        toolbar = findViewById(R.id.toolbar)
+        toolbar.setViewModelListener {
+            for (listener in listeners) {
+                listener.onViewModelClicked()
+            }
+        }
         // init pull-down-to-refresh
         swipeRefresh = findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {

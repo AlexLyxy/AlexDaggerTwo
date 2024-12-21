@@ -4,12 +4,11 @@ import androidx.fragment.app.DialogFragment
 import com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.presentation.PresentationModule
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.activities.BaseActivity
 
-class BaseDialog: DialogFragment() {
+open  class BaseDialog: DialogFragment() {
 
     private val presentationComponent by lazy {
         (requireActivity() as BaseActivity).activityComponent.newPresentationComponent(
-            PresentationModule(this)
-        )
+            PresentationModule(this))
     }
 
     protected val injector get() = presentationComponent
