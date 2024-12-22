@@ -2,7 +2,10 @@ package com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.app
 
 import android.app.Application
 import com.alexlyxy.alexdaggertwo.Constants
+import com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.Retrofit1
+import com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.Retrofit2
 import com.alexlyxy.alexdaggertwo.networking.ProductApi
+import com.alexlyxy.alexdaggertwo.networking.UrlProvider
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

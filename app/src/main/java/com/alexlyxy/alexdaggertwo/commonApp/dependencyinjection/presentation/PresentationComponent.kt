@@ -3,6 +3,7 @@ package com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.presentation
 import com.alexlyxy.alexdaggertwo.screens.product.ProductActivity
 import com.alexlyxy.alexdaggertwo.screens.product.ProductFragment
 import com.alexlyxy.alexdaggertwo.screens.productdetails.DetailsActivity
+import com.alexlyxy.alexdaggertwo.screens.viewmodel.ViewModelActivity
 import dagger.Subcomponent
 
 @PresentationScope
