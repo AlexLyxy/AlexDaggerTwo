@@ -10,6 +10,7 @@ import com.alexlyxy.alexdaggertwo.screens.commonScreens.ScreensNavigator
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.activities.BaseActivity
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.dialogs.DialogsNavigator
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.viewsmvs.ViewMvcFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class DetailsActivity : BaseActivity(), ProductDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -32,7 +34,6 @@ class DetailsActivity : BaseActivity(), ProductDetailsViewMvc.Listener {
     private var productId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injector.inject(this)
         super.onCreate(savedInstanceState)
         viewMvc = viewMvcFactory.newProductDetailsViewMvc(null)
         setContentView(viewMvc.rootView)

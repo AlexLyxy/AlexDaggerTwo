@@ -3,7 +3,9 @@ package com.alexlyxy.alexdaggertwo.screens.product
 import android.os.Bundle
 import com.alexlyxy.alexdaggertwo.R
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.activities.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

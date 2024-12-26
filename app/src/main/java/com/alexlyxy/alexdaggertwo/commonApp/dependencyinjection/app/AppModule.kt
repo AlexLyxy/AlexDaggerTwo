@@ -1,18 +1,19 @@
 package com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.app
 
-import android.app.Application
-import com.alexlyxy.alexdaggertwo.Constants
 import com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.Retrofit1
 import com.alexlyxy.alexdaggertwo.commonApp.dependencyinjection.Retrofit2
 import com.alexlyxy.alexdaggertwo.networking.ProductApi
 import com.alexlyxy.alexdaggertwo.networking.UrlProvider
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-class AppModule(val application: Application) {
+@InstallIn(SingletonComponent::class)
+class AppModule{
 
     @Provides
     @AppScope
@@ -38,8 +39,6 @@ class AppModule(val application: Application) {
     @Provides
     fun urlProvider() = UrlProvider()
 
-    @Provides
-    fun application() = application
 
     @Provides
     @AppScope

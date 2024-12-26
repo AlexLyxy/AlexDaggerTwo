@@ -11,6 +11,7 @@ import com.alexlyxy.alexdaggertwo.screens.commonScreens.ScreensNavigator
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.dialogs.DialogsNavigator
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.fragments.BaseFragment
 import com.alexlyxy.alexdaggertwo.screens.commonScreens.viewsmvs.ViewMvcFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,6 +19,7 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProductFragment : BaseFragment(), ProductActivityViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -32,7 +34,6 @@ class ProductFragment : BaseFragment(), ProductActivityViewMvc.Listener {
     private var isDataLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injector.inject(this)
         super.onCreate(savedInstanceState)
     }
 
